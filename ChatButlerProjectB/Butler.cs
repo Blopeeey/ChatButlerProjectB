@@ -11,5 +11,10 @@
         {
             return "Hi";
         }
+
+        public string ChooseLanguage()
+        {
+            return "Choose language: English or Dutch? nl/en?";
+        }
     }
 }
