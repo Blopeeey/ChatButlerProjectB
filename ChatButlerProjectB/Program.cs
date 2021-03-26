@@ -4,16 +4,16 @@ namespace ChatButlerProjectB
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Butler Winston = new Butler();
-            Register Register = new Register();
+            Register reg = new Register();
 
             bool loggedin = false;
             
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
-            Console.WriteLine("Kies het nummer waar je heen wilt gaan!");
+            Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
             if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3")
@@ -32,11 +32,11 @@ namespace ChatButlerProjectB
             {
                 if (loggedin)
                 {
-                    Console.WriteLine("Dat is een ongeldig nummer");
+                    Console.WriteLine("Hier komt account bekijken");
                 }
                 else
                 {
-                    Console.WriteLine("Register");
+                    reg.MainReg();
                 }
             }
             else if(chosenInput == "ma names cheff")
