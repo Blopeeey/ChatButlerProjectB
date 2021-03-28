@@ -217,6 +217,7 @@ namespace ChatButlerProjectB
         }
         public string GetEmail()
         {
+            //Check of email geldig is
             Console.WriteLine("Wat is uw e-mail");
             string mail = Console.ReadLine();
             while (!Regex.IsMatch(mail, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
@@ -224,6 +225,7 @@ namespace ChatButlerProjectB
                 Console.Write("Dit is geen geldig e-mail. Kijk na of u een typefout gemaakt heeft\n");
                 mail = Console.ReadLine();
             }
+            //Haal huidige emails op die in members.json staan
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
             var appRoot = appPathMatcher.Match(exePath).Value;
@@ -231,11 +233,13 @@ namespace ChatButlerProjectB
             var getAllMails = appRoot + @"\members.json";
             var readCurrentMails = File.ReadAllText(getAllMails);
             var currentMails = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentMails);
-            if(currentMails == null)
+            //Check of members.json niet leeg is
+            if (currentMails == null)
             {
                 return mail;
             }
-            foreach(var item in currentMails)
+            //Check of ingevulde email niet al in gebruik is
+            foreach (var item in currentMails)
             {
                 if(mail == item.Email)
                 {
@@ -249,6 +253,7 @@ namespace ChatButlerProjectB
 
         public static void MakeAccount(string fname, string lname, string cnumber, string cont, string mail)
         {
+            //Lees door members.json heen
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
             var appRoot = appPathMatcher.Match(exePath).Value;
@@ -256,6 +261,7 @@ namespace ChatButlerProjectB
             var filePath = appRoot + @"\members.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentText) ?? new List<MemberDetails>();
+            //Haal oude gebruikers op en voeg nieuwe gebruiker daar aan
             currentMembers.Add(new MemberDetails()
             {
                 Fname = fname,
