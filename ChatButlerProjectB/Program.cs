@@ -4,7 +4,7 @@ namespace ChatButlerProjectB
 {
     class Program
     {
-        static void Main()
+        public static void Main()
         {
             Butler Winston = new Butler();
             Register reg = new Register();
@@ -16,7 +16,7 @@ namespace ChatButlerProjectB
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3")
+            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "chef input")
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
             }

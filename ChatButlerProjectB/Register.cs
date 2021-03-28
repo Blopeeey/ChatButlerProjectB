@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Linq;
+using System.Threading.Tasks;
+using System.IO;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ChatButlerProjectB
 {
-    internal class Register
+    public class MemberDetails
     {
         public string Fname { get; set; }
         public string Lname { get; set; }
@@ -11,6 +16,16 @@ namespace ChatButlerProjectB
         public string Continent { get; set; }
         public string Email { get; set; }
         public string LoginCode { get; set; }
+    }
+
+    public class MemberList
+    {
+        public List<MemberDetails> members { get; set; } = new List<MemberDetails>();
+    }
+
+    internal class Register
+    {
+
 
         public void MainReg()
         {
@@ -32,10 +47,11 @@ namespace ChatButlerProjectB
 
             Console.WriteLine("Kloppen deze gegevens?");
             string check = Console.ReadLine();
-            if(check == "ja" || check == "Ja" || check == "j" || check == "J")
+            if (check == "ja" || check == "Ja" || check == "j" || check == "J")
             {
                 MakeAccount(fname, lname, CardNumber, continent, email);
-                Console.WriteLine("Uw account is gemaakt!");
+                Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
+                Program.Main();
             }
             //Laat gebruiker fouten aanpassen
             else
@@ -63,7 +79,7 @@ namespace ChatButlerProjectB
                             Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
                             string gegevens = Console.ReadLine();
                             if (gegevens == "1" || gegevens == "ja")
-                            {   
+                            {
                                 FouteGegevens = false;
                             }
                             break;
@@ -123,16 +139,17 @@ namespace ChatButlerProjectB
                             break;
                     }
                 }
-                Console.WriteLine("Jason gaat zijn ding doen");
+                MakeAccount(fname, lname, CardNumber, continent, email);
+                Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
             }
         }
-        
+
         public string FirstName()
         {
             Console.WriteLine("Vul uw voornaam in");
             string fname = Console.ReadLine();
             //Check of fname alleen maar bestaat uit letters. Zo niet vraag opnieuw voor naam
-            while(!Regex.IsMatch(fname, @"^[A-Za-z]+$"))
+            while (!Regex.IsMatch(fname, @"^[A-Za-z]+$"))
             {
                 Console.Write("Dit is geen geldige naam. Kijk na of u een typefout gemaakt heeft\n");
                 fname = Console.ReadLine();
@@ -174,7 +191,7 @@ namespace ChatButlerProjectB
             Console.WriteLine("1: Europa\n 2: Afrika\n 3: Amerika\n 4: Zuid-Amerika\n 5: Azie\n 6: Australie");
             string place = Console.ReadLine();
             //check of place alleen bestaat uit geldige nummers
-            while (!Regex.IsMatch(place, @"^[1-6]+$"))
+            while (!Regex.IsMatch(place, @"^[1-6]+$") || place.Length > 1)
             {
                 Console.Write("Dit is geen geldig nummer. Kijk na of u een typefout gemaakt heeft\n");
                 place = Console.ReadLine();
@@ -207,13 +224,50 @@ namespace ChatButlerProjectB
                 Console.Write("Dit is geen geldig e-mail. Kijk na of u een typefout gemaakt heeft\n");
                 mail = Console.ReadLine();
             }
+            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+            var appRoot = appPathMatcher.Match(exePath).Value;
+
+            var getAllMails = appRoot + @"\members.json";
+            var readCurrentMails = File.ReadAllText(getAllMails);
+            var currentMails = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentMails);
+            if(currentMails == null)
+            {
+                return mail;
+            }
+            foreach(var item in currentMails)
+            {
+                if(mail == item.Email)
+                {
+                    Console.Write("Dit e-mail is al in gebruik. Kies een ander\n\n");
+                    mail = GetEmail();
+                }
+            }
+
             return mail;
         }
 
         public static void MakeAccount(string fname, string lname, string cnumber, string cont, string mail)
         {
-            Console.WriteLine("yee");
+            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+            var appRoot = appPathMatcher.Match(exePath).Value;
 
+            var filePath = appRoot + @"\members.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var currentMembers = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentText) ?? new List<MemberDetails>();
+            currentMembers.Add(new MemberDetails()
+            {
+                Fname = fname,
+                Lname = lname,
+                CreditCard = cnumber,
+                Continent = cont,
+                Email = mail,
+                LoginCode = "1234ab"
+            });
+
+            readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
+            File.WriteAllText(filePath, readCurrentText);
         }
     }
 }
