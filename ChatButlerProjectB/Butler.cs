@@ -17,7 +17,8 @@
             return "1: Een review bekijken van eerdere gasten\n" +
                    "2: Een reservering plaatsen\n" +
                    "3: Registreren\n" +
-                   "4: Inloggen\n";
+                   "4: Inloggen\n" +
+                   "5: Sluiten";
         }
     }
 }

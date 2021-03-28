@@ -141,6 +141,7 @@ namespace ChatButlerProjectB
                 }
                 MakeAccount(fname, lname, CardNumber, continent, email);
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
+                Program.Main();
             }
         }
 

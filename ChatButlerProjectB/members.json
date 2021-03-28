@@ -14,13 +14,5 @@
     "Continent": "Europa",
     "Email": "test@test2.nl",
     "LoginCode": "1234ab"
-  },
-  {
-    "Fname": "t",
-    "Lname": "test",
-    "CreditCard": "21342",
-    "Continent": "Europa",
-    "Email": "bw@test.nl",
-    "LoginCode": "1234ab"
   }
 ]
