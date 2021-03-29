@@ -76,7 +76,7 @@ namespace ChatButlerProjectB
                             Console.WriteLine($"Creditcard: {CardNumber}");
                             Console.WriteLine($"Continent: {continent}");
                             Console.WriteLine($"E-mail: {email}");
-                            Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
+                            Console.Write("Kloppen uw gegevens nu?\n");
                             string gegevens = Console.ReadLine();
                             if (gegevens == "1" || gegevens == "ja")
                             {
@@ -89,7 +89,7 @@ namespace ChatButlerProjectB
                             Console.WriteLine($"Creditcard: {CardNumber}");
                             Console.WriteLine($"Continent: {continent}");
                             Console.WriteLine($"E-mail: {email}");
-                            Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
+                            Console.Write("Kloppen uw gegevens nu?\n");
                             string gegevens2 = Console.ReadLine();
                             if (gegevens2 == "1" || gegevens2 == "ja")
                             {
@@ -102,7 +102,7 @@ namespace ChatButlerProjectB
                             Console.WriteLine($"Creditcard: {CardNumber}");
                             Console.WriteLine($"Continent: {continent}");
                             Console.WriteLine($"E-mail: {email}");
-                            Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
+                            Console.Write("Kloppen uw gegevens nu?\n");
                             string gegevens3 = Console.ReadLine();
                             if (gegevens3 == "1" || gegevens3 == "ja")
                             {
@@ -115,7 +115,7 @@ namespace ChatButlerProjectB
                             Console.WriteLine($"Creditcard: {CardNumber}");
                             Console.WriteLine($"Continent: {continent}");
                             Console.WriteLine($"E-mail: {email}");
-                            Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
+                            Console.Write("Kloppen uw gegevens nu?\n");
                             string gegevens4 = Console.ReadLine();
                             if (gegevens4 == "1" || gegevens4 == "ja")
                             {
@@ -128,7 +128,7 @@ namespace ChatButlerProjectB
                             Console.WriteLine($"Creditcard: {CardNumber}");
                             Console.WriteLine($"Continent: {continent}");
                             Console.WriteLine($"E-mail: {email}");
-                            Console.Write("Kloppen uw gegevens nu?\n 1: ja 2: nee\n");
+                            Console.Write("Kloppen uw gegevens nu?\n");
                             string gegevens5 = Console.ReadLine();
                             if (gegevens5 == "1" || gegevens5 == "ja")
                             {

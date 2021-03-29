@@ -35,14 +35,11 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "3")
             {
-                if (loggedin)
-                {
-                    Console.WriteLine("Hier komt account bekijken");
-                }
-                else
-                {
-                    reg.MainReg();
-                }
+                reg.MainReg();
+            }
+            else if (chosenInput == "4")
+            {
+                Console.WriteLine("Inloggen");
             }
             else if(chosenInput == "ma names cheff")
             {
