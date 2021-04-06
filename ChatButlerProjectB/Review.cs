@@ -15,41 +15,80 @@ namespace ChatButlerProjectB
     }
     internal class Review
 {
-     
-    public void Make_review()
+
+    public bool check_rating(string rating)
+    {
+        bool valid = true;
+        foreach (char i in rating)
+        {
+            if (i != '*')
+            {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+    public string Make_review()
     {
         Console.WriteLine("[NL]In welke taal gaat u een review schrijven?\n[En]In which language are you going to write a review?" +
             "\n[1] Nederlands\n" +
-            "[2] English\n");
+            "[2] English");
+        Console.Write("Keuze / Choice: ");
         string taalkeuze = Console.ReadLine();
+
+        while (taalkeuze != "1" && taalkeuze != "2"){
+                Console.WriteLine("Ongeldige invoer / Invalid input\n" +
+                    "Kies / Choose [1] / [2]");
+                taalkeuze = Console.ReadLine();
+            }
         string input_language = taalkeuze == "1" ? "Nederlands" : "English";
+
         string input_date = DateTime.Now.ToString("dd/MM/yyyy");
 
         //naam moet uiteindelijk vanuit account komen
-        string name_dutch = "Voer uw volledige naam in:";
-        string name_english = "Enter your full name:";
+        string name_dutch = "\nVoer uw volledige naam in:";
+        string name_english = "\nEnter your full name:";
         Console.WriteLine(input_language == "Nederlands" ? name_dutch : name_english);
         string input_name = Console.ReadLine();
 
-        string review_dutch = "Schrijf uw recensie:";
-        string review_english = "Write your review:";
+        string review_dutch = "\nSchrijf uw recensie:";
+        string review_english = "\nWrite your review:";
         Console.WriteLine(input_language == "Nederlands" ? review_dutch : review_english);
         string input_text = Console.ReadLine();
 
-        string rating_dutch = "Voer het aantal sterren in dat uw afgelopen bezoek waard was:";
-        string rating_english = "Enter the number of stars your last visit was worth:";
+        string rating_dutch = "\nVoer het aantal sterren '*' in dat uw afgelopen bezoek waard was:";
+        string rating_english = "\nEnter the number of stars '*' your last visit was worth:";
         Console.WriteLine(input_language == "Nederlands" ? rating_dutch : rating_english);
         string input_rating = Console.ReadLine();
+        bool valid_rating = check_rating(input_rating);
+
+        while (valid_rating == false || input_rating.Length > 5 || input_rating.Length < 1)
+        {
+            Console.WriteLine("Ongeldige invoer / Invalid input\n" +
+            "Kies / Choose [max. *****]");
+            input_rating = Console.ReadLine();
+            valid_rating = check_rating(input_rating);
+            }
+
+        //string input_rating = Console.ReadLine();
+        //double parsedNumber;
+        //    while (double.TryParse(input_rating, out parsedNumber) == false)
+        //    {
+        //        Console.WriteLine("Ongeldige invoer / Invalid input\n" +
+        //        "Kies / Choose 1-5");
+        //        input_rating = Console.ReadLine();
+        //    }
+        //input_rating += "/5";
 
         //Lees door json heen
         var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
         Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-        var appRoot = appPathMatcher.Match(exePath).Value;
 
-        var filePath = appRoot + @"\reviews.json";
+        var appRoot = appPathMatcher.Match(exePath).Value;
+        var filePath = appRoot + @"reviews.json";
         var readCurrentText = File.ReadAllText(filePath);
         var currentMembers = JsonConvert.DeserializeObject<List<Review_data>>(readCurrentText) ?? new List<Review_data>();
-        //Haal oude gebruikers op en voeg nieuwe gebruiker daar aan
+
         currentMembers.Add(new Review_data()
         {
             Language = input_language,
@@ -59,15 +98,13 @@ namespace ChatButlerProjectB
             Rating = input_rating,
         });
 
-
-
         readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
         File.WriteAllText(filePath, readCurrentText);
-    }
+            return "Voltooid";
+        }
 
 }
 }
-
 
 //Main
 //Butler Winston = new Butler();

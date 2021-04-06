@@ -22,6 +22,8 @@ namespace ChatButlerProjectB
             //    }
 
             //}
+            Review Rev = new Review();
+            Console.WriteLine(Rev.Make_review());
         }
     }
 }
