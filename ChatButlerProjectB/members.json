@@ -1,0 +1,18 @@
+[
+  {
+    "Fname": "b",
+    "Lname": "test",
+    "CreditCard": "1234",
+    "Continent": "Europa",
+    "Email": "test@test.nl",
+    "LoginCode": "1234ab"
+  },
+  {
+    "Fname": "test",
+    "Lname": "tester",
+    "CreditCard": "1234",
+    "Continent": "Europa",
+    "Email": "test@test2.nl",
+    "LoginCode": "1234ab"
+  }
+]
