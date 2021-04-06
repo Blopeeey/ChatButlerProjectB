@@ -1,0 +1,17 @@
+﻿{
+  "language": "nl",
+  "Nederlands": [
+    {
+      "Name": "Dominggus van Amsterdam",
+      "Date": "12/06/2019",
+      "Review": "We werden bij het entree welkom geheten door Max. Een jongeman die zijn vak verstaat. Wij hebben hier genoten van een 5-gangen diner in Restaurant Bougainville (3e etage) onder leiding van Tim Golsteijn (chef-kok). Het bij passende wijnarrangement, welke ons werd gepresenteerd door Lendl (beste sommelier van Nederland) en Goos, was verrassend lekker. De gerechten waren behalve heel erg lekker, elk afzonderlijk, Instagram-waardig. Ze werden uitgeserveerd door Max, Goos en Lendl. Dit aanvullend programma was mede door dit team en de gehele setting met uitzicht op de Dam subliem. Kortom, wij komen hier zeker nog een keer terug!",
+      "Rating": 5
+    },
+    {
+      "Name": "Hilbertus Ouwersloot",
+      "Date": "22/01/2020",
+      "Review": "We hebben zo genoten van een voortreffelijk 5 gangen diner! Zelfs in deze tijd, is het mogelijk om een luxe diner te boeken. De gerechten worden tot aan de hotelkamer deur bezorgd en zet je zelf op een mooi gedekte tafel in je kamer. Ook rekening gehouden met vegetarisch en alcoholvrij. Ik raad dit restaurant aan iedereen aan, in combi met een hotelovernachting in het hotel ernaast, The Albus.",
+      "Rating": 4.5
+    }
+  ]
+}
