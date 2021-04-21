@@ -27,13 +27,15 @@ namespace ChatButlerProjectB
             var getPath = @"..\..\..\loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
-            //Check of code overeenkomt met een bestaande code
-            string info = "";
+
+            string status = GetStatus();
+
+            string info = $"Status: {status}";
             foreach (var item in currentUsers)
             {
                 if (currentUser.Code == item.LoginCode)
                 {
-                    info += $"Firstname: {item.Fname}\n" +
+                    info += $"\nFirstname: {item.Fname}\n" +
                             $"Lastname: {item.Lname}\n" +
                             $"Creditcard: {item.CreditCard[..5]}******\n" +
                             $"Continent: {item.Continent}\n" +
@@ -54,6 +56,82 @@ namespace ChatButlerProjectB
                 return true;
             }
             return false;
+        }
+
+        public static string GetStatus()
+        {
+            int x = GetExspensiveMenus();
+            string pleb = "Bronze";
+            string med = "Silver";
+            string high = "Gold";
+            string extreme = "Platinum";
+
+            if (GetSafari())
+            {
+                if (x > 7)
+                {
+                    if (x > 15)
+                    {
+                        return extreme;
+                    }
+                    else
+                    {
+                        return high;
+                    }
+                }
+                else
+                {
+                    return med;
+                }  
+            }
+            else
+            {
+                if(x > 5)
+                {
+                    if(x > 10)
+                    {
+                        return high;
+                    }
+                    else
+                    {
+                        return med;
+                    }
+                }
+                else
+                {
+                    return pleb;
+                }
+            }
+        }
+
+        public static bool GetSafari()
+        {
+            //Haal alle users op
+            var getMemberPath = @"..\..\..\members.json";
+            var readAllUsers = File.ReadAllText(getMemberPath);
+            var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
+            //Haal huidige user op
+            var getPath = @"..\..\..\loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+
+            bool info = false;
+            foreach (var item in currentUsers)
+            {
+                if (currentUser.Code == item.LoginCode)
+                {
+                    if(item.Safari == true)
+                    {
+                        info = true;
+                    }
+                }
+            }
+            return info;
+        }
+
+        public static int GetExspensiveMenus()
+        {
+            return 2;
         }
 
         public static string ShowChosenMenus()

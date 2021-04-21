@@ -16,7 +16,6 @@ namespace ChatButlerProjectB
             string userCode = Console.ReadLine();
             //Check code
             string result = CheckCode(userCode);
-            Console.WriteLine(result);
             //User inloggen
             if(result != "wrong")
             {
@@ -51,7 +50,7 @@ namespace ChatButlerProjectB
             return "wrong";
         }
 
-        public static void LogUserOut()
+        public void LogUserOut()
         {
             var filePath = @"..\..\..\loggedInUser.json";
             var readCurrentText = File.ReadAllText(filePath);

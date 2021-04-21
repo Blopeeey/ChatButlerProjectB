@@ -47,7 +47,7 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "7")
             {
-                Login.LogUserOut();
+                log.LogUserOut();
             }
             else if(chosenInput == "ma names cheff")
             {
