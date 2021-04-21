@@ -22,7 +22,8 @@ namespace ChatButlerProjectB
             {
                 var filePath = @"..\..\..\loggedInUser.json";
                 var readCurrentText = File.ReadAllText(filePath);
-                readCurrentText = JsonConvert.SerializeObject(result, Formatting.Indented);
+                var loginMember = new Login { Code = result };
+                readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
                 File.WriteAllText(filePath, readCurrentText);
                 Program.Main();
             }
