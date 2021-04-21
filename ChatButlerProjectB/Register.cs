@@ -1,32 +1,16 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using System.Linq;
-using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Net;
 
 namespace ChatButlerProjectB
 {
-    public class MemberDetails
-    {
-        public string Fname { get; set; }
-        public string Lname { get; set; }
-        public string CreditCard { get; set; }
-        public string Continent { get; set; }
-        public string Email { get; set; }
-        public string LoginCode { get; set; }
-    }
-
-    public class MemberList
-    {
-        public List<MemberDetails> members { get; set; } = new List<MemberDetails>();
-    }
 
     internal class Register
     {
-
-
         public void MainReg()
         {
             //Haal voornaam op
@@ -39,6 +23,8 @@ namespace ChatButlerProjectB
             string continent = ChooseContinent();
             //Haal email op
             string email = GetEmail();
+            //Haal random inlogcode op
+            string loginCode = GenMemCode();
             //Laat de user zijn gegevens checken
             Console.WriteLine($"\nNaam: {fname} {lname}");
             Console.WriteLine($"Creditcard: {CardNumber}");
@@ -49,7 +35,8 @@ namespace ChatButlerProjectB
             string check = Console.ReadLine();
             if (check == "ja" || check == "Ja" || check == "j" || check == "J")
             {
-                MakeAccount(fname, lname, CardNumber, continent, email);
+                MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
+                SendEmail(fname, lname, CardNumber, continent, email, loginCode);
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
                 Program.Main();
             }
@@ -139,7 +126,10 @@ namespace ChatButlerProjectB
                             break;
                     }
                 }
-                MakeAccount(fname, lname, CardNumber, continent, email);
+                //Maak account als er geen fouten meer in zitten
+                MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
+                //Verstuur mail
+                SendEmail(fname, lname, CardNumber, continent, email, loginCode);
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
                 Program.Main();
             }
@@ -227,11 +217,7 @@ namespace ChatButlerProjectB
                 mail = Console.ReadLine();
             }
             //Haal huidige emails op die in members.json staan
-            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            var appRoot = appPathMatcher.Match(exePath).Value;
-
-            var getAllMails = appRoot + @"\members.json";
+            var getAllMails = @"..\..\..\members.json";
             var readCurrentMails = File.ReadAllText(getAllMails);
             var currentMails = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentMails);
             //Check of members.json niet leeg is
@@ -252,14 +238,10 @@ namespace ChatButlerProjectB
             return mail;
         }
 
-        public static void MakeAccount(string fname, string lname, string cnumber, string cont, string mail)
+        public static void MakeAccount(string fname, string lname, string cnumber, string cont, string mail, string logincode)
         {
             //Lees door members.json heen
-            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            var appRoot = appPathMatcher.Match(exePath).Value;
-
-            var filePath = appRoot + @"\members.json";
+            var filePath = @"..\..\..\members.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentText) ?? new List<MemberDetails>();
             //Haal oude gebruikers op en voeg nieuwe gebruiker daar aan
@@ -270,11 +252,38 @@ namespace ChatButlerProjectB
                 CreditCard = cnumber,
                 Continent = cont,
                 Email = mail,
-                LoginCode = "1234ab"
+                Safari = false,
+                Trees = 0,
+                LoginCode = logincode
             });
 
             readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
+        }
+        public static void SendEmail(string fname, string lname, string cnumber, string continent, string userMail, string logincode)
+        {
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("lamouette.noreply@gmail.com", "LaMouette123"),
+                EnableSsl = true,
+            };
+
+            string body = $"Uw inlogcode is: {logincode}";
+
+            smtpClient.Send("lamouette.noreply@gmail.com", userMail, "Registreer bevestiging", body);
+        }
+        private static string GenMemCode()
+        {
+            string resCode = "", chars = "abcdefghijklmnopqrstuvwxyz";
+            Random random = new Random();
+            int countChar = 0, countNum = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                if ((random.Next(2) == 0 || countNum == 3) && countChar != 3) { resCode += chars[random.Next(26)]; countChar++; }
+                else { resCode += random.Next(10); countNum++; }
+            }
+            return resCode;
         }
     }
 }

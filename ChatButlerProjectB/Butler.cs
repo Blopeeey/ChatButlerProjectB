@@ -18,6 +18,7 @@
                    "2: Een reservering plaatsen\n" +
                    "3: Registreren\n" +
                    "4: Inloggen\n" +
+                   "6: Bekijk membership\n" +
                    "5: Sluiten";
         }
     }

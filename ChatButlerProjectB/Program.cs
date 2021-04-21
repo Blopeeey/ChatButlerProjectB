@@ -8,15 +8,15 @@ namespace ChatButlerProjectB
         {
             Butler Winston = new Butler();
             Register reg = new Register();
+            Login log = new Login();
+            Account acc = new Account();
 
-            bool loggedin = false;
-            
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "chef input")
+            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "chef input")
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
@@ -39,7 +39,11 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "4")
             {
-                Console.WriteLine("Inloggen");
+                log.MainLogin();
+            }
+            else if (chosenInput == "6")
+            {
+                acc.MainAcc();
             }
             else if(chosenInput == "ma names cheff")
             {

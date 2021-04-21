@@ -1,18 +1,22 @@
 [
   {
-    "Fname": "b",
+    "Fname": "test",
     "Lname": "test",
-    "CreditCard": "1234",
+    "CreditCard": "23423142314",
     "Continent": "Europa",
-    "Email": "test@test.nl",
+    "Email": "test@gmail.com",
+    "Safari": false,
+    "Trees": 0,
     "LoginCode": "1234ab"
   },
   {
-    "Fname": "test",
-    "Lname": "tester",
-    "CreditCard": "1234",
+    "Fname": "asdf",
+    "Lname": "asdf",
+    "CreditCard": "12341234",
     "Continent": "Europa",
-    "Email": "test@test2.nl",
-    "LoginCode": "1234ab"
+    "Email": "sadfsa@sdfasdf.nl",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "v0pi49"
   }
 ]
