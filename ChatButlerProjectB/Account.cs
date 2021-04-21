@@ -9,11 +9,34 @@ namespace ChatButlerProjectB
     {
         public void MainAcc()
         {
+            CheckIfLoggedIn();
             Console.WriteLine(ShowInfo());
             bool keuze = AskForTask();
             if (keuze)
             {
                 Console.WriteLine(ShowChosenMenus());
+            }
+        }
+
+        public static void CheckIfLoggedIn()
+        {
+            var getPath = @"..\..\..\loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+
+            if(currentUser.Code == "000000")
+            {
+                Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
+                string accountMaken = Console.ReadLine();
+                if(accountMaken == "ja")
+                {
+                    Register newReg = new Register();
+                    newReg.MainReg();
+                }
+                else
+                {
+                    Program.Main();
+                }
             }
         }
 
