@@ -16,7 +16,7 @@ namespace ChatButlerProjectB
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "chef input")
+            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "chef input")
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
@@ -44,6 +44,10 @@ namespace ChatButlerProjectB
             else if (chosenInput == "6")
             {
                 acc.MainAcc();
+            }
+            else if (chosenInput == "7")
+            {
+                Login.LogUserOut();
             }
             else if(chosenInput == "ma names cheff")
             {

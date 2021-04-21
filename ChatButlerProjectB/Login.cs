@@ -50,5 +50,16 @@ namespace ChatButlerProjectB
             }
             return "wrong";
         }
+
+        public static void LogUserOut()
+        {
+            var filePath = @"..\..\..\loggedInUser.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var loginMember = new Login { Code = "000000" };
+            readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
+            File.WriteAllText(filePath, readCurrentText);
+            Console.WriteLine("U bent uitgelogd");
+            Program.Main();
+        }
     }
 }
