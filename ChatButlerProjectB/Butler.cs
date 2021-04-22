@@ -30,13 +30,15 @@ namespace ChatButlerProjectB
                         "4: Inloggen\n" +
                         "5: Sluiten";
             }*/
-            return "1: Een review bekijken van eerdere gasten\n" +
-                   "2: Een reservering plaatsen\n" +
-                   "3: Registreren\n" +
-                   "4: Login\n" +    
-                   "6: Account bekijken\n" +
-                   "7: Uitloggen\n" +
-                   "5: Sluiten";
+            return "---------------------------------------------\n" +
+                   "|1: Een review bekijken van eerdere gasten\n" +
+                   "|2: Een reservering plaatsen\n" +
+                   "|3: Registreren\n" +
+                   "|4: Login\n" +    
+                   "|6: Account bekijken\n" +
+                   "|7: Uitloggen\n" +
+                   "|5: Sluiten\n" + 
+                   "---------------------------------------------";
         }
     }
 }

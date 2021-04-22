@@ -11,10 +11,23 @@ namespace ChatButlerProjectB
         {
             CheckIfLoggedIn();
             Console.WriteLine(ShowInfo());
-            bool keuze = AskForTask();
-            if (keuze)
+            bool menus = AskForTask("Wilt u uw gekozen menu's bekijken?");
+            if (menus)
             {
                 Console.WriteLine(ShowChosenMenus());
+                bool backToMain = AskForTask("Wilt u terug naar het hoofd menu?");
+                if (backToMain)
+                {
+                    Program.Main();
+                }
+                else
+                {
+                    MainAcc();
+                }
+            }
+            else
+            {
+                Program.Main();
             }
         }
 
@@ -70,9 +83,9 @@ namespace ChatButlerProjectB
             return info;
         }
 
-        public static bool AskForTask()
+        public static bool AskForTask(string text)
         {
-            Console.WriteLine("\nWil je je gekozen menu's bekijken?");
+            Console.WriteLine("\n" + text);
             var keus = Console.ReadLine();
             if(keus == "ja")
             {
@@ -154,12 +167,12 @@ namespace ChatButlerProjectB
 
         public static int GetExspensiveMenus()
         {
-            return 2;
+            return 6;
         }
 
         public static string ShowChosenMenus()
         {
-            return "yee";
+            return "Geen menus gegeten";
         }
     }
 }

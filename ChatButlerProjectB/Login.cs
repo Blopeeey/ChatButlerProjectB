@@ -12,6 +12,7 @@ namespace ChatButlerProjectB
         public void MainLogin()
         {
             //Vrag user voor code
+            CheckIfLoggedIn();
             Console.WriteLine("Vul uw membershipcode in");
             string userCode = Console.ReadLine();
             //Check code
@@ -24,6 +25,7 @@ namespace ChatButlerProjectB
                 var loginMember = new Login { Code = result };
                 readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
                 File.WriteAllText(filePath, readCurrentText);
+                Console.WriteLine(" ----------------\n|U bent ingelogd|\n ----------------");
                 Program.Main();
             }
             else
@@ -59,6 +61,19 @@ namespace ChatButlerProjectB
             File.WriteAllText(filePath, readCurrentText);
             Console.WriteLine("U bent uitgelogd");
             Program.Main();
+        }
+
+        public void CheckIfLoggedIn()
+        {
+            //Haal huidige user op
+            var getPath = @"..\..\..\loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+            if(currentUser.Code != "000000")
+            {
+                Console.WriteLine("U bent al ingelogd");
+                Program.Main();
+            }
         }
     }
 }

@@ -269,7 +269,13 @@ namespace ChatButlerProjectB
                 EnableSsl = true,
             };
 
-            string body = $"Uw inlogcode is: {logincode}";
+            string body = $"Hallo {fname},\n\n" +
+                $"Bedankt voor het maken van uw account.\n" +
+                $"De gegevens die u doorgegeven hebt zijn: \n" +
+                $"Naam: {fname} {lname}\n" +
+                $"Continent: {continent}\n" +
+                $"Creditcard: {cnumber[..5]}*****\n\n" +
+                $"Om in te loggen kunt u de volgende code gebruiken: {logincode}";
 
             smtpClient.Send("lamouette.noreply@gmail.com", userMail, "Registreer bevestiging", body);
         }
