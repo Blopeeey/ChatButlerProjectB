@@ -1,20 +1,51 @@
 [
   {
-    "Nederlands": [
-      {
-        "language": "nl",
-        "Name": "Dominggus van Amsterdam",
-        "Date": "12/06/2019",
-        "Review": "We werden bij het entree welkom geheten door Max. Een jongeman die zijn vak verstaat. Wij hebben hier genoten van een 5-gangen diner in Restaurant Bougainville (3e etage) onder leiding van Tim Golsteijn (chef-kok). Het bij passende wijnarrangement, welke ons werd gepresenteerd door Lendl (beste sommelier van Nederland) en Goos, was verrassend lekker. De gerechten waren behalve heel erg lekker, elk afzonderlijk, Instagram-waardig. Ze werden uitgeserveerd door Max, Goos en Lendl. Dit aanvullend programma was mede door dit team en de gehele setting met uitzicht op de Dam subliem. Kortom, wij komen hier zeker nog een keer terug!",
-        "Rating": 5
-      },
-      {
-        "language": "nl",
-        "Name": "Hilbertus Ouwersloot",
-        "Date": "22/01/2020",
-        "Review": "We hebben zo genoten van een voortreffelijk 5 gangen diner! Zelfs in deze tijd, is het mogelijk om een luxe diner te boeken. De gerechten worden tot aan de hotelkamer deur bezorgd en zet je zelf op een mooi gedekte tafel in je kamer. Ook rekening gehouden met vegetarisch en alcoholvrij. Ik raad dit restaurant aan iedereen aan, in combi met een hotelovernachting in het hotel ernaast, The Albus.",
-        "Rating": 4.5
-      }
-    ]
+    "Language": "Nederlands",
+    "Name": "Alberta Linthorst:",
+    "Date": "12-03-2021",
+    "Text": "Van de ontvangst buiten, het aperitief en amuses, de rondleiding door het \ngeheel gerenoveerde pand (alleen het dak en de spanten zijn al geweldig \nom te zien), het fantastische eten, de perfect bijpassende wijn door de \nenthousiaste sommelier toegelicht en de professionele bediening met fraaie \nkleding, alles is meer dan goed. Echt een top tent. Volgens de eigenaar \nmoet het nog beter, dus ik ben nu al benieuwd naar de ervaring bij een \nvolgend bezoek.",
+    "Rating": "***** | 5/5"
+  },
+  {
+    "Language": "English",
+    "Name": "Devyn Anthony:",
+    "Date": "04-01-2021",
+    "Text": "I love many things about This Restaurant. They are family owned and truly \ncare about their staff and customers which you can feel in the atmosphere. \nThe food is delicious - the new chef is fantastic and they source seasonal \ningredients from the region which is really important to me. I always feel \nwelcome, never rushed and their reopening after lockdown was one of my \nhappiest moments. The steak and dauphinoise potatoes was amazing. Worth \nevery single penny, I thought was excellent value.",
+    "Rating": "**** | 4/5"
+  },
+  {
+    "Language": "Nederlands",
+    "Name": "Cong Hesselink:",
+    "Date": "01-04-2021",
+    "Text": "Leuke ervaring! Zeer gastvrij en vriendelijk ontvangen. Heerlijk gegeten met \nbijpassende wijnen! Vriendelijk personeel en mooi uitzicht langs het water! \nAanrader!",
+    "Rating": "**** | 4/5"
+  },
+  {
+    "Language": "English",
+    "Name": "Odin Evander:",
+    "Date": "02-04-2021",
+    "Text": "I really enjoyed the time in the kings stores, the place is beautiful, the \nstaff, especially Juliana, is great, professional and very nice and kind, \nthe food is amazing",
+    "Rating": "***** | 5/5"
+  },
+  {
+    "Language": "Nederlands",
+    "Name": "Kathryn Bertels:",
+    "Date": "18-04-2021",
+    "Text": "Voor het eerst bij een sterrenrestaurant gegeten. Sommige gerechten erg \nlekker, maar soms begreep ik de combinaties in zijn geheel niet. 2 soorten \nvis waren echt niet mals, eerder vrij taai. Helft van de bediening was \nerg stijf en lepelde letterlijk de gerechten op zonder dat er ook maar \niets van plezier afstraalde, andere helft bediening erg prettig en ook \nwat losser. Heel erg formeel geen grapjes, kan persoonlijke voorkeur zijn, \nmaar ik houd er niet van. De wijn was erg lekker.",
+    "Rating": "*** | 3/5"
+  },
+  {
+    "Language": "English",
+    "Name": "Aldrich Baldwin:",
+    "Date": "22-04-2021",
+    "Text": "I can't claim to have visited every single pretender to be the top of the \npile for this now worlclass food city, but I've visited quite a lot of \nthem. This stands out above anywhere else I've been here. Perfecly calculated \ndishes with no bum notes, imaginative wine parings, a relaxed atmosphere \nfor something at this level, and welpitched service. The wooroasted scallop \nis one of the best dishes I have eaten anywhere.",
+    "Rating": "***** | 5/5"
+  },
+  {
+    "Language": "Nederlands",
+    "Name": "Dianthe Leusink:",
+    "Date": "22-04-2021",
+    "Text": "We werden bij het entree welkom geheten door Max. Een jongeman die zijn \nvak verstaat. Wij hebben hier genoten van een gangen diner in Restaurant \nBougainville (3e etage) onder leiding van Tim Golsteijn (chekok). Het bij \npassende wijnarrangement, welke ons werd gepresenteerd door Lendl (beste \nsommelier van Nederland) en Goos, was verrassend lekker. Kortom, wij komen \nhier zeker nog een keer terug!",
+    "Rating": "**** | 4/5"
   }
 ]
