@@ -20,10 +20,5 @@
                    "4: Inloggen\n" +
                    "5: Sluiten";
         }
-
-        public string ChooseLanguage()
-        {
-            return "Choose language: English or Dutch? nl/en?";
-        }
     }
 }
