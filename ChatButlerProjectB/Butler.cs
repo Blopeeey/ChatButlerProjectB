@@ -34,11 +34,11 @@ namespace ChatButlerProjectB
                    "|1: Een review bekijken van eerdere gasten\n" +
                    "|2: Een reservering plaatsen\n" +
                    "|3: Registreren\n" +
-                   "|4: Login\n" +    
+                   "|4: Login\n" +
                    "|6: Account bekijken\n" +
                    "|7: Uitloggen\n" +
                    "|8: Zoek een member\n" +
-                   "|5: Sluiten\n" + 
+                   "|5: Sluiten\n" +
                    "---------------------------------------------";
         }
     }

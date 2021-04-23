@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ChatButlerProjectB
 {
@@ -11,6 +11,9 @@ namespace ChatButlerProjectB
             Login log = new Login();
             Account acc = new Account();
             SearchMember smember = new SearchMember();
+            PlaceReservation res = new PlaceReservation();
+
+            bool loggedin = false;
 
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
@@ -32,7 +35,7 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "2")
             {
-                Console.WriteLine("Reservering");
+                res.Reservation();
             }
             else if (chosenInput == "3")
             {
