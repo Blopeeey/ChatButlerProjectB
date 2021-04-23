@@ -37,6 +37,7 @@ namespace ChatButlerProjectB
                    "|4: Login\n" +    
                    "|6: Account bekijken\n" +
                    "|7: Uitloggen\n" +
+                   "|8: Zoek een member\n" +
                    "|5: Sluiten\n" + 
                    "---------------------------------------------";
         }

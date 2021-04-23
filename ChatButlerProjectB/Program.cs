@@ -10,13 +10,14 @@ namespace ChatButlerProjectB
             Register reg = new Register();
             Login log = new Login();
             Account acc = new Account();
+            SearchMember smember = new SearchMember();
 
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "chef input")
+            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "8" && chosenInput != "chef input")
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
@@ -48,6 +49,10 @@ namespace ChatButlerProjectB
             else if (chosenInput == "7")
             {
                 log.LogUserOut();
+            }
+            else if (chosenInput == "8")
+            {
+                smember.MainSearch();
             }
             else if(chosenInput == "ma names cheff")
             {
