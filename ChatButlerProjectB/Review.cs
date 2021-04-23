@@ -23,7 +23,7 @@ namespace ChatButlerProjectB
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
 
             var appRoot = appPathMatcher.Match(exePath).Value;
-            var filePath = appRoot + @"reviews.json";
+            var filePath = "../../../reviews.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<Review_data>>(readCurrentText) ?? new List<Review_data>();
   
@@ -52,7 +52,7 @@ namespace ChatButlerProjectB
                 }
                 else if (key.Equals(ConsoleKey.Enter))
                 {
-                    return;
+                    Program.Main();
                 }
             }
         }
@@ -144,11 +144,7 @@ namespace ChatButlerProjectB
             }
             input_rating += $" | {input_rating.Length}/5";
 
-            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-
-            var appRoot = appPathMatcher.Match(exePath).Value;
-            var filePath = appRoot + @"reviews.json";
+            var filePath = "../../../reviews.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<Review_data>>(readCurrentText) ?? new List<Review_data>();
 

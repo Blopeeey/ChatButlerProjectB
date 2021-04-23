@@ -26,6 +26,7 @@ namespace ChatButlerProjectB
             //Haal random inlogcode op
             string loginCode = GenMemCode();
             //Laat de user zijn gegevens checken
+            Console.Clear();
             Console.WriteLine($"\nNaam: {fname} {lname}");
             Console.WriteLine($"Creditcard: {CardNumber}");
             Console.WriteLine($"Continent: {continent}");
@@ -179,7 +180,7 @@ namespace ChatButlerProjectB
         public string ChooseContinent()
         {
             Console.WriteLine("In welk continent woont u");
-            Console.WriteLine("1: Europa\n 2: Afrika\n 3: Amerika\n 4: Zuid-Amerika\n 5: Azie\n 6: Australie");
+            Console.WriteLine("1: Europa\n2: Afrika\n3: Amerika\n4: Zuid-Amerika\n5: Azie\n6: Australie");
             string place = Console.ReadLine();
             //check of place alleen bestaat uit geldige nummers
             while (!Regex.IsMatch(place, @"^[1-6]+$") || place.Length > 1)
