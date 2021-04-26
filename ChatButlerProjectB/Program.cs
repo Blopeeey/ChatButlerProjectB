@@ -7,6 +7,7 @@ namespace ChatButlerProjectB
     {
         public static void Main()
         {
+            Console.Clear();
             Butler Winston = new Butler();
             Register reg = new Register();
             Login log = new Login();
@@ -27,14 +28,13 @@ namespace ChatButlerProjectB
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
             }
-            else if(chosenInput == "5")
+            else if (chosenInput == "5")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }
             else if (chosenInput == "1")
             {
-                rev.Make_review();
-                rev.Get_reviews();               
+                rev.Get_reviews();
             }
             else if (chosenInput == "2")
             {
@@ -60,16 +60,14 @@ namespace ChatButlerProjectB
             {
                 smember.MainSearch();
             }
-            else if(chosenInput == "ma names cheff")
+            else if (chosenInput == "ma names cheff")
             {
                 Console.WriteLine("Cheff");
             }
-            Review Rev = new Review();
 
-            //tests
-            double discount_pc = Rev.Make_review();
+            //test
+            //double discount_pc = rev.Make_review();
             //Console.WriteLine(discount_pc);
-            Rev.Get_reviews();
         }
     }
 }
