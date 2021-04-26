@@ -29,9 +29,6 @@ namespace ChatButlerProjectB
 
             //Console.WriteLine(sentences);
 
-
-
-
             Butler Winston = new Butler();
             Register reg = new Register();
             Login log = new Login();

@@ -1,46 +1,6 @@
 [
   {
-    "UserCode": null,
-    "Date": "12/08/2021",
-    "Time": "12:00",
-    "Guestcount": "3",
-    "Impala": "1",
-    "Fish": "1",
-    "Vegan": "1",
-    "ReservationCode": null
-  },
-  {
-    "UserCode": null,
-    "Date": "12/12/2021",
-    "Time": "13:00",
-    "Guestcount": "3",
-    "Impala": "1",
-    "Fish": "1",
-    "Vegan": "1",
-    "ReservationCode": null
-  },
-  {
-    "UserCode": "5r4co8",
-    "Date": "12/08/2021",
-    "Time": "13:00",
-    "Guestcount": "4",
-    "Impala": "2",
-    "Fish": "2",
-    "Vegan": "0",
-    "ReservationCode": null
-  },
-  {
-    "UserCode": "000000",
-    "Date": "12/12/2021",
-    "Time": "12:00",
-    "Guestcount": "4",
-    "Impala": "1",
-    "Fish": "1",
-    "Vegan": "2",
-    "ReservationCode": null
-  },
-  {
-    "UserCode": "000000",
+    "UserCode": "1234ab",
     "Date": "20/02/2022",
     "Time": "13:00",
     "Guestcount": "1",
@@ -48,5 +8,25 @@
     "Fish": "0",
     "Vegan": "0",
     "ReservationCode": "660610"
+  },
+  {
+    "UserCode": "1234ab",
+    "Date": "12/12/1922",
+    "Time": "12:00",
+    "Guestcount": "3",
+    "Impala": "1",
+    "Fish": "2",
+    "Vegan": "0",
+    "ReservationCode": "620176"
+  },
+  {
+    "UserCode": "1234ab",
+    "Date": "12/12/1990",
+    "Time": "13:00",
+    "Guestcount": "32",
+    "Impala": "5",
+    "Fish": "0",
+    "Vegan": "1",
+    "ReservationCode": "427360"
   }
 ]
