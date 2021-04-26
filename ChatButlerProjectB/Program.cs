@@ -36,6 +36,11 @@ namespace ChatButlerProjectB
             Register reg = new Register();
             Login log = new Login();
             Account acc = new Account();
+            Review rev = new Review();
+            SearchMember smember = new SearchMember();
+            PlaceReservation res = new PlaceReservation();
+
+            bool loggedin = false;
 
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
@@ -53,11 +58,12 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "1")
             {
-                Console.WriteLine("Review");
+                rev.Make_review();
+                rev.Get_reviews();
             }
             else if (chosenInput == "2")
             {
-                Console.WriteLine("Reservering");
+                res.Reservation();
             }
             else if (chosenInput == "3")
             {
@@ -75,10 +81,20 @@ namespace ChatButlerProjectB
             {
                 log.LogUserOut();
             }
+            else if (chosenInput == "8")
+            {
+                smember.MainSearch();
+            }
             else if (chosenInput == "sesame")
             {
                 Console.WriteLine("Chef");
             }
+            Review Rev = new Review();
+
+            //tests
+            double discount_pc = Rev.Make_review();
+            //Console.WriteLine(discount_pc);
+            Rev.Get_reviews();
         }
     }
 }

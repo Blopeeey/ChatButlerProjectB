@@ -1,11 +1,20 @@
+﻿
+using System;
+using System.IO;
+using System.Text.Json;
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace ChatButlerProjectB
 {
     internal class Butler
     {
+        private Reviews _reviews;
+
+        public class Reviews
+        {
+        }
+
         public Butler()
         {
 
@@ -34,11 +43,17 @@ namespace ChatButlerProjectB
                    "|1: Een review bekijken van eerdere gasten\n" +
                    "|2: Een reservering plaatsen\n" +
                    "|3: Registreren\n" +
-                   "|4: Login\n" +    
+                   "|4: Login\n" +
                    "|6: Account bekijken\n" +
                    "|7: Uitloggen\n" +
-                   "|5: Sluiten\n" + 
+                   "|8: Zoek een member\n" +
+                   "|5: Sluiten\n" +
                    "---------------------------------------------";
+        }
+
+        public string Review_text()
+        {
+            return "";
         }
 
 
