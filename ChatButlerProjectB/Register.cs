@@ -242,7 +242,7 @@ namespace ChatButlerProjectB
         public static void MakeAccount(string fname, string lname, string cnumber, string cont, string mail, string logincode)
         {
             //Lees door members.json heen
-            var filePath = @"..\..\..\members.json";
+            var filePath = @"../../../members.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentText) ?? new List<MemberDetails>();
             //Haal oude gebruikers op en voeg nieuwe gebruiker daar aan

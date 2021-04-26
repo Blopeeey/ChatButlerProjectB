@@ -15,19 +15,12 @@ namespace ChatButlerProjectB
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
 
-            bool loggedin = false;
-
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "8" && chosenInput != "chef input")
-            {
-                Console.WriteLine("Dat is een ongeldig nummer");
-                Main();
-            }
-            else if(chosenInput == "5")
+            if(chosenInput == "5")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }
@@ -63,6 +56,11 @@ namespace ChatButlerProjectB
             else if(chosenInput == "ma names cheff")
             {
                 Console.WriteLine("Cheff");
+            }
+            else
+            {
+                Console.WriteLine("Dat is een ongeldig nummer");
+                Main();
             }
             Review Rev = new Review();
 
