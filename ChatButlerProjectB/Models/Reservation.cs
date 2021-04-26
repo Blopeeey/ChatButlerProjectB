@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Net;
 
 namespace ChatButlerProjectB 
 {
@@ -224,19 +227,29 @@ namespace ChatButlerProjectB
 
             // Checks if Reservation code is in use
             string ReservationCode = RandomCode();
-            bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
 
-            while (CodeUsed) {
-                ReservationCode = RandomCode();
-                CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
-            }
+            //while (CodeUsed) {
+            //    ReservationCode = RandomCode();
+            //    CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //}
             
-            var filePath = appRoot + @$"\{ReservationCode}.json";
+            //var filePath = appRoot + @$"\{ReservationCode}.json";
+
+            // read json file
+            
+            var filePath = @"..\..\..\Reservations.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText);
+
+            
 
             // stores it in json file
             ReservationDetails temp = new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email);
-            string TempJson = JsonSerializer.Serialize(temp, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, TempJson);
+
+            currentReservation.Add(temp);
+            //string TempJson = JsonSerializer.Serialize(temp, new JsonSerializerOptions { WriteIndented = true });
+            //File.WriteAllText(filePath, TempJson);
 
             Console.WriteLine(filePath);
         }
