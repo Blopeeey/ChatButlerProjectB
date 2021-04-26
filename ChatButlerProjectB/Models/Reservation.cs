@@ -1,11 +1,14 @@
 using System;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Net.Mail;
+using System.Net;
 
 namespace ChatButlerProjectB 
 {
@@ -18,7 +21,11 @@ namespace ChatButlerProjectB
         public string Fish { get; set; }
         public string Vegan { get; set; }
 
-        public ReservationDetails(string UserCode, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan) {
+        public string ReservationCode { get; set; }
+        //public string Email { get; set; }
+
+        public ReservationDetails(string ReservationCode, string UserCode, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan)
+        {
             this.UserCode = UserCode;
             this.Date = Date;
             this.Time = Time;
@@ -26,6 +33,7 @@ namespace ChatButlerProjectB
             this.Impala = Impala;
             this.Fish = Fish;
             this.Vegan = Vegan;
+            this.ReservationCode = ReservationCode;
         }
     }
 
@@ -53,6 +61,7 @@ namespace ChatButlerProjectB
 
             Console.Clear();
 
+
             Console.WriteLine($"Datum: {datum}");
             Console.WriteLine($"Tijd: {tijd}");
             Console.WriteLine($"Aantal gasten: {gasten}");
@@ -75,7 +84,6 @@ namespace ChatButlerProjectB
                     Console.Write("dit is geen geldig nummer. kijk na of u een typefout gemaakt heeft\n");
                     answer = Console.ReadLine();
                 }
-
                 if (answer == "1")
                 {
                     Console.WriteLine("DD/MM/JJJJ");
@@ -107,7 +115,7 @@ namespace ChatButlerProjectB
                     vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
                 }
                 Console.Clear();
-                Console.WriteLine("Wat klopt er niet? \n 1: Datum \n 2: Tijdstip \n 3: Aantal gasten \n 4: Imapala \n 5: Vis \n 6: Vegetarisch");
+                Console.WriteLine("Wat klopt er niet? \n1: Datum\n2: Tijdstip\n3: Aantal gasten\n4: Impala\n5: Vis\n6: Vegetarisch\n");
                 Console.WriteLine("Klopt alles nu wel?");
                 answer = Console.ReadLine();
             }
@@ -134,7 +142,6 @@ namespace ChatButlerProjectB
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
             return currentUser.Code;
         }
-
         public string ViableCheckname(string text, string waarde)
         {
             string Value = text;
@@ -195,7 +202,7 @@ namespace ChatButlerProjectB
             return LowerCaseValue;
         }
 
-        public void SaveReservation(string UserCode, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch) 
+        public void SaveReservation(string UserCode, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch)
         {
             // Creates a path to current folder (of the exe)
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
@@ -204,21 +211,36 @@ namespace ChatButlerProjectB
 
             // Checks if Reservation code is in use
             string ReservationCode = RandomCode();
-            bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
 
-            while (CodeUsed) {
-                ReservationCode = RandomCode();
-                CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
-            }
+            //while (CodeUsed) {
+            //    ReservationCode = RandomCode();
+            //    CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //}
             
-            var filePath = appRoot + @$"\{ReservationCode}.json";
+            //var filePath = appRoot + @$"\{ReservationCode}.json";
 
-            // stores it in json file
-            ReservationDetails temp = new ReservationDetails(UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch);
-            string TempJson = JsonSerializer.Serialize(temp, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, TempJson);
+            // read json file
+            
+            var filePath = @"..\..\..\Reservations.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText) ?? new List<ReservationDetails>();
+            
+            //Adds reservation to Json
+            currentReservation.Add(new ReservationDetails(ReservationCode, UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch));
 
+            readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
+            File.WriteAllText(filePath, readCurrentText);
             Console.WriteLine(filePath);
+            // stores it in json file
+            //ReservationDetails temp = new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email);
+
+            //currentReservation.Add(temp);
+
+
+            //string TempJson = JsonSerializer.Serialize(temp, new JsonSerializerOptions { WriteIndented = true });
+            //File.WriteAllText(filePath, TempJson);
+
         }
 
         public string RandomCode() {

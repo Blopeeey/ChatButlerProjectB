@@ -41,6 +41,11 @@ namespace ChatButlerProjectB
                    "---------------------------------------------";
         }
 
+        public string Review_text()
+        {
+            return "";
+        }
+
 
     }
 }
