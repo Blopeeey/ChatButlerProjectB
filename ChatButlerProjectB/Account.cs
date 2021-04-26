@@ -37,12 +37,12 @@ namespace ChatButlerProjectB
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
-            if(currentUser.Code == "000000")
+            if (currentUser.Code == "000000")
             {
                 Console.Clear();
                 Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
                 string accountMaken = Console.ReadLine();
-                if(accountMaken == "ja")
+                if (accountMaken == "ja")
                 {
                     Register newReg = new Register();
                     newReg.MainReg();
@@ -88,7 +88,7 @@ namespace ChatButlerProjectB
         {
             Console.WriteLine("\n" + text);
             var keus = Console.ReadLine();
-            if(keus == "ja")
+            if (keus == "ja")
             {
                 return true;
             }
@@ -119,13 +119,13 @@ namespace ChatButlerProjectB
                 else
                 {
                     return med;
-                }  
+                }
             }
             else
             {
-                if(x > 5)
+                if (x > 5)
                 {
-                    if(x > 10)
+                    if (x > 10)
                     {
                         return high;
                     }
@@ -157,7 +157,7 @@ namespace ChatButlerProjectB
             {
                 if (currentUser.Code == item.LoginCode)
                 {
-                    if(item.Safari == true)
+                    if (item.Safari == true)
                     {
                         info = true;
                     }
@@ -168,12 +168,49 @@ namespace ChatButlerProjectB
 
         public static int GetExspensiveMenus()
         {
-            return 6;
+            var getMenuPath = @"..\..\..\Reservations.json";
+            var readAllMenus = File.ReadAllText(getMenuPath);
+            var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
+            int impala = 0;
+            foreach (var item in currentMenus)
+            {
+                if (item.UserCode == GetUserCode())
+                {
+                    impala += Int32.Parse(item.Impala);
+                }
+            }
+            return impala; 
+        }
+
+        public static string GetUserCode()
+        {
+            var getPath = @"..\..\..\loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+            return currentUser.Code;
         }
 
         public static string ShowChosenMenus()
         {
-            return "Geen menus gegeten";
+            var getMenuPath = @"..\..\..\Reservations.json";
+            var readAllMenus = File.ReadAllText(getMenuPath);
+            var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
+            int impala = 0;
+            int fish = 0;
+            int vegan = 0;
+            //Haal gekozen menu naam op
+            foreach (var item in currentMenus)
+            {
+                if (item.UserCode == GetUserCode())
+                {
+                    impala += Int32.Parse(item.Impala);
+                    fish += Int32.Parse(item.Fish);
+                    vegan += Int32.Parse(item.Vegan);
+                }
+            }
+            return $"Impala: {impala}\n" +
+                   $"Fish: {fish}\n" +
+                   $"Vegan: {vegan}";
         }
     }
 }

@@ -58,5 +58,15 @@
     "Safari": false,
     "Trees": 0,
     "LoginCode": "83ad5c"
+  },
+  {
+    "Fname": "test",
+    "Lname": "achternaam",
+    "CreditCard": "13241234",
+    "Continent": "Europa",
+    "Email": "asdf@asdfasdf.nl",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "472ybz"
   }
 ]
