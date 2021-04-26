@@ -13,26 +13,27 @@ using System.Net;
 namespace ChatButlerProjectB 
 {
     public class ReservationDetails {
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public string UserCode { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
         public string Guestcount { get; set; }
         public string Impala { get; set; }
         public string Fish { get; set; }
         public string Vegan { get; set; }
-        public string Email { get; set; }
 
-        public ReservationDetails(string Name, string LastName, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan, string Email) {
-            this.Name = Name;
-            this.LastName = LastName;
+        public string ReservationCode { get; set; }
+        //public string Email { get; set; }
+
+        public ReservationDetails(string ReservationCode, string UserCode, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan)
+        {
+            this.UserCode = UserCode;
             this.Date = Date;
             this.Time = Time;
             this.Guestcount = Guestcount;
             this.Impala = Impala;
             this.Fish = Fish;
             this.Vegan = Vegan;
-            this.Email = Email;
+            this.ReservationCode = ReservationCode;
         }
     }
 
@@ -40,12 +41,6 @@ namespace ChatButlerProjectB
 
         public void Reservation()
         {
-            Console.WriteLine("Voornaam:");
-            string fname = ViableCheckname(Console.ReadLine(),"uw voornaam");
-
-            Console.WriteLine("Achternaam:");
-            string lname = ViableCheckname(Console.ReadLine(), "uw achternaam");
-
             Console.WriteLine("DD/MM/JJJJ");
             string datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
 
@@ -64,16 +59,12 @@ namespace ChatButlerProjectB
             Console.WriteLine("Vegetarisch:");
             string vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
 
-            Console.WriteLine("E-mail:");
-            string email = ViableCheckEmail(Console.ReadLine(), "uw E-mail");
-
             Console.Clear();
 
-            Console.WriteLine($"Naam: {fname} {lname}");
+
             Console.WriteLine($"Datum: {datum}");
             Console.WriteLine($"Tijd: {tijd}");
             Console.WriteLine($"Aantal gasten: {gasten}");
-            Console.WriteLine($"E-mail: {email}");
             Console.WriteLine($"{impala}x Impala, {fish}x Vis, {vegan} Vegetarisch");
             Console.WriteLine("\nKloppen deze gegevens?");
             string answer = Console.ReadLine().ToLower();
@@ -86,66 +77,52 @@ namespace ChatButlerProjectB
 
             while (answer == "nee" || answer == "n" || answer == "no" || answer == "n")
             {
-                Console.WriteLine("Wat klopt er niet? \n 1: Voornaam \n 2: Achternaam \n 3: Datum \n 4: Tijdstip \n 5: Aantal gasten \n 6: Imapala \n 7: Vis \n 8: Vegetarisch \n 9: E-Mail \n");
+                Console.WriteLine("Wat klopt er niet? \n 1: Datum \n 2: Tijdstip \n 3: Aantal gasten \n 4: Imapala \n 5: Vis \n 6: Vegetarisch");
                 answer = Console.ReadLine();
                 while (!Regex.IsMatch(answer, @"^[1-9]+$"))
                 {
                     Console.Write("dit is geen geldig nummer. kijk na of u een typefout gemaakt heeft\n");
                     answer = Console.ReadLine();
                 }
-
-                if (answer == "1") {
-                    Console.WriteLine("Voornaam:");
-                    fname = ViableCheckname(Console.ReadLine(), "uw voornaam");
-                }
-                else if (answer == "2") {
-                    Console.WriteLine("Achternaam:");
-                    lname = ViableCheckname(Console.ReadLine(), "uw achternaam");
-                }
-                else if (answer == "3")
+                if (answer == "1")
                 {
                     Console.WriteLine("DD/MM/JJJJ");
                     datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
                 }
-                else if (answer == "4")
+                else if (answer == "2")
                 {
                     Console.WriteLine("Tijdstip:");
                     tijd = ViableChecktime(Console.ReadLine(), "het gewenste tijdstip");
                 }
-                else if (answer == "5")
+                else if (answer == "3")
                 {
                     Console.WriteLine("Gasten:");
                     gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
                 }
-                else if (answer == "6")
+                else if (answer == "4")
                 {
                     Console.WriteLine("Impala:");
                     impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
                 }
-                else if (answer == "7")
+                else if (answer == "5")
                 {
                     Console.WriteLine("Vis:");
                     fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
                 }
-                else if (answer == "8")
+                else if (answer == "6")
                 {
                     Console.WriteLine("Vegetarisch:");
                     vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
                 }
-                else if (answer == "9")
-                {
-                    Console.WriteLine("E-mail:");
-                    email = ViableCheckEmail(Console.ReadLine(), "uw E-mail");
-                }
                 Console.Clear();
-                Console.WriteLine("Wat klopt er niet? \n 1: Voornaam \n 2: Achternaam \n 3: Datum \n 4: Tijdstip \n 5: Aantal gasten \n 6: E-mail \n 7: Impala \n 8: Vis \n 9: Vegetarisch \n");
+                Console.WriteLine("Wat klopt er niet? \n1: Datum\n2: Tijdstip\n3: Aantal gasten\n4: Impala\n5: Vis\n6: Vegetarisch\n");
                 Console.WriteLine("Klopt alles nu wel?");
                 answer = Console.ReadLine();
             }
 
             if (answer == "ja" || answer == "j" || answer == "yes" || answer == "y")
             {
-                SaveReservation(fname, lname, datum, tijd, gasten, impala, fish, vegan, email);
+                SaveReservation(GetUserCode(), datum, tijd, gasten, impala, fish, vegan);
                 for (int i = 10; i > 0; i--) {
                     Console.Clear();
                     Console.WriteLine($"Terug naar hoofd menu in {i}\n");
@@ -158,6 +135,13 @@ namespace ChatButlerProjectB
 
         }
 
+        public string GetUserCode()
+        {
+            var getPath = @"..\..\..\loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+            return currentUser.Code;
+        }
         public string ViableCheckname(string text, string waarde)
         {
             string Value = text;
@@ -218,7 +202,7 @@ namespace ChatButlerProjectB
             return LowerCaseValue;
         }
 
-        public void SaveReservation(string Voornaam, string Achternaam, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch, string email) 
+        public void SaveReservation(string UserCode, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch)
         {
             // Creates a path to current folder (of the exe)
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
@@ -243,7 +227,7 @@ namespace ChatButlerProjectB
             var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText) ?? new List<ReservationDetails>();
             
             //Adds reservation to Json
-            currentReservation.Add(new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email));
+            currentReservation.Add(new ReservationDetails(ReservationCode, UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch));
 
             readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
