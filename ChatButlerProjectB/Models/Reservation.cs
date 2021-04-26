@@ -241,23 +241,22 @@ namespace ChatButlerProjectB
             var filePath = @"..\..\..\Reservations.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText) ?? new List<ReservationDetails>();
+            
+            //Adds reservation to Json
+            currentReservation.Add(new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email));
 
-
-
+            readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
+            File.WriteAllText(filePath, readCurrentText);
+            Console.WriteLine(filePath);
             // stores it in json file
             //ReservationDetails temp = new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email);
 
             //currentReservation.Add(temp);
 
-            currentReservation.Add(new ReservationDetails(Voornaam, Achternaam, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, email));
-
-            readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
-            File.WriteAllText(filePath, readCurrentText);
 
             //string TempJson = JsonSerializer.Serialize(temp, new JsonSerializerOptions { WriteIndented = true });
             //File.WriteAllText(filePath, TempJson);
 
-            Console.WriteLine(filePath);
         }
 
         public string RandomCode() {

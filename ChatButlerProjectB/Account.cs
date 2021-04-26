@@ -39,6 +39,7 @@ namespace ChatButlerProjectB
 
             if(currentUser.Code == "000000")
             {
+                Console.Clear();
                 Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
                 string accountMaken = Console.ReadLine();
                 if(accountMaken == "ja")

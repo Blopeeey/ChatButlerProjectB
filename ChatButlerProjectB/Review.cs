@@ -19,10 +19,6 @@ namespace ChatButlerProjectB
     {
         public void Get_reviews()
         {
-            var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-
-            var appRoot = appPathMatcher.Match(exePath).Value;
             var filePath = "../../../reviews.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentMembers = JsonConvert.DeserializeObject<List<Review_data>>(readCurrentText) ?? new List<Review_data>();

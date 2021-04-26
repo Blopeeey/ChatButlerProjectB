@@ -27,10 +27,12 @@ namespace ChatButlerProjectB
             string searchNewName = Console.ReadLine();
             if(searchNewName == "ja")
             {
+                Console.Clear();
                 MainSearch();
             }
             else
             {
+                Console.Clear();
                 Program.Main();
             }
         }

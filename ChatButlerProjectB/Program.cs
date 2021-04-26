@@ -40,8 +40,6 @@ namespace ChatButlerProjectB
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
 
-            bool loggedin = false;
-
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
@@ -88,6 +86,11 @@ namespace ChatButlerProjectB
             else if (chosenInput == "sesame")
             {
                 Console.WriteLine("Chef");
+            }
+            else
+            {
+                Console.WriteLine("Dat is een ongeldig nummer");
+                Main();
             }
             Review Rev = new Review();
 
