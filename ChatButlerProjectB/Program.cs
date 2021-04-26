@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json.Converters;
 using System.IO;
-
+using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace ChatButlerProjectB
@@ -17,20 +17,7 @@ namespace ChatButlerProjectB
         public static void Main()
         {
 
-
-            //string result = "";
-
-            //var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            //Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            //var appRoot = appPathMatcher.Match(exePath).Value;
-            //var filePath = appRoot + @"\languages.json";
-            //var readCurrentText = File.ReadAllText(filePath);
-            //var sentences = JsonConvert.DeserializeObject<greeting>(readCurrentText);
-
-            //Console.WriteLine(sentences);
-
-
-
+            Console.Title = "Restuarant La Mouette";
 
             Butler Winston = new Butler();
             Register reg = new Register();
