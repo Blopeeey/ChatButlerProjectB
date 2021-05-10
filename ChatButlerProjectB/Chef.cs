@@ -47,9 +47,9 @@ namespace ChatButlerProjectB
                                        $"- Vegan {item.Vegan}\n\n";
                 }
             }
-            if(allReservations == "")
+            if(allReservations == "Alle gevonden reservaties:\n\n")
             {
-                return "Er zijn geen reserveringen gevonden op deze datum";
+                return "Er zijn geen reserveringen gevonden op deze datum\n";
             }
             return allReservations;
         }
