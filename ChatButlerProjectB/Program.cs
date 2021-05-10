@@ -24,14 +24,6 @@ namespace ChatButlerProjectB
             {
                 MenuLoggedIn(chosenInput);
             }
-
-
-            Review Rev = new Review();
-
-            //tests
-            double discount_pc = Rev.Make_review();
-            //Console.WriteLine(discount_pc);
-            Rev.Get_reviews();
         }
 
         public static void MenuNotLoggedIn(string i)
