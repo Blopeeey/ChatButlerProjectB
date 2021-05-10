@@ -8,6 +8,34 @@ namespace ChatButlerProjectB
         public static void Main()
         {
             Butler Winston = new Butler();
+
+
+            Console.WriteLine(Winston.Greet());
+            Console.WriteLine(Winston.ShowComponents());
+            Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
+            string chosenInput = Console.ReadLine();
+
+            string user = Account.GetUserCode();
+            if(user == "000000")
+            {
+                MenuNotLoggedIn(chosenInput);
+            }
+            else
+            {
+                MenuLoggedIn(chosenInput);
+            }
+
+
+            Review Rev = new Review();
+
+            //tests
+            double discount_pc = Rev.Make_review();
+            //Console.WriteLine(discount_pc);
+            Rev.Get_reviews();
+        }
+
+        public static void MenuNotLoggedIn(string i)
+        {
             Register reg = new Register();
             Login log = new Login();
             Account acc = new Account();
@@ -15,50 +43,27 @@ namespace ChatButlerProjectB
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
 
-            Console.WriteLine(Winston.Greet());
-            Console.WriteLine(Winston.ShowComponents());
-            Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
-            string chosenInput = Console.ReadLine();
-
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "sesame")
+            if (i == "1")
             {
-                Console.WriteLine("Dat is een ongeldig nummer");
-                Main();
-            }
-            else if (chosenInput == "5")
-            {
-                Console.WriteLine("Bedankt voor uw bezoek");
-            }
-            else if (chosenInput == "1")
-            {
-                rev.Make_review();
                 rev.Get_reviews();
             }
-            else if (chosenInput == "2")
-            {
-                res.Reservation();
-            }
-            else if (chosenInput == "3")
+            else if(i == "2")
             {
                 reg.MainReg();
             }
-            else if (chosenInput == "4")
+            else if(i == "3")
             {
                 log.MainLogin();
             }
-            else if (chosenInput == "6")
-            {
-                acc.MainAcc();
-            }
-            else if (chosenInput == "7")
-            {
-                log.LogUserOut();
-            }
-            else if (chosenInput == "8")
+            else if(i == "4")
             {
                 smember.MainSearch();
             }
-            else if (chosenInput == "sesame")
+            else if(i == "5")
+            {
+                Console.WriteLine("Bedankt voor uw bezoek");
+            }
+            else if (i == "sesame")
             {
                 Console.WriteLine("Chef");
             }
@@ -67,12 +72,54 @@ namespace ChatButlerProjectB
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
             }
-            Review Rev = new Review();
+        }
 
-            //tests
-            double discount_pc = Rev.Make_review();
-            //Console.WriteLine(discount_pc);
-            Rev.Get_reviews();
+        public static void MenuLoggedIn(string i)
+        {
+            Register reg = new Register();
+            Login log = new Login();
+            Account acc = new Account();
+            Review rev = new Review();
+            SearchMember smember = new SearchMember();
+            PlaceReservation res = new PlaceReservation();
+
+            if (i == "1")
+            {
+                rev.Get_reviews();
+            }
+            else if (i == "2")
+            {
+                rev.Make_review();
+            }
+            else if (i == "3")
+            {
+                res.Reservation();
+            }
+            else if (i == "4")
+            {
+                acc.MainAcc();
+            }
+            else if (i == "5")
+            {
+                smember.MainSearch();
+            }
+            else if (i == "6")
+            {
+                log.LogUserOut();
+            }
+            else if (i == "7")
+            {
+                Console.WriteLine("Bedankt voor uw bezoek");
+            }
+            else if (i == "sesame")
+            {
+                Console.WriteLine("Chef");
+            }
+            else
+            {
+                Console.WriteLine("Dat is een ongeldig nummer");
+                Main();
+            }
         }
     }
 }
