@@ -30,10 +30,8 @@ namespace ChatButlerProjectB
         {
             Register reg = new Register();
             Login log = new Login();
-            Account acc = new Account();
             Review rev = new Review();
             SearchMember smember = new SearchMember();
-            PlaceReservation res = new PlaceReservation();
 
             if (i == "1")
             {
@@ -68,7 +66,6 @@ namespace ChatButlerProjectB
 
         public static void MenuLoggedIn(string i)
         {
-            Register reg = new Register();
             Login log = new Login();
             Account acc = new Account();
             Review rev = new Review();
