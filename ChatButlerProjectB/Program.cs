@@ -32,6 +32,7 @@ namespace ChatButlerProjectB
             Login log = new Login();
             Review rev = new Review();
             SearchMember smember = new SearchMember();
+            Chef chef = new Chef();
 
             if (i == "1")
             {
@@ -55,7 +56,7 @@ namespace ChatButlerProjectB
             }
             else if (i == "sesame")
             {
-                Console.WriteLine("Chef");
+                chef.MainChef();
             }
             else
             {
@@ -71,6 +72,7 @@ namespace ChatButlerProjectB
             Review rev = new Review();
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
+            Chef chef = new Chef();
 
             if (i == "1")
             {
@@ -102,7 +104,7 @@ namespace ChatButlerProjectB
             }
             else if (i == "sesame")
             {
-                Console.WriteLine("Chef");
+                chef.MainChef();
             }
             else
             {
