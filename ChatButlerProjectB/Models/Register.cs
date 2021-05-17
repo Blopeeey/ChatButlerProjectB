@@ -169,7 +169,7 @@ namespace ChatButlerProjectB
             Console.WriteLine("Vul uw creditcard nummer in");
             string creditnumber = Console.ReadLine();
             //Check of creditnumber alleen bestaat uit nummers
-            while (!Regex.IsMatch(creditnumber, @"^[0-9]+$"))
+            while (!Regex.IsMatch(creditnumber, @"^[0-9]+$") || creditnumber.Length < 7)
             {
                 Console.Write("Dit is geen geldig creditcard nummer. Kijk na of u een typefout gemaakt heeft\n");
                 creditnumber = Console.ReadLine();
