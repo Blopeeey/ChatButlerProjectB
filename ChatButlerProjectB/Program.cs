@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;//tijdelijk
 
 namespace ChatButlerProjectB
@@ -10,7 +11,7 @@ namespace ChatButlerProjectB
             Console.Clear();
             Butler Winston = new Butler();
             Register reg = new Register();
-            Login log = new Login();
+            Login login = new Login();
             Account acc = new Account();
             Review rev = new Review();
             SearchMember smember = new SearchMember();
@@ -46,7 +47,7 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "4")
             {
-                log.MainLogin();
+                login.MainLogin();
             }
             else if (chosenInput == "6")
             {
@@ -54,7 +55,7 @@ namespace ChatButlerProjectB
             }
             else if (chosenInput == "7")
             {
-                log.LogUserOut();
+                login.LogUserOut();
             }
             else if (chosenInput == "8")
             {
@@ -64,7 +65,7 @@ namespace ChatButlerProjectB
             {
                 Console.WriteLine("Cheff");
             }
-
+            Winston.Log(1, "testtesttest");
             //test
             //double discount_pc = rev.Make_review();
             //Console.WriteLine(discount_pc);

@@ -101,7 +101,7 @@ namespace ChatButlerProjectB
             //Date--
             string input_date = DateTime.Now.ToString("dd/MM/yyyy");
 
-            //Review--
+            //Review-
             string input_text = "";
             Console.CursorVisible = false;
             while (input_text.Length < 512)
@@ -170,6 +170,10 @@ namespace ChatButlerProjectB
                 Text = input_text,
                 Rating = input_rating,
             });
+
+            //LOG
+
+            //
 
             readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
