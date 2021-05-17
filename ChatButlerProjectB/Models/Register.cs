@@ -32,7 +32,7 @@ namespace ChatButlerProjectB
             Console.WriteLine($"Continent: {continent}");
             Console.WriteLine($"E-mail: {email}");
 
-            Console.WriteLine("Kloppen deze gegevens?");
+            Console.WriteLine("Kloppen deze gegevens? (ja/nee)");
             string check = Console.ReadLine();
             if (check == "ja" || check == "Ja" || check == "j" || check == "J")
             {
@@ -48,7 +48,7 @@ namespace ChatButlerProjectB
                 while (FouteGegevens)
                 {
                     Console.WriteLine("Welke klopt niet?");
-                    Console.WriteLine("1: Voornaam\n 2: Achternaam\n 3: Creditcard\n 4: Continent\n 5: e-mail");
+                    Console.WriteLine("1: Voornaam\n2: Achternaam\n3: Creditcard\n4: Continent\n5: e-mail");
                     string foutOnderdeel = Console.ReadLine();
                     while (!Regex.IsMatch(foutOnderdeel, @"^[1-5]+$"))
                     {
@@ -169,7 +169,7 @@ namespace ChatButlerProjectB
             Console.WriteLine("Vul uw creditcard nummer in");
             string creditnumber = Console.ReadLine();
             //Check of creditnumber alleen bestaat uit nummers
-            while (!Regex.IsMatch(creditnumber, @"^[0-9]+$"))
+            while (!Regex.IsMatch(creditnumber, @"^[0-9]+$") || creditnumber.Length < 7)
             {
                 Console.Write("Dit is geen geldig creditcard nummer. Kijk na of u een typefout gemaakt heeft\n");
                 creditnumber = Console.ReadLine();

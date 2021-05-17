@@ -212,5 +212,36 @@ namespace ChatButlerProjectB
                    $"Fish: {fish}\n" +
                    $"Vegan: {vegan}";
         }
+
+        public void RemoveAccount()
+        {
+            string code = GetUserCode();
+            Login log = new Login();
+            var getMemberPath = @"..\..\..\members.json";
+            var readAllUsers = File.ReadAllText(getMemberPath);
+            var newUser = new List<MemberDetails>();
+            var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
+
+            foreach(var item in currentUsers)
+            {
+                if (item.LoginCode != code)
+                {
+                    newUser.Add(new MemberDetails()
+                    {
+                        Fname = item.Fname,
+                        Lname = item.Lname,
+                        CreditCard = item.CreditCard,
+                        Continent = item.Continent,
+                        Email = item.Email,
+                        Safari = item.Safari,
+                        Trees = 0,
+                        LoginCode = item.LoginCode
+                    });
+                }
+            }
+            readAllUsers = JsonConvert.SerializeObject(newUser, Formatting.Indented);
+            File.WriteAllText(getMemberPath, readAllUsers);
+            log.LogUserOut();
+        }
     }
 }
