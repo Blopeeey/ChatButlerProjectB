@@ -1,5 +1,12 @@
-﻿using System;
-using System.Text;//tijdelijk
+using System;
+using Newtonsoft.Json;
+using ChatButlerProjectB;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json.Converters;
+using System.IO;
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace ChatButlerProjectB
 {
@@ -7,8 +14,10 @@ namespace ChatButlerProjectB
     {
         public static void Main()
         {
+            Console.Clear();
             Butler Winston = new Butler();
 
+            Console.Title = "Restuarant La Mouette";
 
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
@@ -73,6 +82,7 @@ namespace ChatButlerProjectB
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
             Chef chef = new Chef();
+            CancelReservation can = new CancelReservation();
 
             if (i == "1")
             {
@@ -85,6 +95,10 @@ namespace ChatButlerProjectB
             else if (i == "3")
             {
                 res.Reservation();
+            }
+            else if (i == "9")
+            {
+                can.DeleteReservation();
             }
             else if (i == "4")
             {
@@ -99,6 +113,10 @@ namespace ChatButlerProjectB
                 log.LogUserOut();
             }
             else if (i == "7")
+            {
+                acc.RemoveAccount();
+            }
+            else if (i == "8")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }

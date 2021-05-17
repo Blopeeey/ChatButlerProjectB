@@ -10,9 +10,10 @@ using Newtonsoft.Json;
 using System.Net.Mail;
 using System.Net;
 
-namespace ChatButlerProjectB 
+namespace ChatButlerProjectB
 {
-    public class ReservationDetails {
+    public class ReservationDetails
+    {
         public string UserCode { get; set; }
         public string Date { get; set; }
         public string Time { get; set; }
@@ -37,7 +38,8 @@ namespace ChatButlerProjectB
         }
     }
 
-    internal class PlaceReservation {
+    internal class PlaceReservation
+    {
 
         public void Reservation()
         {
@@ -123,7 +125,8 @@ namespace ChatButlerProjectB
             if (answer == "ja" || answer == "j" || answer == "yes" || answer == "y")
             {
                 SaveReservation(GetUserCode(), datum, tijd, gasten, impala, fish, vegan);
-                for (int i = 10; i > 0; i--) {
+                for (int i = 10; i > 0; i--)
+                {
                     Console.Clear();
                     Console.WriteLine($"Terug naar hoofd menu in {i}\n");
                     Console.WriteLine("Check uw e-mail voor uw reservatie code");
@@ -217,17 +220,18 @@ namespace ChatButlerProjectB
             //    ReservationCode = RandomCode();
             //    CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
             //}
-            
+
             //var filePath = appRoot + @$"\{ReservationCode}.json";
 
             // read json file
-            
+
             var filePath = @"..\..\..\Reservations.json";
             var readCurrentText = File.ReadAllText(filePath);
             var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText) ?? new List<ReservationDetails>();
-            
+
+
             //Adds reservation to Json
-            currentReservation.Add(new ReservationDetails(ReservationCode, UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch));
+            currentReservation.Add(new ReservationDetails (ReservationCode, UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch));
 
             readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
@@ -243,7 +247,8 @@ namespace ChatButlerProjectB
 
         }
 
-        public string RandomCode() {
+        public string RandomCode()
+        {
             Random rnd = new Random();
             string temp = "";
             temp += rnd.Next(0, 9).ToString();
@@ -256,6 +261,31 @@ namespace ChatButlerProjectB
             return temp;
         }
     }
+
+    internal class CancelReservation
+    {
+        public void DeleteReservation()
+        {
+            Console.WriteLine("Voer uw reserveringscode in:");
+            string reservationCode = Console.ReadLine();
+            //var UserCode = GetUserCode();
+            var filePath = @"..\..\..\Reservations.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var newReservation = new List<ReservationDetails>();
+            var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText);
+            foreach (var item in currentReservation)
+            {
+                if (item.ReservationCode != reservationCode)
+                {
+                    newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan));
+                    readCurrentText = JsonConvert.SerializeObject(newReservation, Formatting.Indented);
+                    File.WriteAllText(filePath, readCurrentText);
+                }
+            }
+
+        }
+    }
+
 
 }
 

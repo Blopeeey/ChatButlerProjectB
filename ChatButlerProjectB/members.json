@@ -20,8 +20,8 @@
     "LoginCode": "kxa175"
   },
   {
-    "Fname": "test",
-    "Lname": "nogeentest",
+    "Fname": "VoOrNaAm",
+    "Lname": "AchTeRNaAm",
     "CreditCard": "12341234",
     "Continent": "Europa",
     "Email": "sdfasdf@asdfadsf.nl",
@@ -48,25 +48,5 @@
     "Safari": false,
     "Trees": 0,
     "LoginCode": "j0z4o9"
-  },
-  {
-    "Fname": "nieuweuser",
-    "Lname": "oke",
-    "CreditCard": "12341234",
-    "Continent": "Europa",
-    "Email": "asdf@adsfasdf.nl",
-    "Safari": false,
-    "Trees": 0,
-    "LoginCode": "83ad5c"
-  },
-  {
-    "Fname": "test",
-    "Lname": "achternaam",
-    "CreditCard": "13241234",
-    "Continent": "Europa",
-    "Email": "asdf@asdfasdf.nl",
-    "Safari": false,
-    "Trees": 0,
-    "LoginCode": "472ybz"
   }
 ]
