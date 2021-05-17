@@ -1,20 +1,11 @@
-﻿
-using System;
-using System.IO;
-using System.Text.Json;
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace ChatButlerProjectB
 {
     internal class Butler
     {
-        private Reviews _reviews;
-
-        public class Reviews
-        {
-        }
-
         public Butler()
         {
 
@@ -31,23 +22,24 @@ namespace ChatButlerProjectB
             var readAllUser = File.ReadAllText(getMemberPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
             //Check of iemand ingelogd is
-            /*if(currentUser.Code == "000000")
+            if(currentUser.Code == "000000")
             {
-                return "1: Een review bekijken van eerdere gasten\n" +
-                        "2: Een reservering plaatsen\n" +
-                        "3: Registreren\n" +
-                        "4: Inloggen\n" +
-                        "5: Sluiten";
-            }*/
+                return "---------------------------------------------\n" +
+                   "|1: Reviews bekijken\n" +
+                   "|2: Registreren\n" +
+                   "|3: Inloggen\n" +
+                   "|4: Andere gast opzoeken\n" +
+                   "|5: Sluiten\n" + 
+                   "---------------------------------------------";
+            }
             return "---------------------------------------------\n" +
-                   "|1: Een review bekijken van eerdere gasten\n" +
-                   "|2: Een reservering plaatsen\n" +
-                   "|3: Registreren\n" +
-                   "|4: Login\n" +
-                   "|6: Account bekijken\n" +
-                   "|7: Uitloggen\n" +
-                   "|8: Zoek een member\n" +
-                   "|5: Sluiten\n" +
+                   "|1: Reviews bekijken\n" +
+                   "|2: Review schrijven\n" +
+                   "|3: Een reservering plaatsen\n" +    
+                   "|4: Account bekijken\n" +
+                   "|5: Andere gast opzoeken\n" +
+                   "|6: Uitloggen\n" +
+                   "|7: Sluiten\n" + 
                    "---------------------------------------------";
         }
 
