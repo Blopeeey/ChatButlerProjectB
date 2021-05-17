@@ -7,6 +7,7 @@ namespace ChatButlerProjectB
     {
         public static void Main()
         {
+            Console.Clear();
             Butler Winston = new Butler();
 
 
@@ -99,6 +100,10 @@ namespace ChatButlerProjectB
                 log.LogUserOut();
             }
             else if (i == "7")
+            {
+                acc.RemoveAccount();
+            }
+            else if (i == "8")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }

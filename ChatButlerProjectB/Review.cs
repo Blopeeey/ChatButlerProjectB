@@ -83,11 +83,11 @@ namespace ChatButlerProjectB
 
             //Name--
             string input_name = "";
-            string code_json = File.ReadAllText("loggedInUser.json");
+            string code_json = File.ReadAllText(@"..\..\..\loggedInUser.json");
             currentuser = System.Text.Json.JsonSerializer.Deserialize<UserCode>(code_json);
             string userCode = currentuser.Code;
 
-            string members_json = File.ReadAllText("members.json");
+            string members_json = File.ReadAllText(@"..\..\..\members.json");
             var currentMem = JsonConvert.DeserializeObject<List<MemberDetails>>(members_json);
 
             foreach (var item in currentMem)
