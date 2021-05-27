@@ -39,7 +39,8 @@ namespace ChatButlerProjectB
                    "|4: Account bekijken\n" +
                    "|5: Andere gast opzoeken\n" +
                    "|6: Uitloggen\n" +
-                   "|7: Sluiten\n" + 
+                   "|7: Account verwijderen\n" +
+                   "|8: Sluiten\n" + 
                    "---------------------------------------------";
         }
 
