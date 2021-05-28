@@ -83,11 +83,11 @@ namespace ChatButlerProjectB
 
             //Name--
             string input_name = "";
-            string code_json = File.ReadAllText("loggedInUser.json");
+            string code_json = File.ReadAllText(@"..\..\..\loggedInUser.json");
             currentuser = System.Text.Json.JsonSerializer.Deserialize<UserCode>(code_json);
             string userCode = currentuser.Code;
 
-            string members_json = File.ReadAllText("members.json");
+            string members_json = File.ReadAllText(@"..\..\..\members.json");
             var currentMem = JsonConvert.DeserializeObject<List<MemberDetails>>(members_json);
 
             foreach (var item in currentMem)
@@ -101,7 +101,7 @@ namespace ChatButlerProjectB
             //Date--
             string input_date = DateTime.Now.ToString("dd/MM/yyyy");
 
-            //Review-
+            //Review--
             string input_text = "";
             Console.CursorVisible = false;
             while (input_text.Length < 512)
@@ -170,10 +170,6 @@ namespace ChatButlerProjectB
                 Text = input_text,
                 Rating = input_rating,
             });
-
-            //LOG
-
-            //
 
             readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);

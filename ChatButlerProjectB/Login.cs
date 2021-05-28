@@ -25,7 +25,9 @@ namespace ChatButlerProjectB
                 var loginMember = new Login { Code = result };
                 readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
                 File.WriteAllText(filePath, readCurrentText);
+                Console.Clear();
                 Console.WriteLine(" ----------------\n |U bent ingelogd|\n ----------------");
+
                 Program.Main();
             }
             else
@@ -60,6 +62,7 @@ namespace ChatButlerProjectB
             readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
             Console.WriteLine("U bent uitgelogd");
+            Console.Clear();
             Program.Main();
         }
 

@@ -1,6 +1,12 @@
-﻿using System;
+using System;
+using Newtonsoft.Json;
+using ChatButlerProjectB;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json.Converters;
 using System.IO;
-using System.Text;//tijdelijk
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace ChatButlerProjectB
 {
@@ -10,65 +16,119 @@ namespace ChatButlerProjectB
         {
             Console.Clear();
             Butler Winston = new Butler();
-            Register reg = new Register();
-            Login login = new Login();
-            Account acc = new Account();
-            Review rev = new Review();
-            SearchMember smember = new SearchMember();
-            PlaceReservation res = new PlaceReservation();
 
-            bool loggedin = false;
+            Console.Title = "Restuarant La Mouette";
 
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
             Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
             string chosenInput = Console.ReadLine();
 
-            if (chosenInput != "1" && chosenInput != "2" && chosenInput != "3" && chosenInput != "4" && chosenInput != "5" && chosenInput != "6" && chosenInput != "7" && chosenInput != "8" && chosenInput != "chef input")
+            string user = Account.GetUserCode();
+            if(user == "000000")
+            {
+                MenuNotLoggedIn(chosenInput);
+            }
+            else
+            {
+                MenuLoggedIn(chosenInput);
+            }
+        }
+
+        public static void MenuNotLoggedIn(string i)
+        {
+            Register reg = new Register();
+            Login log = new Login();
+            Review rev = new Review();
+            SearchMember smember = new SearchMember();
+            Chef chef = new Chef();
+
+            if (i == "1")
+            {
+                rev.Get_reviews();
+            }
+            else if(i == "2")
+            {
+                reg.MainReg();
+            }
+            else if(i == "3")
+            {
+                log.MainLogin();
+            }
+            else if(i == "4")
+            {
+                smember.MainSearch();
+            }
+            else if(i == "5")
+            {
+                Console.WriteLine("Bedankt voor uw bezoek");
+            }
+            else if (i == "sesame")
+            {
+                chef.MainChef();
+            }
+            else
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
                 Main();
             }
-            else if (chosenInput == "5")
-            {
-                Console.WriteLine("Bedankt voor uw bezoek");
-            }
-            else if (chosenInput == "1")
+        }
+
+        public static void MenuLoggedIn(string i)
+        {
+            Login log = new Login();
+            Account acc = new Account();
+            Review rev = new Review();
+            SearchMember smember = new SearchMember();
+            PlaceReservation res = new PlaceReservation();
+            Chef chef = new Chef();
+            CancelReservation can = new CancelReservation();
+
+            if (i == "1")
             {
                 rev.Get_reviews();
             }
-            else if (chosenInput == "2")
+            else if (i == "2")
+            {
+                rev.Make_review();
+            }
+            else if (i == "3")
             {
                 res.Reservation();
             }
-            else if (chosenInput == "3")
+            else if (i == "9")
             {
-                reg.MainReg();
+                can.DeleteReservation();
             }
-            else if (chosenInput == "4")
-            {
-                login.MainLogin();
-            }
-            else if (chosenInput == "6")
+            else if (i == "4")
             {
                 acc.MainAcc();
             }
-            else if (chosenInput == "7")
-            {
-                login.LogUserOut();
-            }
-            else if (chosenInput == "8")
+            else if (i == "5")
             {
                 smember.MainSearch();
             }
-            else if (chosenInput == "ma names cheff")
+            else if (i == "6")
             {
-                Console.WriteLine("Cheff");
+                log.LogUserOut();
             }
-            Winston.Log(1, "testtesttest");
-            //test
-            //double discount_pc = rev.Make_review();
-            //Console.WriteLine(discount_pc);
+            else if (i == "7")
+            {
+                acc.RemoveAccount();
+            }
+            else if (i == "8")
+            {
+                Console.WriteLine("Bedankt voor uw bezoek");
+            }
+            else if (i == "sesame")
+            {
+                chef.MainChef();
+            }
+            else
+            {
+                Console.WriteLine("Dat is een ongeldig nummer");
+                Main();
+            }
         }
     }
 }
