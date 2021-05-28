@@ -89,5 +89,10 @@ namespace ChatButlerProjectB
         {
             return "";
         }
+
+        public void Log()
+        {
+            ////
+        }
     }
 }
