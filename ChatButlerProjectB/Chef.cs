@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using System.Net.Mail;
-using System.Net;
+//using System.Text;
+//using System.Text.Json;
+//using System.Text.RegularExpressions;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using System.IO;
+//using System.Collections.Generic;
+//using Newtonsoft.Json;
+//using System.Net.Mail;
+//using System.Net;
+
+
 
 //namespace ChatButlerProjectB
 //{
@@ -45,8 +47,12 @@ namespace ChatButlerProjectB
     {
         public void MainChef()
         {
+            Butler Winston = new Butler();
+            Winston.Log(3, "Menu/Chefmenu");
             Console.WriteLine("Welke datum zoekt u? (dd/mm/yy)");
+            Winston.Log(1, "Welke datum zoekt u? (dd/mm/yy)");
             string datum = Console.ReadLine();
+            Winston.Log(2, $"Ingevoerde datum: {datum}");
             Console.WriteLine(GetReservation(datum));
             Console.WriteLine("Wilt u nog een datum zoeken?");
             string nieuweDatum = Console.ReadLine();

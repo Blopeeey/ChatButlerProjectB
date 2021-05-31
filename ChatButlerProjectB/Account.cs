@@ -33,7 +33,7 @@ namespace ChatButlerProjectB
 
         public static void CheckIfLoggedIn()
         {
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
@@ -57,11 +57,11 @@ namespace ChatButlerProjectB
         public static string ShowInfo()
         {
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             //Haal huidige user op
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
@@ -144,11 +144,11 @@ namespace ChatButlerProjectB
         public static bool GetSafari()
         {
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             //Haal huidige user op
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
@@ -168,7 +168,7 @@ namespace ChatButlerProjectB
 
         public static int GetExspensiveMenus()
         {
-            var getMenuPath = @"..\..\..\Reservations.json";
+            var getMenuPath = @"../../../Reservations.json";
             var readAllMenus = File.ReadAllText(getMenuPath);
             var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
             int impala = 0;
@@ -184,7 +184,7 @@ namespace ChatButlerProjectB
 
         public static string GetUserCode()
         {
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
             return currentUser.Code;
@@ -192,7 +192,7 @@ namespace ChatButlerProjectB
 
         public static string ShowChosenMenus()
         {
-            var getMenuPath = @"..\..\..\Reservations.json";
+            var getMenuPath = @"../../../Reservations.json";
             var readAllMenus = File.ReadAllText(getMenuPath);
             var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
             int impala = 0;
@@ -217,7 +217,7 @@ namespace ChatButlerProjectB
         {
             string code = GetUserCode();
             Login log = new Login();
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var newUser = new List<MemberDetails>();
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
