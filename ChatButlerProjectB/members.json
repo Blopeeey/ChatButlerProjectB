@@ -58,5 +58,25 @@
     "Safari": false,
     "Trees": 0,
     "LoginCode": "b5g7m8"
+  },
+  {
+    "Fname": "nikola",
+    "Lname": "saratlija",
+    "CreditCard": "49832748093217",
+    "Continent": "Europa",
+    "Email": "s.nikola.62001@gmail.com",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "xnx258"
+  },
+  {
+    "Fname": "qwer",
+    "Lname": "qwer",
+    "CreditCard": "12341234",
+    "Continent": "Europa",
+    "Email": "qwerqwer@asdfasdfb.nl",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "5dsk68"
   }
 ]

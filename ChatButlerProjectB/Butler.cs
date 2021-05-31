@@ -46,11 +46,12 @@ namespace ChatButlerProjectB
                        "|1: Reviews bekijken\n" +
                        "|2: Review schrijven\n" +
                        "|3: Een reservering plaatsen\n" +
-                       "|4: Account bekijken\n" +
-                       "|5: Andere gast opzoeken\n" +
-                       "|6: Uitloggen\n" +
-                       "|7: Account verwijderen\n" +
-                       "|8: Sluiten\n" +
+                       "|4: Een reservering verwijderen\n" +
+                       "|5: Account bekijken\n" +
+                       "|6: Andere gast opzoeken\n" +
+                       "|7: Uitloggen\n" +
+                       "|8: Account verwijderen\n" +
+                       "|9: Sluiten\n" +
                        "---------------------------------------------";
             }
             Log(1, toReturn_2);

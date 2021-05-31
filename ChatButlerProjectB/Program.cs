@@ -98,27 +98,27 @@ namespace ChatButlerProjectB
             {
                 res.Reservation();
             }
-            else if (i == "9")
+            else if (i == "4")
             {
                 can.DeleteReservation();
             }
-            else if (i == "4")
+            else if (i == "5")
             {
                 acc.MainAcc();
             }
-            else if (i == "5")
+            else if (i == "6")
             {
                 smember.MainSearch();
             }
-            else if (i == "6")
+            else if (i == "7")
             {
                 log.LogUserOut();
             }
-            else if (i == "7")
+            else if (i == "8")
             {
                 acc.RemoveAccount();
             }
-            else if (i == "8")
+            else if (i == "9")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }
