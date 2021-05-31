@@ -64,16 +64,19 @@ namespace ChatButlerProjectB
                     current_review++;
                     current_review = current_review % count;
                     Winston.Log(2, "invoer: <RightArrow>");
+                    Console.Clear();
                 }
                 else if (key.Equals(ConsoleKey.LeftArrow) && current_review > 0)
                 {
                     current_review--;
                     Winston.Log(2, "invoer: <LeftArrow>");
+                    Console.Clear();
                 }
                 else if (key.Equals(ConsoleKey.Escape))
                 {
                     Winston.Log(2, "invoer: <Escape>");
                     Winston.Log(1, $"Gebruiker heeft {aantal_bekeken.Length} van {count} reviews gelezen");
+                    Console.Clear();
                     Program.Main();
                     break;
                 }
