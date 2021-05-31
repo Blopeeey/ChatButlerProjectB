@@ -14,7 +14,6 @@ namespace ChatButlerProjectB
     {
         public static void Main()
         {
-            Console.Clear();
             Butler Winston = new Butler();
 
             //bool loggedin = false;

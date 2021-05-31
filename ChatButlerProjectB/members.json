@@ -48,5 +48,15 @@
     "Safari": false,
     "Trees": 0,
     "LoginCode": "j0z4o9"
+  },
+  {
+    "Fname": "test",
+    "Lname": "test",
+    "CreditCard": "12341234",
+    "Continent": "Europa",
+    "Email": "testsetset@test.nl",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "b5g7m8"
   }
 ]
