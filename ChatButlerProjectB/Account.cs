@@ -33,6 +33,7 @@ namespace ChatButlerProjectB
 
         public static void CheckIfLoggedIn()
         {
+            Butler winston = new Butler();
             var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
@@ -41,7 +42,9 @@ namespace ChatButlerProjectB
             {
                 Console.Clear();
                 Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
+                winston.Log(1, "U bent niet ingelogd. Wilt u een account maken?");
                 string accountMaken = Console.ReadLine();
+                winston.Log(2, accountMaken);
                 if (accountMaken == "ja")
                 {
                     Register newReg = new Register();
@@ -56,6 +59,7 @@ namespace ChatButlerProjectB
 
         public static string ShowInfo()
         {
+            Butler winston = new Butler();
             //Haal alle users op
             var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
@@ -81,13 +85,17 @@ namespace ChatButlerProjectB
                             $"Trees to compensate: {item.Trees}";
                 }
             }
+            winston.Log(2, info);
             return info;
         }
 
         public static bool AskForTask(string text)
         {
+            Butler winston = new Butler();
             Console.WriteLine("\n" + text);
+            winston.Log(1, "\n" + text);
             var keus = Console.ReadLine();
+            winston.Log(2, keus);
             if (keus == "ja")
             {
                 return true;
