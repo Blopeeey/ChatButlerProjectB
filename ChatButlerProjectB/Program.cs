@@ -21,9 +21,10 @@ namespace ChatButlerProjectB
             Winston.Log(3, "Menu");
             Console.WriteLine(Winston.Greet());
             Console.WriteLine(Winston.ShowComponents());
-            Console.WriteLine("Kies het nummer waar u heen wilt gaan!");
-            Winston.Log(1, "Kies het nummer waar u heen wilt gaan!");
+            Console.WriteLine("Kies het nummer waar u heen wilt gaan! Druk op enter om invoer te bevestigen.");
+            Winston.Log(1, "Kies het nummer waar u heen wilt gaan! Druk op enter om invoer te bevestigen.");
             string chosenInput = Console.ReadLine();
+            Winston.Log(2, $"Invoer: {chosenInput}");
 
             string user = Account.GetUserCode();
             if(user == "000000")
@@ -71,6 +72,7 @@ namespace ChatButlerProjectB
             else
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
+                Console.Clear();
                 Main();
             }
         }
@@ -129,6 +131,7 @@ namespace ChatButlerProjectB
             else
             {
                 Console.WriteLine("Dat is een ongeldig nummer");
+                Console.Clear();
                 Main();
             }
         }

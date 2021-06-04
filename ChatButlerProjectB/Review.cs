@@ -138,24 +138,11 @@ namespace ChatButlerProjectB
                 Console.WriteLine($"Typ '-' om tekst te verwijderen\nTekens over: {512 - input_text.Length}\nSchrijf uw recensie en druk op enter om te bevestigen:");
                 Console.WriteLine(input_text);
                 char c = Console.ReadKey().KeyChar;
-                if (c == 13)
-                    //{
-                    //    Console.Clear();
-                    //    Console.WriteLine("Druk nogmaals op enter om te bevestigen of druk op backspace om terug te gaan.");
-                    //    if (Console.ReadKey().KeyChar == 13)
-                    //    {}
-                    break;
 
-                if (c.Equals('-') && input_text.Length > 0)
-                {
-                    input_text = input_text.Remove(input_text.Length - 1);
-                }
-                else
-                {
-                    if (!c.Equals('-'))
-                        input_text += c;
-                }
+                // base
+
             }
+
             int letter_count = 0;
             var temp_text = "";
             foreach (char letter in input_text)
