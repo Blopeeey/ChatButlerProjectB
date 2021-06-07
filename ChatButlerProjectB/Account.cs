@@ -9,8 +9,6 @@ namespace ChatButlerProjectB
     {
         public void MainAcc()
         {
-            Butler winston = new Butler();
-            winston.Log(3, "Account");
             CheckIfLoggedIn();
             Console.WriteLine(ShowInfo());
             bool menus = AskForTask("Wilt u uw gekozen menu's bekijken? (ja/nee)");
