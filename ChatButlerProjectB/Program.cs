@@ -85,7 +85,6 @@ namespace ChatButlerProjectB
             SearchMember smember = new SearchMember();
             PlaceReservation res = new PlaceReservation();
             Chef chef = new Chef();
-            CancelReservation can = new CancelReservation();
 
             if (i == "1")
             {
@@ -102,7 +101,7 @@ namespace ChatButlerProjectB
             }
             else if (i == "4")
             {
-                can.DeleteReservation();
+               
             }
             else if (i == "5")
             {

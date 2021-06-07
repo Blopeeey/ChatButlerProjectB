@@ -48,6 +48,7 @@ namespace ChatButlerProjectB
             {
                 MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
                 SendEmail(fname, lname, CardNumber, continent, email, loginCode);
+                Console.Clear();
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
                 winston.Log(1, "Check uw e-mail voor verificatie en inlog code");
                 Program.Main();
@@ -147,6 +148,7 @@ namespace ChatButlerProjectB
                 MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
                 //Verstuur mail
                 SendEmail(fname, lname, CardNumber, continent, email, loginCode);
+                Console.Clear();
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
                 winston.Log(1, "Check uw e-mail voor verificatie en inlog code");
                 Program.Main();
@@ -297,7 +299,8 @@ namespace ChatButlerProjectB
                 Email = mail,
                 Safari = false,
                 Trees = 0,
-                LoginCode = logincode
+                LoginCode = logincode,
+                Verified = false
             });
 
             readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
@@ -318,7 +321,8 @@ namespace ChatButlerProjectB
                 $"Naam: {fname} {lname}\n" +
                 $"Continent: {continent}\n" +
                 $"Creditcard: {cnumber[..5]}*****\n\n" +
-                $"Om in te loggen kunt u de volgende code gebruiken: {logincode}";
+                $"U kunt met de volgende code inloggen: {logincode}\n" +
+                $"Uw account zal niet geverifieerd worden totdat u voor de eerste keer inlogd";
 
             smtpClient.Send("lamouette.noreply@gmail.com", userMail, "Registreer bevestiging", body);
         }

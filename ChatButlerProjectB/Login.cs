@@ -29,6 +29,30 @@ namespace ChatButlerProjectB
                 var loginMember = new Login { Code = result };
                 readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
                 File.WriteAllText(filePath, readCurrentText);
+                //Account verifieren
+                string ownCode = Account.GetUserCode();
+                var getMemberPath = @"../../../members.json";
+                var readAllUsers = File.ReadAllText(getMemberPath);
+                var newUser = new List<MemberDetails>();
+                var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
+                foreach(var item in currentUsers)
+                {
+                    newUser.Add(new MemberDetails()
+                    {
+                        Fname = item.Fname,
+                        Lname = item.Lname,
+                        CreditCard = item.CreditCard,
+                        Continent = item.Continent,
+                        Email = item.Email,
+                        Safari = item.Safari,
+                        Trees = 0,
+                        LoginCode = item.LoginCode,
+                        Verified = true
+                    });
+                }
+                readAllUsers = JsonConvert.SerializeObject(newUser, Formatting.Indented);
+                File.WriteAllText(getMemberPath, readAllUsers);
+
                 Console.Clear();
                 Console.WriteLine(" ----------------\n |U bent ingelogd|\n ----------------");
                 winston.Log(1, "----------------\n |U bent ingelogd|\n ----------------");

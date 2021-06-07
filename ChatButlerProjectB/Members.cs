@@ -8,4 +8,5 @@
     public bool Safari { get; set; }
     public int Trees { get; set; }
     public string LoginCode { get; set; }
+    public bool Verified { get; set; }
 }

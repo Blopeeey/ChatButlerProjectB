@@ -55,6 +55,11 @@ namespace ChatButlerProjectB
                 }
             }
 
+            if(count == 0)
+            {
+                Console.WriteLine("Deze voornaam is niet gevonden");
+                MainSearch();
+            }
             //Sla gevonden achternamen op
             string[] lastNames = new string[count];
             int i = 0;

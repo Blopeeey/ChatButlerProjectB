@@ -9,6 +9,7 @@ namespace ChatButlerProjectB
     {
         public void MainAcc()
         {
+            Console.Clear();
             Butler winston = new Butler();
             winston.Log(3, "Account");
             CheckIfLoggedIn();
@@ -20,6 +21,7 @@ namespace ChatButlerProjectB
                 bool backToMain = AskForTask("Wilt u terug naar het hoofd menu? (ja/nee)");
                 if (backToMain)
                 {
+                    Console.Clear();
                     Program.Main();
                 }
                 else
@@ -29,6 +31,7 @@ namespace ChatButlerProjectB
             }
             else
             {
+                Console.Clear();
                 Program.Main();
             }
         }
