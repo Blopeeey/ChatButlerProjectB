@@ -49,7 +49,7 @@ namespace ChatButlerProjectB
             int count = 0;
             foreach(var item in currentUsers)
             {
-                if(item.Fname == name)
+                if(item.Fname == name && item.Verified == true)
                 {
                     count++;
                 }
@@ -65,7 +65,7 @@ namespace ChatButlerProjectB
             int i = 0;
             foreach (var item in currentUsers)
             {
-                if (item.Fname == name)
+                if (item.Fname == name && item.Verified == true)
                 {
                     lastNames[i] = item.Lname;
                     i++;
@@ -108,7 +108,7 @@ namespace ChatButlerProjectB
             foreach (var user in currentUsers)
             {
                 totalcount++;
-                if (vnaam == user.Fname)
+                if (vnaam == user.Fname && user.Verified == true)
                 {
                     if (anaam == user.Lname)
                     {
@@ -166,7 +166,7 @@ namespace ChatButlerProjectB
 
             foreach(var user in currentUsers)
             {
-                if(user.Fname == s)
+                if(user.Fname == s && user.Verified == true)
                 {
                     return true;
                 }
