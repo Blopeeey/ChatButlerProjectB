@@ -43,83 +43,123 @@ namespace ChatButlerProjectB
 
         public void Reservation()
         {
+            Butler Winston = new Butler();
+            Winston.Log(3, "Reserveringen");
             Console.WriteLine("DD/MM/JJJJ");
+            Winston.Log(1, "DD/MM/JJJJ");
             string datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
-
+            Winston.Log(2, datum);
             Console.WriteLine("Tijdstip:");
+            Winston.Log(1, "Tijdstip:");
             string tijd = ViableChecktime(Console.ReadLine(), "het gewenste tijdstip");
+            Winston.Log(2, tijd);
 
             Console.WriteLine("Gasten:");
+            Winston.Log(1, "Gasten:");
             string gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
+            Winston.Log(2, gasten);
 
             Console.WriteLine("Impala:");
+            Winston.Log(1,"Impala:");
             string impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
+            Winston.Log(2, impala);
 
             Console.WriteLine("Vis:");
+            Winston.Log(1, "Vis:");
             string fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
+            Winston.Log(2, fish);
 
             Console.WriteLine("Vegetarisch:");
+            Winston.Log(1, "Vegetarisch:");
             string vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
+            Winston.Log(2, vegan);
 
             Console.Clear();
 
 
             Console.WriteLine($"Datum: {datum}");
+            Winston.Log(1, $"Datum: {datum}");
             Console.WriteLine($"Tijd: {tijd}");
+            Winston.Log(1, $"Tijd: {tijd}");
             Console.WriteLine($"Aantal gasten: {gasten}");
+            Winston.Log(1, $"Aantal gasten: {gasten}");
             Console.WriteLine($"{impala}x Impala, {fish}x Vis, {vegan} Vegetarisch");
+            Winston.Log(1, $"{impala}x Impala, {fish}x Vis, {vegan} Vegetarisch");
             Console.WriteLine("\nKloppen deze gegevens?");
+            Winston.Log(1, "\nKloppen deze gegevens?");
             string answer = Console.ReadLine().ToLower();
+            Winston.Log(2, answer);
 
             while (answer != "ja" && answer != "j" && answer != "yes" && answer != "y" && answer != "nee" && answer != "n" && answer != "no" && answer != "n")
             {
-                Console.WriteLine("Just yes or no pls");
+                Console.WriteLine("Antwoord met ja of nee...");
+                Winston.Log(1, "Antwoord met ja of nee...");
                 answer = Console.ReadLine().ToLower();
+                Winston.Log(2, answer);
             }
 
             while (answer == "nee" || answer == "n" || answer == "no" || answer == "n")
             {
                 Console.WriteLine("Wat klopt er niet? \n 1: Datum \n 2: Tijdstip \n 3: Aantal gasten \n 4: Imapala \n 5: Vis \n 6: Vegetarisch");
+                Winston.Log(1, "Wat klopt er niet? \n 1: Datum \n 2: Tijdstip \n 3: Aantal gasten \n 4: Imapala \n 5: Vis \n 6: Vegetarisch");
                 answer = Console.ReadLine();
+                Winston.Log(2, answer);
                 while (!Regex.IsMatch(answer, @"^[1-9]+$"))
                 {
                     Console.Write("dit is geen geldig nummer. kijk na of u een typefout gemaakt heeft\n");
+                    Winston.Log(1, "dit is geen geldig nummer. kijk na of u een typefout gemaakt heeft\n");
                     answer = Console.ReadLine();
+                    Winston.Log(2, answer);
                 }
                 if (answer == "1")
                 {
                     Console.WriteLine("DD/MM/JJJJ");
+                    Winston.Log(1, "DD/MM/JJJ");
                     datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
+                    Winston.Log(2, datum);
                 }
                 else if (answer == "2")
                 {
                     Console.WriteLine("Tijdstip:");
+                    Winston.Log(1, "Tijdstip:");
                     tijd = ViableChecktime(Console.ReadLine(), "het gewenste tijdstip");
+                    Winston.Log(2, tijd);
                 }
                 else if (answer == "3")
                 {
                     Console.WriteLine("Gasten:");
+                    Winston.Log(1, "Gasten:");
                     gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
+                    Winston.Log(2, gasten);
                 }
                 else if (answer == "4")
                 {
                     Console.WriteLine("Impala:");
+                    Winston.Log(1, "Impala:");
                     impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
+                    Winston.Log(2, impala);
                 }
                 else if (answer == "5")
                 {
                     Console.WriteLine("Vis:");
+                    Winston.Log(1, "Vis:");
                     fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
+                    Winston.Log(2, fish);
                 }
                 else if (answer == "6")
                 {
                     Console.WriteLine("Vegetarisch:");
+                    Winston.Log(1, "Vegetarisch:");
                     vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
+                    Winston.Log(2, vegan);
                 }
                 Console.Clear();
                 Console.WriteLine("Wat klopt er niet? \n1: Datum\n2: Tijdstip\n3: Aantal gasten\n4: Impala\n5: Vis\n6: Vegetarisch\n");
+                Winston.Log(1, "Wat klopt er niet? \n1: Datum\n2: Tijdstip\n3: Aantal gasten\n4: Impala\n5: Vis\n6: Vegetarisch\n");
                 Console.WriteLine("Klopt alles nu wel?");
+                Winston.Log(1, "Klopt alles nu wel?");
                 answer = Console.ReadLine();
+                Winston.Log(2, answer);
             }
 
             if (answer == "ja" || answer == "j" || answer == "yes" || answer == "y")
@@ -129,7 +169,9 @@ namespace ChatButlerProjectB
                 {
                     Console.Clear();
                     Console.WriteLine($"Terug naar hoofd menu in {i}\n");
+                    Winston.Log(1, $"Terug naar hoofd menu in {i}\n");
                     Console.WriteLine("Check uw e-mail voor uw reservatie code");
+                    Winston.Log(1, "Check uw e-mail voor uw reservatie code");
                     System.Threading.Thread.Sleep(1000);
                 }
                 Console.Clear();
@@ -179,6 +221,7 @@ namespace ChatButlerProjectB
 
         public string GetUserCode()
         {
+            Butler Winston = new Butler();
             var getPath = @"..\..\..\loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
@@ -186,11 +229,14 @@ namespace ChatButlerProjectB
         }
         public string ViableCheckname(string text, string waarde)
         {
+            Butler Winston = new Butler();
             string Value = text;
             while (!Regex.IsMatch(Value, @"^[A-Za-z]+$"))
             {
-                Console.Write($"Oops! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Console.Write($"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Winston.Log(1, $"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
                 Value = Console.ReadLine();
+                Winston.Log(2, Value);
             }
             string LowerCaseValue = Value.ToLower();
             return LowerCaseValue;
@@ -198,11 +244,14 @@ namespace ChatButlerProjectB
 
         public string ViableCheckdate(string text, string waarde)
         {
+            Butler Winston = new Butler();
             string Value = text;
             while (!Regex.IsMatch(Value, @"(((0|1)[0-9]|2[0-9]|3[0-1])\/(0[1-9]|1[0-2])\/((19|20)\d\d))$"))
             {
-                Console.Write($"Oops! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Console.Write($"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Winston.Log(1, $"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
                 Value = Console.ReadLine();
+                Winston.Log(2, Value);
             }
             string LowerCaseValue = Value.ToLower();
             return LowerCaseValue;
@@ -210,11 +259,14 @@ namespace ChatButlerProjectB
 
         public string ViableChecktime(string aantal, string waarde)
         {
+            Butler Winston = new Butler();
             string Value = aantal;
             while (!Regex.IsMatch(Value, @"^(?:0?[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"))
             {
-                Console.Write($"Oops! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Console.Write($"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Winston.Log(1, $"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
                 Value = Console.ReadLine();
+                Winston.Log(2, Value);
             }
             string LowerCaseValue = Value.ToLower();
             return LowerCaseValue;
@@ -222,11 +274,14 @@ namespace ChatButlerProjectB
 
         public string ViableCheckint(string aantal, string waarde)
         {
+            Butler Winston = new Butler();
             string Value = aantal;
             while (!Regex.IsMatch(Value, @"^[0-9]+$"))
             {
                 Console.Write($"Oops! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Winston.Log(1, $"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
                 Value = Console.ReadLine();
+                Winston.Log(2, Value);
             }
             string LowerCaseValue = Value.ToLower();
             return LowerCaseValue;
@@ -234,11 +289,14 @@ namespace ChatButlerProjectB
 
         public string ViableCheckEmail(string Email, string waarde)
         {
+            Butler Winston = new Butler();
             string Value = Email;
             while (!Regex.IsMatch(Value, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
             {
                 Console.Write($"Oops! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
+                Winston.Log(1, $"Oeps! dat kan niet kloppen, voer a.u.b. {waarde} in.\n");
                 Value = Console.ReadLine();
+                Winston.Log(2, Value);
             }
             string LowerCaseValue = Value.ToLower();
             return LowerCaseValue;
@@ -246,6 +304,7 @@ namespace ChatButlerProjectB
 
         public void SaveReservation(string UserCode, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch)
         {
+            Butler Winston = new Butler();
             // Creates a path to current folder (of the exe)
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
@@ -306,24 +365,51 @@ namespace ChatButlerProjectB
 
     internal class CancelReservation
     {
+        Butler Winston = new Butler();
         public void DeleteReservation()
         {
             Console.WriteLine("Voer uw reserveringscode in:");
+            Winston.Log(1, "Voer uw reserveringscode in:");
             string reservationCode = Console.ReadLine();
-            //var UserCode = GetUserCode();
-            var filePath = @"..\..\..\Reservations.json";
-            var readCurrentText = File.ReadAllText(filePath);
-            var newReservation = new List<ReservationDetails>();
-            var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText);
-            foreach (var item in currentReservation)
+            Winston.Log(2, reservationCode);
+            Console.WriteLine("Weet u zeker dat u uw reservering wilt annuleren?\nja of nee?");
+            Winston.Log(1, "Weet u zeker dat u uw reservering wilt annuleren?\nja of nee?");
+            string confirmation = Console.ReadLine();
+            Winston.Log(2, confirmation);
+            if (confirmation == "ja")
             {
-                if (item.ReservationCode != reservationCode)
+
+
+                //var UserCode = GetUserCode();
+                var filePath = @"..\..\..\Reservations.json";
+                var readCurrentText = File.ReadAllText(filePath);
+                var newReservation = new List<ReservationDetails>();
+                var currentReservation = JsonConvert.DeserializeObject<List<ReservationDetails>>(readCurrentText);
+                foreach (var item in currentReservation)
                 {
-                    newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan));
-                    readCurrentText = JsonConvert.SerializeObject(newReservation, Formatting.Indented);
-                    File.WriteAllText(filePath, readCurrentText);
+                    if (item.ReservationCode != reservationCode)
+                    {
+                        newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan));
+                        readCurrentText = JsonConvert.SerializeObject(newReservation, Formatting.Indented);
+                        File.WriteAllText(filePath, readCurrentText);
+                        Console.WriteLine("Je reservering is succesvol geannuleerd");
+                        Winston.Log(1, "Je reservering is succesvol geannuleerd");
+                        Console.WriteLine("U wordt nu teruggestuurd naar het hoofdmenu");
+                        Winston.Log(1, "U wordt nu teruggestuurd naar het hoofdmenu");
+                        System.Threading.Thread.Sleep(3000);
+                        Console.Clear();
+                        Program.Main();
+                    }
                 }
             }
+            else if (confirmation == "nee")
+            {
+                Console.WriteLine("U wordt nu teruggestuurd naar het hoofdmenu");
+                Winston.Log(1, "U wordt nu teruggestuurd naar het hoofdmenu");
+                System.Threading.Thread.Sleep(3000);
+                Console.Clear();
+                Program.Main();
+            };
 
         }
     }
