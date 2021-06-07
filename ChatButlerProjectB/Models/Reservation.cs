@@ -53,13 +53,13 @@ namespace ChatButlerProjectB
             string gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
 
             Console.WriteLine("Impala:");
-            string impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
+            string impala = ViableCheckint(Console.ReadLine(), "het aantal impala (hoeveelheid)");
 
             Console.WriteLine("Vis:");
-            string fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
+            string fish = ViableCheckint(Console.ReadLine(), "het aantal vis (hoeveelheid)");
 
             Console.WriteLine("Vegetarisch:");
-            string vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
+            string vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch (hoeveelheid)");
 
             Console.Clear();
 
@@ -73,7 +73,7 @@ namespace ChatButlerProjectB
 
             while (answer != "ja" && answer != "j" && answer != "yes" && answer != "y" && answer != "nee" && answer != "n" && answer != "no" && answer != "n")
             {
-                Console.WriteLine("Just yes or no pls");
+                Console.WriteLine("Alleen ja of nee alstublieft");
                 answer = Console.ReadLine().ToLower();
             }
 
@@ -322,9 +322,9 @@ namespace ChatButlerProjectB
                     newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan));
                     readCurrentText = JsonConvert.SerializeObject(newReservation, Formatting.Indented);
                     File.WriteAllText(filePath, readCurrentText);
+                    Program.Main();
                 }
             }
-
         }
     }
 
