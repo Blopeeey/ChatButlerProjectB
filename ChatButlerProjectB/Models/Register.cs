@@ -182,7 +182,7 @@ namespace ChatButlerProjectB
             string lname = Console.ReadLine();
             winston.Log(2, lname);
             //Check of fname alleen maar bestaat uit letters. Zo niet vraag opnieuw voor naam
-            while (!Regex.IsMatch(lname, @"^[A-Za-z]+$"))
+            while (!Regex.IsMatch(lname, @"^[A-Za-z ]+$"))
             {
                 Console.Write("Dit is geen geldige naam. Kijk na of u een typefout gemaakt heeft\n");
                 winston.Log(1, "Dit is geen geldige naam. Kijk na of u een typefout gemaakt heeft\n");
