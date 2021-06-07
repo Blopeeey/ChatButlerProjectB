@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 //using System.Text;
 //using System.Text.Json;
@@ -47,29 +48,45 @@ namespace ChatButlerProjectB
     {
         public void MainChef()
         {
+            Console.Clear();
             Butler Winston = new Butler();
             Winston.Log(3, "Menu/Chefmenu");
-            Console.WriteLine("Welke datum zoekt u? (dd/mm/yyyy)");
-            Winston.Log(1, "Welke datum zoekt u? (dd/mm/yyyy)");
+            Console.WriteLine("~ChefMenu~\nWelke datum zoekt u? (dd/mm/yy). Druk op enter om uw invoer te bevestigen.");
+            Winston.Log(1, "~ChefMenu~\nWelke datum zoekt u? (dd/mm/yy). Druk op enter om uw invoer te bevestigen.");
+
             string datum = Console.ReadLine();
-            Winston.Log(2, $"Ingevoerde datum: {datum}");
+
+            Winston.Log(2, $"Invoer: {datum}");
             Console.WriteLine(GetReservation(datum));
-            Console.WriteLine("Wilt u nog een datum zoeken? (ja/nee)");
-            string nieuweDatum = Console.ReadLine();
-            if(nieuweDatum == "ja")
+
+            //
+            Console.WriteLine("Druk op Backspace om een volgende datum te zoeken of druk \nop Escape om terug te keren naar het hoofdmenu.");
+            Winston.Log(1, "Druk op Backspace om een volgende datum te zoeken of druk \nop Escape om terug te keren naar het hoofdmenu.");
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            while (!(key.Equals(ConsoleKey.Escape)) && !key.Equals(ConsoleKey.Backspace))
             {
-                MainChef();
+                key = Console.ReadKey(true).Key;
             }
-            else
+
+            if (key.Equals(ConsoleKey.Escape))
             {
+                Winston.Log(2, $"Invoer: <Escape>");
                 Console.Clear();
                 Program.Main();
             }
+            else if (key.Equals(ConsoleKey.Backspace))
+            {
+                Winston.Log(2, $"Invoer: <Backspace>");
+                MainChef();
+            }
+            //
         }
 
         public string GetReservation(string date)
         {
-            var getMenuPath = @"..\..\..\Reservations.json";
+            Butler Winston = new Butler();
+            var getMenuPath = @"../../../Reservations.json";
             var readAllMenus = File.ReadAllText(getMenuPath);
             var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
             Console.Clear();
@@ -78,22 +95,24 @@ namespace ChatButlerProjectB
             {
                 if (date == item.Date)
                 {
-                    allReservations += $"Usercode: {item.UserCode}\n" +
-                                       $"ReservationCode: {item.ReservationCode}\n" +
+                    allReservations += $"Datum: {item.Date}\n" +
+                                       $"Gebruikerscode: {item.UserCode}\n" +
+                                       $"Reservatiecode: {item.ReservationCode}\n" +
                                        $"Tijd: {item.Time}\n" +
-                                       $"Hoeveelheid gasten: {item.Guestcount}\n" +
-                                       $"Ingredienten: \n" +
+                                       $"Aantal gasten: {item.Guestcount}\n" +
+                                       $"Ingrediënten: \n" +
                                        $"- Impala {item.Impala}\n" +
-                                       $"- Fish {item.Fish}\n" +
-                                       $"- Vegan {item.Vegan}\n\n";
+                                       $"- Vis {item.Fish}\n" +
+                                       $"- Vegetarisch {item.Vegan}\n\n";
                 }
             }
             if(allReservations == "Alle gevonden reservaties:\n\n")
             {
-                return "Er zijn geen reserveringen gevonden op deze datum\n";
+                Winston.Log(1, "Er zijn geen reserveringen gevonden op basis van de ingevoerde gegevens.  \n");
+                return "Er zijn geen reserveringen gevonden op basis van de ingevoerde gegevens.  \n";
             }
+            Winston.Log(1, allReservations);
             return allReservations;
         }
-
     }
 }

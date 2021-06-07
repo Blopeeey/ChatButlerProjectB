@@ -95,6 +95,79 @@ namespace ChatButlerProjectB
             return true;
         }
 
+        public string GetReviewText(string name)
+        {
+            Butler Winston = new Butler();
+            string inputtext = "";
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Gebruiker: {name.TrimEnd(':')}\nSchrijf uw recensie. U kunt maximaal 512 karakters gebruiken.");
+                inputtext = Console.ReadLine();
+                if (inputtext.Length > 512)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Gebruiker: {name.TrimEnd(':')}\n\nGeschreven recensie:\n{MakeRightSize(inputtext)}");
+                    Console.WriteLine("\nU heeft meer dan 512 karakters gebruikt. druk op backspace om opnieuw \nte beginnen of druk of enter om het maximaal aantal karakters te behouden.");
+
+                    ConsoleKey key = Console.ReadKey(true).Key;
+                    while (!(key.Equals(ConsoleKey.Enter)) && !key.Equals(ConsoleKey.Backspace))
+                    {
+                        key = Console.ReadKey(true).Key;
+                    }
+
+                    if (key.Equals(ConsoleKey.Enter))
+                    {
+                        Console.Clear();
+                        return inputtext.Substring(0, 512);
+                    }
+                    else if (key.Equals(ConsoleKey.Backspace))
+                    {
+                        //break;
+                    }
+                    
+                } else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Gebruiker: {name.TrimEnd(':')}\n\nGeschreven recensie:\n{MakeRightSize(inputtext)}");
+                    Console.WriteLine("\nDruk op Enter om uw recensie in te dienen, of druk op Backspace om \nopnieuw te beginnen.");
+
+                    ConsoleKey key = Console.ReadKey(true).Key;
+                    while (!(key.Equals(ConsoleKey.Enter)) && !key.Equals(ConsoleKey.Backspace))
+                    {
+                        key = Console.ReadKey(true).Key;
+                    }
+
+                    if (key.Equals(ConsoleKey.Enter))
+                    {
+                        Console.Clear();
+                        return inputtext;
+                    }
+                    else if (key.Equals(ConsoleKey.Backspace))
+                    {
+                        //break;
+                    }
+                }
+            }
+        }
+
+        public string MakeRightSize(string text)
+        {
+            int letter_count = 0;
+            var temp_text = "";
+            foreach (char letter in text)
+            {
+                temp_text += letter;
+                letter_count++;
+                if (letter_count > 70 && letter == ' ')
+                {
+                    temp_text += "\n";
+                    letter_count = 0;
+                }
+            }
+            return temp_text;
+        }
+
         public double Make_review()
         {
             string user = Account.GetUserCode();
@@ -155,48 +228,12 @@ namespace ChatButlerProjectB
             Winston.Log(2, $"datum: {input_date}");
 
             //Review--
-            string input_text = "";
-            Console.CursorVisible = false;
-            while (input_text.Length < 512)
-            {
-                Console.Clear();
-                Console.WriteLine($"Gebruiker: {input_name.TrimEnd(':')}");
-                Console.WriteLine($"Typ '-' om tekst te verwijderen\nTekens over: {512 - input_text.Length}\nSchrijf uw recensie en druk op enter om te bevestigen:");
-                Console.WriteLine(input_text);
-                char c = Console.ReadKey().KeyChar;
-                if (c == 13)
-                    //{
-                    //    Console.Clear();
-                    //    Console.WriteLine("Druk nogmaals op enter om te bevestigen of druk op backspace om terug te gaan.");
-                    //    if (Console.ReadKey().KeyChar == 13)
-                    //    {}
-                    break;
+            string input_text = GetReviewText(input_name);
 
-                if (c.Equals('-') && input_text.Length > 0)
-                {
-                    input_text = input_text.Remove(input_text.Length - 1);
-                }
-                else
-                {
-                    if (!c.Equals('-'))
-                        input_text += c;
-                }
-            }
-            int letter_count = 0;
-            var temp_text = "";
-            foreach (char letter in input_text)
-            {
-                temp_text += letter;
-                letter_count++;
-                if (letter_count > 70 && letter == ' ')
-                {
-                    temp_text += "\n";
-                    letter_count = 0;
-                }
-            }
-            input_text = temp_text;
+            //afbreken van zinnen tekst
+            input_text = MakeRightSize(input_text);
+
             Winston.Log(2, $"tekst: {input_text}");
-
 
             //Rating--
             string rating_dutch = "\nVoer het aantal sterren '*' in dat uw afgelopen bezoek waard was:";
@@ -268,7 +305,8 @@ namespace ChatButlerProjectB
             Winston.Log(1, greet_review);
             Console.ReadKey();
 
-            //Toe te passen op volgende rekening
+            Console.Clear();
+            //Toe te passen op volgende rekening----
             return discount;
         }
 
