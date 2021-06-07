@@ -11,10 +11,14 @@ namespace ChatButlerProjectB
         public string Code;
         public void MainLogin()
         {
+            Butler winston = new Butler();
+            winston.Log(3, "Login");
             //Vrag user voor code
             CheckIfLoggedIn();
             Console.WriteLine("Vul uw membershipcode in");
+            winston.Log(1, "Vul uw membershipcode in");
             string userCode = Console.ReadLine();
+            winston.Log(2, userCode);
             //Check code
             string result = CheckCode(userCode);
             //User inloggen
@@ -27,12 +31,14 @@ namespace ChatButlerProjectB
                 File.WriteAllText(filePath, readCurrentText);
                 Console.Clear();
                 Console.WriteLine(" ----------------\n |U bent ingelogd|\n ----------------");
+                winston.Log(1, "----------------\n |U bent ingelogd|\n ----------------");
 
                 Program.Main();
             }
             else
             {
                 Console.WriteLine("Dit is geen geldige code");
+                winston.Log(1, "Dit is geen geldige code");
                 MainLogin();
             }   
         }
@@ -56,18 +62,21 @@ namespace ChatButlerProjectB
 
         public void LogUserOut()
         {
+            Butler winston = new Butler();
             var filePath = @"../../../loggedInUser.json";
             var readCurrentText = File.ReadAllText(filePath);
             var loginMember = new Login { Code = "000000" };
             readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
             Console.WriteLine("U bent uitgelogd");
+            winston.Log(1, "U bent uiteglogd");
             Console.Clear();
             Program.Main();
         }
 
         public void CheckIfLoggedIn()
         {
+            Butler winston = new Butler();
             //Haal huidige user op
             var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
@@ -75,6 +84,7 @@ namespace ChatButlerProjectB
             if(currentUser.Code != "000000")
             {
                 Console.WriteLine("U bent al ingelogd");
+                winston.Log(1, "U bent al ingelogd");
                 Program.Main();
             }
         }
