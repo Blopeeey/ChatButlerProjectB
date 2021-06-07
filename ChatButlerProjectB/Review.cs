@@ -97,7 +97,33 @@ namespace ChatButlerProjectB
 
         public double Make_review()
         {
-            Console.Clear();
+            string user = Account.GetUserCode();
+            DateTime currentDate = DateTime.Today;
+            currentDate.ToString("dd/MM/yyyy");
+            int pastDateCount = 0;
+            var getMenuPath = @"../../../Reservations.json";
+            var readAllMenus = File.ReadAllText(getMenuPath);
+            var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
+            foreach(var item in currentMenus)
+            {
+                if (item.UserCode == user)
+                {
+                    if(DateTime.Compare(DateTime.Parse(item.Date), currentDate) == -1)
+                    {
+                        pastDateCount++;
+                    }
+                }
+            }
+            if(pastDateCount == 0)
+            {
+                Console.WriteLine("U bent nog niet op bezoek geweest.");
+                Console.ReadLine();
+                Console.Clear();
+                Program.Main();
+            }
+
+
+
             Butler Winston = new Butler();
             Winston.Log(3, "Menu/Review scrhrijven");
 

@@ -138,6 +138,45 @@ namespace ChatButlerProjectB
 
         }
 
+        public static void SendEmail(string user, string date, string time, string guests, string impala, string fish, string vegan, string code)
+        {
+            //Haal alle users op
+            var getMemberPath = @"../../../members.json";
+            var readAllUsers = File.ReadAllText(getMemberPath);
+            var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
+            string username = "";
+            string usermail = "";
+
+            foreach(var item in currentUsers)
+            {
+                if(item.LoginCode == user)
+                {
+                    username = item.Fname;
+                    usermail = item.Email;
+                }
+            }
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("lamouette.noreply@gmail.com", "LaMouette123"),
+                EnableSsl = true,
+            };
+
+            string body = $"Beste {username},\n\n" +
+                $"Bedankt voor het maken van een reservatie.\n" +
+                $"De gekozen gegevens zijn: \n" +
+                $"Datum: {date}\n" +
+                $"Tijd: {time}\n" +
+                $"Gasten: {guests}\n" +
+                $"Imapala: {impala}\n" +
+                $"Vis: {fish}\n" +
+                $"Vegan: {vegan}\n\n" +
+                $"Reserveringscode: {code}";
+
+            smtpClient.Send("lamouette.noreply@gmail.com", usermail, "Reservatie bevestiging", body);
+        }
+
         public string GetUserCode()
         {
             var getPath = @"..\..\..\loggedInUser.json";
@@ -232,6 +271,9 @@ namespace ChatButlerProjectB
 
             //Adds reservation to Json
             currentReservation.Add(new ReservationDetails (ReservationCode, UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch));
+
+            //Sends e-mail
+            SendEmail(UserCode, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, ReservationCode);
 
             readCurrentText = JsonConvert.SerializeObject(currentReservation, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);

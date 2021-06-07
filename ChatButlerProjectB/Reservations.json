@@ -48,5 +48,25 @@
     "Fish": "1",
     "Vegan": "0",
     "ReservationCode": "022824"
+  },
+  {
+    "UserCode": "1234ab",
+    "Date": "12/12/2020",
+    "Time": "13:00",
+    "Guestcount": "3",
+    "Impala": "4",
+    "Fish": "2",
+    "Vegan": "1",
+    "ReservationCode": "340044"
+  },
+  {
+    "UserCode": "1234ab",
+    "Date": "12/12/2021",
+    "Time": "13:00",
+    "Guestcount": "4",
+    "Impala": "2",
+    "Fish": "1",
+    "Vegan": "3",
+    "ReservationCode": "020458"
   }
 ]

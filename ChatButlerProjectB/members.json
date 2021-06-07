@@ -4,7 +4,7 @@
     "Lname": "test",
     "CreditCard": "23423142314",
     "Continent": "Europa",
-    "Email": "test@gmail.com",
+    "Email": "1007701@hr.nl",
     "Safari": false,
     "Trees": 0,
     "LoginCode": "1234ab"
@@ -28,5 +28,15 @@
     "Safari": false,
     "Trees": 0,
     "LoginCode": "pw8q23"
+  },
+  {
+    "Fname": "yee",
+    "Lname": "haw",
+    "CreditCard": "12341234",
+    "Continent": "Europa",
+    "Email": "teste@test.nl",
+    "Safari": false,
+    "Trees": 0,
+    "LoginCode": "x0xf68"
   }
 ]
