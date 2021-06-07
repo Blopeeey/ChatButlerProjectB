@@ -11,11 +11,11 @@ namespace ChatButlerProjectB
         {
             CheckIfLoggedIn();
             Console.WriteLine(ShowInfo());
-            bool menus = AskForTask("Wilt u uw gekozen menu's bekijken?");
+            bool menus = AskForTask("Wilt u uw gekozen menu's bekijken? (ja/nee)");
             if (menus)
             {
                 Console.WriteLine(ShowChosenMenus());
-                bool backToMain = AskForTask("Wilt u terug naar het hoofd menu?");
+                bool backToMain = AskForTask("Wilt u terug naar het hoofd menu? (ja/nee)");
                 if (backToMain)
                 {
                     Program.Main();
@@ -41,7 +41,7 @@ namespace ChatButlerProjectB
             if (currentUser.Code == "000000")
             {
                 Console.Clear();
-                Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
+                Console.WriteLine("U bent niet ingelogd. Wilt u een account maken? (ja/nee)");
                 winston.Log(1, "U bent niet ingelogd. Wilt u een account maken?");
                 string accountMaken = Console.ReadLine();
                 winston.Log(2, accountMaken);

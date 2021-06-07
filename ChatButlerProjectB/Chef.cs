@@ -49,12 +49,12 @@ namespace ChatButlerProjectB
         {
             Butler Winston = new Butler();
             Winston.Log(3, "Menu/Chefmenu");
-            Console.WriteLine("Welke datum zoekt u? (dd/mm/yy)");
-            Winston.Log(1, "Welke datum zoekt u? (dd/mm/yy)");
+            Console.WriteLine("Welke datum zoekt u? (dd/mm/yyyy)");
+            Winston.Log(1, "Welke datum zoekt u? (dd/mm/yyyy)");
             string datum = Console.ReadLine();
             Winston.Log(2, $"Ingevoerde datum: {datum}");
             Console.WriteLine(GetReservation(datum));
-            Console.WriteLine("Wilt u nog een datum zoeken?");
+            Console.WriteLine("Wilt u nog een datum zoeken? (ja/nee)");
             string nieuweDatum = Console.ReadLine();
             if(nieuweDatum == "ja")
             {
