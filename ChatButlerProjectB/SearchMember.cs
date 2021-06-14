@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace ChatButlerProjectB
         {
             Console.WriteLine("Vul de naam in die u zoekt");
             string searchedName = Console.ReadLine();
-            if(!searchedName.Contains(" "))
+            if (!searchedName.Contains(" "))
             {
                 //Wanneer gebruiker alleen een voornaam invult achternamen aanvullen
                 CheckFirstName(searchedName);
@@ -25,7 +26,7 @@ namespace ChatButlerProjectB
             //Laat user nog een member zoeken
             Console.WriteLine("Wilt u nog een member zoeken?");
             string searchNewName = Console.ReadLine();
-            if(searchNewName == "ja")
+            if (searchNewName == "ja")
             {
                 Console.Clear();
                 MainSearch();
@@ -41,21 +42,21 @@ namespace ChatButlerProjectB
         {
             name = name.ToLower();
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
 
             //Bepaal array lengte
             int count = 0;
-            foreach(var item in currentUsers)
+            foreach (var item in currentUsers)
             {
-                if(item.Fname == name && item.Verified == true)
+                if (item.Fname == name && item.Verified == true)
                 {
                     count++;
                 }
             }
 
-            if(count == 0)
+            if (count == 0)
             {
                 Console.WriteLine("Deze voornaam is niet gevonden");
                 MainSearch();
@@ -63,14 +64,16 @@ namespace ChatButlerProjectB
             //Sla gevonden achternamen op
             string[] lastNames = new string[count];
             int i = 0;
+            string[] listnumbers = new string[count];//-----------------
             foreach (var item in currentUsers)
             {
                 if (item.Fname == name && item.Verified == true)
                 {
                     lastNames[i] = item.Lname;
+                    listnumbers[i] = (i + 1).ToString();//----------------
                     i++;
                 }
-            }           
+            }
             //Toon gevonden achternamen
             Console.WriteLine("De gevonden achternaam bij uw voornaam zijn: ");
             for (int id = 0; id < lastNames.Length; id++)
@@ -79,8 +82,38 @@ namespace ChatButlerProjectB
             }
             //Laat een achternaam kiezen
             Console.WriteLine("Welke achternaam zoekt u?");
-            string chosenLastname = Console.ReadLine();
-            SearchName(name + " " + lastNames[Int32.Parse(chosenLastname) - 1]);
+
+
+            //-----------------------------------------
+            string Toreturn = "";
+            while (true)
+            {
+                string chosenLastname = Console.ReadLine();
+                foreach (string item in listnumbers)
+                {
+                    if (chosenLastname == item)
+                    {
+                        Toreturn = chosenLastname;
+                    }
+                }
+                if (Toreturn != "")
+                {
+                    break;
+                }
+                Console.Clear();
+                //Toon gevonden achternamen
+                Console.WriteLine("De gevonden achternaam bij uw voornaam zijn: ");
+                for (int id = 0; id < lastNames.Length; id++)
+                {
+                    Console.WriteLine($"{id + 1}: {lastNames[id]}");
+                }
+                //Laat een achternaam kiezen
+                Console.WriteLine("Welke achternaam zoekt u?");
+            }
+            //-----------------------------------------
+
+
+            SearchName(name + " " + lastNames[Int32.Parse(Toreturn) - 1]);
         }
 
         public void SearchName(string enteredName)
@@ -96,7 +129,7 @@ namespace ChatButlerProjectB
         public void GetRightFirstName(string vnaam, string anaam)
         {
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             int totalcount = 0;
@@ -131,15 +164,15 @@ namespace ChatButlerProjectB
                         {
                             //Verander steeds de letters in volgorde totdat het word gevonden is
                             currentName[i] = alpha[j];
-                           string vnaamString = new string(currentName);
-                           if (CheckIfStringInMember(vnaamString))
-                           {
+                            string vnaamString = new string(currentName);
+                            if (CheckIfStringInMember(vnaamString))
+                            {
                                 NameIsFound = true;
                                 foundName = vnaamString;
-                           }
+                            }
                         }
                     }
-                    
+
                 }
 
             }
@@ -150,23 +183,23 @@ namespace ChatButlerProjectB
             }
 
             //Als er geen gevonden achternaam is. Laat alle achternamen zien die dezelfde voornaam hebben
-            if(totalcount == lastNameCheck)
+            if (totalcount == lastNameCheck)
             {
                 Console.WriteLine("De achternaam is niet gevonden");
                 CheckFirstName(vnaam);
             }
         }
 
-        public bool CheckIfStringInMember(string s) 
+        public bool CheckIfStringInMember(string s)
         {
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
 
-            foreach(var user in currentUsers)
+            foreach (var user in currentUsers)
             {
-                if(user.Fname == s && user.Verified == true)
+                if (user.Fname == s && user.Verified == true)
                 {
                     return true;
                 }
