@@ -48,6 +48,7 @@ namespace ChatButlerProjectB
             {
                 MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
                 SendEmail(fname, lname, CardNumber, continent, email, loginCode);
+                Console.Clear();
                 Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
                 winston.Log(1, "Check uw e-mail voor verificatie en inlog code");
                 Program.Main();
@@ -78,8 +79,8 @@ namespace ChatButlerProjectB
                             fname = FirstName();
                             Console.WriteLine(confirm);
                             winston.Log(1, confirm);
-                            Console.Write("Kloppen uw gegevens nu?\n");
-                            winston.Log(2, "Kloppen uw gegevens nu?\n");
+                            Console.Write("Kloppen uw gegevens nu? (ja/nee)\n");
+                            winston.Log(2, "Kloppen uw gegevens nu? (ja/nee)\n");
                             string gegevens = Console.ReadLine();
                             winston.Log(2, gegevens);
                             if (gegevens == "1" || gegevens == "ja")
@@ -91,8 +92,8 @@ namespace ChatButlerProjectB
                             lname = LastName();
                             Console.WriteLine(confirm);
                             winston.Log(1, confirm);
-                            Console.Write("Kloppen uw gegevens nu?\n");
-                            winston.Log(2, "Kloppen uw gegevens nu?\n");
+                            Console.Write("Kloppen uw gegevens nu? (ja/nee)\n");
+                            winston.Log(2, "Kloppen uw gegevens nu? (ja/nee)\n");
                             string gegevens2 = Console.ReadLine();
                             winston.Log(2, gegevens2);
                             if (gegevens2 == "1" || gegevens2 == "ja")
@@ -104,8 +105,8 @@ namespace ChatButlerProjectB
                             CardNumber = CreditCardNumber();
                             Console.WriteLine(confirm);
                             winston.Log(1, confirm);
-                            Console.Write("Kloppen uw gegevens nu?\n");
-                            winston.Log(2, "Kloppen uw gegevens nu?\n");
+                            Console.Write("Kloppen uw gegevens nu? (ja/nee)\n");
+                            winston.Log(2, "Kloppen uw gegevens nu? (ja/nee)\n");
                             string gegevens3 = Console.ReadLine();
                             winston.Log(2, gegevens3);
                             if (gegevens3 == "1" || gegevens3 == "ja")
@@ -117,8 +118,8 @@ namespace ChatButlerProjectB
                             continent = ChooseContinent();
                             Console.WriteLine(confirm);
                             winston.Log(1, confirm);
-                            Console.Write("Kloppen uw gegevens nu?\n");
-                            winston.Log(2, "Kloppen uw gegevens nu?\n");
+                            Console.Write("Kloppen uw gegevens nu? (ja/nee)\n");
+                            winston.Log(2, "Kloppen uw gegevens nu? (ja/nee)\n");
                             string gegevens4 = Console.ReadLine();
                             winston.Log(2, gegevens4);
                             if (gegevens4 == "1" || gegevens4 == "ja")
@@ -130,8 +131,8 @@ namespace ChatButlerProjectB
                             email = GetEmail();
                             Console.WriteLine(confirm);
                             winston.Log(1, confirm);
-                            Console.Write("Kloppen uw gegevens nu?\n");
-                            winston.Log(2, "Kloppen uw gegevens nu?\n");
+                            Console.Write("Kloppen uw gegevens nu? (ja/nee)\n");
+                            winston.Log(2, "Kloppen uw gegevens nu? (ja/nee)\n");
                             string gegevens5 = Console.ReadLine();
                             winston.Log(2, gegevens5);
                             if (gegevens5 == "1" || gegevens5 == "ja")
@@ -147,8 +148,11 @@ namespace ChatButlerProjectB
                 MakeAccount(fname, lname, CardNumber, continent, email, loginCode);
                 //Verstuur mail
                 SendEmail(fname, lname, CardNumber, continent, email, loginCode);
-                Console.WriteLine("Check uw e-mail voor verificatie en inlog code");
-                winston.Log(1, "Check uw e-mail voor verificatie en inlog code");
+                Console.Clear();
+                Console.WriteLine("Check uw e-mail voor verificatie en inlog code. \nDruk op een willekeurige toets om terug te keren naar het hoofdmenu");
+                winston.Log(1, "Check uw e-mail voor verificatie en inlog code. \nDruk op een willekeurige toets om terug te keren naar het hoofdmenu");
+                Console.ReadKey();
+                Console.Clear();
                 Program.Main();
             }
         }
@@ -156,8 +160,8 @@ namespace ChatButlerProjectB
         public string FirstName()
         {
             Butler winston = new Butler();
-            Console.WriteLine("Vul uw voornaam in");
-            winston.Log(1, "Vul uw voornaam in");
+            Console.WriteLine("Vul uw voornaam in zonder spaties");
+            winston.Log(1, "Vul uw voornaam in zonder spaties");
             string fname = Console.ReadLine();
             winston.Log(2, fname);
             //Check of fname alleen maar bestaat uit letters. Zo niet vraag opnieuw voor naam
@@ -175,8 +179,8 @@ namespace ChatButlerProjectB
         public string LastName()
         {
             Butler winston = new Butler();
-            Console.WriteLine("Vul uw achternaam in");
-            winston.Log(1, "Vul uw achternaam in");
+            Console.WriteLine("Vul uw achternaam in zonder spaties.");
+            winston.Log(1, "Vul uw achternaam in zonder spaties.");
             string lname = Console.ReadLine();
             winston.Log(2, lname);
             //Check of fname alleen maar bestaat uit letters. Zo niet vraag opnieuw voor naam
@@ -260,7 +264,7 @@ namespace ChatButlerProjectB
                 winston.Log(2, mail);
             }
             //Haal huidige emails op die in members.json staan
-            var getAllMails = @"..\..\..\members.json";
+            var getAllMails = @"../../../members.json";
             var readCurrentMails = File.ReadAllText(getAllMails);
             var currentMails = JsonConvert.DeserializeObject<List<MemberDetails>>(readCurrentMails);
             //Check of members.json niet leeg is
@@ -297,7 +301,8 @@ namespace ChatButlerProjectB
                 Email = mail,
                 Safari = false,
                 Trees = 0,
-                LoginCode = logincode
+                LoginCode = logincode,
+                Verified = false
             });
 
             readCurrentText = JsonConvert.SerializeObject(currentMembers, Formatting.Indented);
@@ -318,7 +323,8 @@ namespace ChatButlerProjectB
                 $"Naam: {fname} {lname}\n" +
                 $"Continent: {continent}\n" +
                 $"Creditcard: {cnumber[..5]}*****\n\n" +
-                $"Om in te loggen kunt u de volgende code gebruiken: {logincode}";
+                $"U kunt met de volgende code inloggen: {logincode}\n" +
+                $"Uw account zal niet geverifieerd worden totdat u voor de eerste keer inlogd";
 
             smtpClient.Send("lamouette.noreply@gmail.com", userMail, "Registreer bevestiging", body);
         }

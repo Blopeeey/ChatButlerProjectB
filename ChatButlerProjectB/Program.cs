@@ -27,7 +27,7 @@ namespace ChatButlerProjectB
             Winston.Log(2, $"Invoer: {chosenInput}");
 
             string user = Account.GetUserCode();
-            if(user == "000000")
+            if (user == "000000")
             {
                 MenuNotLoggedIn(chosenInput);
             }
@@ -36,7 +36,7 @@ namespace ChatButlerProjectB
                 MenuLoggedIn(chosenInput);
             }
         }
-       
+
         public static void MenuNotLoggedIn(string i)
         {
             Register reg = new Register();
@@ -49,19 +49,19 @@ namespace ChatButlerProjectB
             {
                 rev.Get_reviews();
             }
-            else if(i == "2")
+            else if (i == "2")
             {
                 reg.MainReg();
             }
-            else if(i == "3")
+            else if (i == "3")
             {
                 log.MainLogin();
             }
-            else if(i == "4")
+            else if (i == "4")
             {
                 smember.MainSearch();
             }
-            else if(i == "5")
+            else if (i == "5")
             {
                 Console.WriteLine("Bedankt voor uw bezoek");
             }
@@ -102,6 +102,7 @@ namespace ChatButlerProjectB
             }
             else if (i == "4")
             {
+            	Console.Clear();
                 res2.DeleteReservation();
             }
             else if (i == "5")
@@ -110,6 +111,7 @@ namespace ChatButlerProjectB
             }
             else if (i == "6")
             {
+            	Console.Clear();
                 smember.MainSearch();
             }
             else if (i == "7")
