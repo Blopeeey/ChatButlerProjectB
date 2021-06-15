@@ -10,9 +10,10 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Net;
 
-namespace ChatButlerProjectB 
+namespace ChatButlerProjectB
 {
-    public class ReservationDetails {
+    public class ReservationDetails
+    {
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Date { get; set; }
@@ -24,14 +25,17 @@ namespace ChatButlerProjectB
         public string Email { get; set; }
         public string ReservationCode { get; set; }
         public string UserCode { get; set; }
-
-        public string CreationDate { get; set;  }
+        public string Calorieën { get; set; }
+        public string Allergieën { get; set; }
+        public string Booking { get; set; }
+        public string CreationDate { get; set; }
 
         public ReservationDetails() {/* parameterless constructor is needed to deserialze with text.json */ }
 
-        public ReservationDetails(string ReservationCode, string UserCode, string Name, string LastName, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan, string Email) {
+        public ReservationDetails(string ReservationCode, string UserCode, string Name, string LastName, string Date, string Time, string Guestcount, string Impala, string Fish, string Vegan, string Cal, string All, string Email, string Booking)
+        {
             this.ReservationCode = ReservationCode;
-            this.UserCode = UserCode;            
+            this.UserCode = UserCode;
             this.Name = Name;
             this.LastName = LastName;
             this.Date = Date;
@@ -41,18 +45,23 @@ namespace ChatButlerProjectB
             this.Fish = Fish;
             this.Vegan = Vegan;
             this.Email = Email;
+            this.Calorieën = Cal;
+            this.Allergieën = All;
+            this.Booking = Booking;
             this.CreationDate = DateTime.Today.ToShortTimeString();
         }
     }
 
-    public class tableReservationDetails {
+    public class tableReservationDetails
+    {
         public string Date { get; set; }
         public Dictionary<string, string> Time { get; set; }
 
-        
+
         public tableReservationDetails() {/* parameterless constructor is needed to deserialze with text.json */ }
 
-        public tableReservationDetails(string date) {
+        public tableReservationDetails(string date)
+        {
             this.Date = date;
             this.Time = new Dictionary<string, string>() {
                 { "00",""},
@@ -83,20 +92,39 @@ namespace ChatButlerProjectB
         }
 
     }
-
-    internal class PlaceReservation {
+    internal class PlaceReservation
+    {
 
         public void Reservation()
         {
+            Butler winston = new Butler();
             Console.Clear();
-            string fname = ""; string lname = ""; string datum = ""; string tijd = ""; string table = ""; string gasten = "";  string impala = "";  string fish = ""; string vegan = ""; string email = "";
+
+            if (GetUserCode() == null)
+            {
+                for (int i = 5; i > 0; i--)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Log a.u.b eerst in.");
+                    Console.WriteLine($"Terug naar hoofd menu in {i}\n");
+                    System.Threading.Thread.Sleep(1000);
+                }
+                Console.Clear();
+                Program.Main();
+            }
+
+            string fname = ""; string lname = ""; string datum = ""; string tijd = ""; string table = ""; string gasten = ""; string impala = ""; string fish = ""; string vegan = ""; string allergieën = ""; string calorieën = ""; string email = "";
             int step = 0;
 
-            while (step < 10) {
-                if (step == 0){
+            while (step < 12)
+            {
+                if (step == 0)
+                {
                     Console.WriteLine("Type \"esc\", \"back\" of \"terug\" om terug te gaan.");
                     Console.WriteLine("Voornaam:");
+                    winston.Log(1, "Voornaam:");
                     fname = ViableCheckname(Console.ReadLine(), "uw voornaam");
+                    winston.Log(2, $"Invoer: {fname}");
                     if (fname.ToLower() == "esc" || fname.ToLower() == "back" || fname.ToLower() == "terug")
                     {
                         Console.Clear();
@@ -105,22 +133,28 @@ namespace ChatButlerProjectB
                     step = 1;
                 }
 
-                if(step == 1)
+                if (step == 1)
                 {
                     Console.WriteLine("\nAchternaam:");
+                    winston.Log(1, "Achternaam:");
                     lname = ViableCheckname(Console.ReadLine(), "uw achternaam");
+                    winston.Log(2, $"Invoer: {lname}");
                     if (lname.ToLower() == "esc" || lname.ToLower() == "back" || lname.ToLower() == "terug")
                     {
                         step = 0;
                     }
-                    else {
+                    else
+                    {
                         step = 2;
                     }
                 }
 
-                if (step == 2) {
+                if (step == 2)
+                {
                     Console.WriteLine("\nDe gewenste datum: (DD/MM/JJJJ)");
+                    winston.Log(1, "De gewenste datum:");
                     datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
+                    winston.Log(2, $"Invoer: {datum}");
                     if (datum.ToLower() == "esc" || datum.ToLower() == "back" || datum.ToLower() == "terug")
                     {
                         step = 1;
@@ -131,9 +165,12 @@ namespace ChatButlerProjectB
                     }
                 }
 
-                if (step == 3) {
-                    Console.WriteLine("\nEen reservatie voor twee uur. Tijd wordt omlaag afgerond naar een heel uur. \nTijdstip:");
+                if (step == 3)
+                {
+                    Console.WriteLine("\nEen reservatie is voor twee uur. De tijd wordt omlaag afgerond naar een heel uur. \nTijdstip:");
+                    winston.Log(1, "Het gewenste tijdstip:");
                     tijd = ViableChecktime(Console.ReadLine(), "het gewenste tijdstip");
+                    winston.Log(2, $"Invoer: {tijd}");
                     if (tijd.ToLower() == "esc" || tijd.ToLower() == "back" || tijd.ToLower() == "terug")
                     {
                         step = 2;
@@ -147,13 +184,14 @@ namespace ChatButlerProjectB
                 if (step == 4)
                 {
                     Console.WriteLine("\nMaximaal zes gasten kunnen aan een tafel \nSelecteer a.u.b. de gewenste tafel: \n");
-
+                    winston.Log(1, "De gewenste tafel:");
                     table = ViableCheckint(Console.ReadLine(), "de gewenste tafel");
+                    winston.Log(2, $"Invoer: {table}");
                     if (table.ToLower() == "esc" || table.ToLower() == "back" || table.ToLower() == "terug")
                     {
                         step = 3;
                     }
-                    else if(tableCheck(datum, tijd, table))
+                    else if (tableCheck(datum, tijd, table))
                     {
                         step = 5;
                     }
@@ -161,8 +199,10 @@ namespace ChatButlerProjectB
 
                 if (step == 5)
                 {
-                    Console.WriteLine("\nGasten:");
+                    Console.WriteLine("\nTotaal aantal gasten: (inclusief u zelf)");
+                    winston.Log(1, "Het aantal gasten:");
                     gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
+                    winston.Log(2, $"Invoer: {gasten}");
                     if (gasten.ToLower() == "esc" || gasten.ToLower() == "back" || gasten.ToLower() == "terug")
                     {
                         step = 4;
@@ -175,8 +215,10 @@ namespace ChatButlerProjectB
 
                 if (step == 6)
                 {
-                    Console.WriteLine("\nImpala:");
+                    Console.WriteLine("\nTotaal aantal impala:");
+                    winston.Log(1, "Aantal Impala:");
                     impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
+                    winston.Log(2, $"Invoer: {impala}");
                     if (impala.ToLower() == "esc" || impala.ToLower() == "back" || impala.ToLower() == "terug")
                     {
                         step = 5;
@@ -189,8 +231,10 @@ namespace ChatButlerProjectB
 
                 if (step == 7)
                 {
-                    Console.WriteLine("\nVis:");
+                    Console.WriteLine("\nTotaal aantal vis:");
+                    winston.Log(1, "Aantal vis:");
                     fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
+                    winston.Log(2, $"Invoer: {fish}");
                     if (fish.ToLower() == "esc" || fish.ToLower() == "back" || fish.ToLower() == "terug")
                     {
                         step = 6;
@@ -204,8 +248,10 @@ namespace ChatButlerProjectB
 
                 if (step == 8)
                 {
-                    Console.WriteLine("\nVegetarisch:");
+                    Console.WriteLine("\nTotaal aantal vegetarisch:");
+                    winston.Log(1, "Aantal vegetarisch:");
                     vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
+                    winston.Log(2, $"Invoer: {vegan}");
                     if (vegan.ToLower() == "esc" || vegan.ToLower() == "back" || vegan.ToLower() == "terug")
                     {
                         step = 7;
@@ -218,15 +264,49 @@ namespace ChatButlerProjectB
 
                 if (step == 9)
                 {
-                    Console.WriteLine("\nE-mail:");
-                    email = ViableCheckEmail(Console.ReadLine(), "uw E-mail");
-                    if (email.ToLower() == "esc" || email.ToLower() == "back" || email.ToLower() == "terug")
+                    Console.WriteLine("\nGewenste calorieën per persoon: (Dit veld is niet verplicht)");
+                    winston.Log(1, "Gewenste calorieën per persoon: (Dit veld is niet verplicht)");
+                    calorieën = Console.ReadLine();
+                    winston.Log(2, $"Invoer: {calorieën}");
+                    if (calorieën.ToLower() == "esc" || calorieën.ToLower() == "back" || calorieën.ToLower() == "terug")
                     {
                         step = 8;
                     }
                     else
                     {
                         step = 10;
+                    }
+                }
+
+                if (step == 10)
+                {
+                    Console.WriteLine("\nAllergieën: (Dit veld is niet verplicht)");
+                    winston.Log(1, "Allergieën: (Dit veld is niet verplicht)");
+                    allergieën = Console.ReadLine();
+                    winston.Log(2, $"Invoer: {allergieën}");
+                    if (allergieën.ToLower() == "esc" || allergieën.ToLower() == "back" || allergieën.ToLower() == "terug")
+                    {
+                        step = 9;
+                    }
+                    else
+                    {
+                        step = 11;
+                    }
+                }
+
+                if (step == 11)
+                {
+                    Console.WriteLine("\nE-mail address:");
+                    winston.Log(1, "E-mail:");
+                    email = ViableCheckEmail(Console.ReadLine(), "uw E-mail");
+                    winston.Log(2, $"Invoer: {email}");
+                    if (email.ToLower() == "esc" || email.ToLower() == "back" || email.ToLower() == "terug")
+                    {
+                        step = 10;
+                    }
+                    else
+                    {
+                        step = 12;
                     }
                 }
             }
@@ -238,73 +318,115 @@ namespace ChatButlerProjectB
             Console.WriteLine($"Tijd: {tijd}");
             Console.WriteLine($"Aantal gasten: {gasten}");
             Console.WriteLine($"E-mail: {email}");
+            Console.WriteLine($"Calorieën per persoon: {calorieën}");
+            Console.WriteLine($"Allergieën: {allergieën}");
             Console.WriteLine($"{impala}x Impala, {fish}x Vis, {vegan} Vegetarisch");
             Console.WriteLine("\nKloppen deze gegevens?");
+            winston.Log(1, "Kloppen deze gegevens?");
             string answer = Console.ReadLine().ToLower();
+            winston.Log(2, $"Invoer: {answer}");
 
             while (answer != "ja" && answer != "j" && answer != "yes" && answer != "y" && answer != "nee" && answer != "n" && answer != "no" && answer != "n")
             {
-                Console.WriteLine("Just yes or no pls");
+                Console.WriteLine("Alleen ja of nee alstublieft");
                 answer = Console.ReadLine().ToLower();
             }
 
             while (answer == "nee" || answer == "n" || answer == "no" || answer == "n")
             {
-                Console.WriteLine("Wat klopt er niet? \n 1: Voornaam \n 2: Achternaam \n 3: Datum \n 4: Tijdstip \n 5: Aantal gasten \n 6: Imapala \n 7: Vis \n 8: Vegetarisch \n 9: E-Mail \n");
+                Console.WriteLine($"1:  Voornaam: {fname} \n2:  Achternaam: {lname}\n3:  Datum: {datum} \n4:  Tijdstip: {tijd} \n5:  Aantal gasten: {gasten} \n6:  Impala: {impala}\n7:  Vis: {fish}\n8:  Vegetarisch: {vegan} \n9:  Calorieën: {calorieën}\n10: Allergieën: {allergieën}\n11: E-Mail: {email} \n");
+                winston.Log(1, "Wat klopt er niet:");
                 answer = Console.ReadLine();
-                while (!Regex.IsMatch(answer, @"^[1-9]+$"))
+                while (!Regex.IsMatch(answer, @"([0-9]|1[0-1])$"))
                 {
                     Console.Write("dit is geen geldig nummer. kijk na of u een typefout gemaakt heeft\n");
                     answer = Console.ReadLine();
                 }
 
-                if (answer == "1") {
+                winston.Log(2, $"Invoer: {answer}");
+                if (answer == "1")
+                {
                     Console.WriteLine("Voornaam:");
+                    winston.Log(1, "Voornaam:");
                     fname = ViableCheckname(Console.ReadLine(), "uw voornaam");
+                    winston.Log(2, $"Invoer: {fname}");
                 }
-                else if (answer == "2") {
+                else if (answer == "2")
+                {
                     Console.WriteLine("Achternaam:");
+                    winston.Log(1, "Achternaam:");
                     lname = ViableCheckname(Console.ReadLine(), "uw achternaam");
+                    winston.Log(2, $"Invoer: {lname}");
                 }
                 else if (answer == "3")
                 {
                     Console.WriteLine("DD/MM/JJJJ");
+                    winston.Log(1, "Datum:");
                     datum = ViableCheckdate(Console.ReadLine(), "de gewenste datum");
+                    winston.Log(2, $"Invoer: {datum}");
                 }
                 else if (answer == "4")
                 {
                     Console.WriteLine("Tijdstip:");
+                    winston.Log(1, "Tijdstip:");
                     tijd = ViableChecktime(Console.ReadLine(), "het gewenste tijdstip");
+                    winston.Log(2, $"Invoer: {tijd}");
                 }
                 else if (answer == "5")
                 {
                     Console.WriteLine("Gasten:");
+                    winston.Log(1, "Gasten:");
                     gasten = ViableCheckint(Console.ReadLine(), "het aantal gasten");
+                    winston.Log(2, $"Invoer: {gasten}");
                 }
                 else if (answer == "6")
                 {
                     Console.WriteLine("Impala:");
+                    winston.Log(1, "Impala:");
                     impala = ViableCheckint(Console.ReadLine(), "het aantal impala");
+                    winston.Log(2, $"Invoer: {impala}");
                 }
                 else if (answer == "7")
                 {
                     Console.WriteLine("Vis:");
+                    winston.Log(1, "Vis:");
                     fish = ViableCheckint(Console.ReadLine(), "het aantal vis");
+                    winston.Log(2, $"Invoer: {fish}");
                 }
                 else if (answer == "8")
                 {
                     Console.WriteLine("Vegetarisch:");
+                    winston.Log(1, "Vegetarisch:");
                     vegan = ViableCheckint(Console.ReadLine(), "het aantal vegetarisch");
+                    winston.Log(2, $"Invoer: {vegan}");
                 }
                 else if (answer == "9")
                 {
+                    Console.WriteLine("Calorieën:");
+                    winston.Log(1, "Calorieën:");
+                    calorieën = Console.ReadLine();
+                    winston.Log(2, $"Invoer: {calorieën}");
+                }
+                else if (answer == "10")
+                {
+                    Console.WriteLine("Allergieën:");
+                    winston.Log(1, "Allergieën:");
+                    allergieën = Console.ReadLine();
+                    winston.Log(2, $"Invoer: {allergieën}");
+                }
+                else if (answer == "11")
+                {
                     Console.WriteLine("E-mail:");
+                    winston.Log(1, "E-mail:");
                     email = ViableCheckEmail(Console.ReadLine(), "uw E-mail");
+                    winston.Log(2, $"Invoer: {email}");
                 }
                 Console.Clear();
-                Console.WriteLine("Wat klopt er niet? \n 1: Voornaam \n 2: Achternaam \n 3: Datum \n 4: Tijdstip \n 5: Aantal gasten \n 6: E-mail \n 7: Impala \n 8: Vis \n 9: Vegetarisch \n");
+                Console.WriteLine($"1:  Voornaam: {fname} \n2:  Achternaam: {lname}\n3:  Datum: {datum} \n4:  Tijdstip: {tijd} \n5:  Aantal gasten: {gasten} \n6:  Impala: {impala}\n7:  Vis: {fish}\n8:  Vegetarisch: {vegan} \n9:  Calorieën: {calorieën}\n10: Allergieën: {allergieën}\n11: E-Mail: {email} \n");
                 Console.WriteLine("Klopt alles nu wel?");
+                winston.Log(1, "Klopt alles nu wel:");
                 answer = Console.ReadLine();
+                winston.Log(2, $"Invoer: {answer}");
             }
 
             if (answer == "ja" || answer == "j" || answer == "yes" || answer == "y")
@@ -312,22 +434,52 @@ namespace ChatButlerProjectB
                 if (Int32.Parse(impala) >= 3)
                 {
                     Console.WriteLine("Wilt u zelf de impala schieten?");
+                    winston.Log(1, "Wilt u zelf de impala schieten:");
                     string shootyshoot = Console.ReadLine();
                     while (shootyshoot != "ja" && shootyshoot != "j" && shootyshoot != "yes" && shootyshoot != "y" && shootyshoot != "nee" && shootyshoot != "n" && shootyshoot != "no" && shootyshoot != "n")
                     {
                         Console.WriteLine("Just yes or no pls");
                         shootyshoot = Console.ReadLine().ToLower();
                     }
+                    winston.Log(2, $"Invoer: {shootyshoot}");
                 }
 
-                string code = SaveReservation(GetUserCode(), fname, lname, datum, tijd, gasten, impala, fish, vegan, email);
+                Console.WriteLine("Wilt u het restaurant uw hotel en vliegticket boeken?:\n");
+                winston.Log(1, "Wilt u het restaurant uw hotel en vliegticket boeken?:");
+                string Booking = Console.ReadLine().ToLower();
+                while (Booking != "ja" && Booking != "j" && Booking != "yes" && Booking != "y" && Booking != "nee" && Booking != "n" && Booking != "no" && Booking != "n")
+                {
+                    Console.WriteLine("Just yes or no pls");
+                    Booking = Console.ReadLine().ToLower();
+                }
+                winston.Log(2, $"Invoer: {Booking}");
+
+                string code = SaveReservation(GetUserCode(), fname, lname, datum, tijd, gasten, impala, fish, vegan, calorieën, allergieën, email, Booking);
+
+                winston.Log(1, $"User code: {GetUserCode()}");
+                winston.Log(1, $"Reservatie code: {code}");
+                winston.Log(1, $"Voornaam: {fname}");
+                winston.Log(1, $"Achternaam: {lname}");
+                winston.Log(1, $"Datum: {datum}");
+                winston.Log(1, $"Tijd: {tijd}");
+                winston.Log(1, $"Gasten: {gasten}");
+                winston.Log(1, $"Impala: {impala}");
+                winston.Log(1, $"Vis: {fish}");
+                winston.Log(1, $"Veganistisch: {vegan}");
+                winston.Log(1, $"Calorieën: {calorieën}");
+                winston.Log(1, $"Allergieën: {allergieën}");
+                winston.Log(1, $"E-mail: {email}");
+                winston.Log(1, $"Restaurant boekt hotel en vlucht: {Booking}");
+
                 SendEmail(code, GetUserCode(), fname, lname, datum, tijd, gasten, table, impala, fish, vegan, email);
-                for (int i = 10; i > 0; i--) {
+                for (int i = 10; i > 0; i--)
+                {
                     Console.Clear();
                     Console.WriteLine($"Terug naar hoofd menu in {i}\n");
-                    Console.WriteLine("Check uw e-mail voor uw reservatie code");
+                    Console.WriteLine("Controleer uw e-mail voor uw reservatie code");
                     System.Threading.Thread.Sleep(1000);
                 }
+                winston.Log(1, $"Terug naar hoofd menu...");
                 Console.Clear();
                 Program.Main();
             }
@@ -396,7 +548,7 @@ namespace ChatButlerProjectB
             return LowerCaseValue;
         }
 
-        public string SaveReservation(string UserCode, string Firstname, string Lastname, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch, string Email)
+        public string SaveReservation(string UserCode, string Firstname, string Lastname, string Datum, string Tijdstip, string Gasten, string Impala, string Vis, string Vegetarisch, string Calorieën, string Allergieën, string Email, string Booking)
         {
             // Creates a path to current folder (of the exe)
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
@@ -412,7 +564,8 @@ namespace ChatButlerProjectB
             bool CodeUsed = true;
 
             // Checks if Reservation code is in use
-            while (CodeUsed) {
+            while (CodeUsed)
+            {
                 CodeUsed = false;
                 foreach (var item in currentReservation)
                 {
@@ -424,16 +577,16 @@ namespace ChatButlerProjectB
                 }
             }
 
-                //bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //bool CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
 
-                //while (CodeUsed) {
-                //    ReservationCode = RandomCode();
-                //    CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
-                //}
+            //while (CodeUsed) {
+            //    ReservationCode = RandomCode();
+            //    CodeUsed = File.Exists(appRoot + @$"\{ReservationCode}.json");
+            //}
 
-                //var filePath = appRoot + @$"\{ReservationCode}.json";
+            //var filePath = appRoot + @$"\{ReservationCode}.json";
 
-                // read json file
+            // read json file
 
             //var filePath = @"..\..\..\Reservations.json";
             //var readCurrentText = File.ReadAllText(filePath);
@@ -441,7 +594,7 @@ namespace ChatButlerProjectB
 
 
             //Adds reservation to Json
-            currentReservation.Add(new ReservationDetails(ReservationCode, UserCode, Firstname, Lastname, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, Email));
+            currentReservation.Add(new ReservationDetails(ReservationCode, UserCode, Firstname, Lastname, Datum, Tijdstip, Gasten, Impala, Vis, Vegetarisch, Calorieën, Allergieën, Email, Booking));
 
             readCurrentText = JsonSerializer.Serialize(currentReservation, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, readCurrentText);
@@ -458,7 +611,8 @@ namespace ChatButlerProjectB
 
         }
 
-        public string RandomCode() {
+        public string RandomCode()
+        {
             Random rnd = new Random();
             string temp = "";
             temp += rnd.Next(0, 9).ToString();
@@ -471,21 +625,24 @@ namespace ChatButlerProjectB
             return temp;
         }
 
-        public int tableOverview(string datum, string tijdstip) {
+        public int tableOverview(string datum, string tijdstip)
+        {
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
             var appRoot = appPathMatcher.Match(exePath).Value;
             var filePath = appRoot + @$"\TableReservations.json";
 
             // creates file if it doesnt exist
-            if (!File.Exists(filePath)) {
+            if (!File.Exists(filePath))
+            {
                 var Filecreation = File.Create(filePath);
                 Filecreation.Close();
             }
             var readTableReservations = File.ReadAllText(filePath);
 
             // adds an entry to the json file of its empty
-            if (readTableReservations == "") {
+            if (readTableReservations == "")
+            {
                 // creates list
                 tableReservationDetails newEntry = new tableReservationDetails(datum);
                 List<tableReservationDetails> newEntryList = new List<tableReservationDetails>();
@@ -499,7 +656,25 @@ namespace ChatButlerProjectB
             readTableReservations = File.ReadAllText(filePath);
             List<tableReservationDetails> TempJson = JsonSerializer.Deserialize<List<tableReservationDetails>>(readTableReservations);
 
-            string timeKey = tijdstip.Substring(0,2);
+            string timeKey = "";
+            if (tijdstip.Substring(1, 1) == ":")
+            {
+                timeKey = "0" + tijdstip.Substring(0, 1);
+            }
+            else
+            {
+                timeKey = tijdstip.Substring(0, 2);
+            }
+            string timeKey2 = "" + (Convert.ToInt32(timeKey) + 1);
+            if (timeKey2.Length == 1)
+            {
+                timeKey2 = "0" + timeKey2;
+            }
+            if (Convert.ToInt32(timeKey2) > 23)
+            {
+                timeKey2 = "00";
+            }
+
             bool dateExist = false;
             bool place1 = false;
             bool place2 = false;
@@ -508,25 +683,28 @@ namespace ChatButlerProjectB
             bool place5 = false;
 
             // looks for the desired date. if found, it look to see what tables are taken
-            foreach (var date in TempJson){
-                if (date.Date == datum){
+            foreach (var date in TempJson)
+            {
+                if (date.Date == datum)
+                {
                     dateExist = true;
-                    if (date.Time[timeKey].Contains("1")) {
+                    if (date.Time[timeKey].Contains("1") || date.Time[timeKey2].Contains("1"))
+                    {
                         place1 = true;
                     }
-                    if (date.Time[timeKey].Contains("2"))
+                    if (date.Time[timeKey].Contains("2") || date.Time[timeKey2].Contains("2"))
                     {
                         place2 = true;
                     }
-                    if (date.Time[timeKey].Contains("3"))
+                    if (date.Time[timeKey].Contains("3") || date.Time[timeKey2].Contains("3"))
                     {
                         place3 = true;
                     }
-                    if (date.Time[timeKey].Contains("4"))
+                    if (date.Time[timeKey].Contains("4") || date.Time[timeKey2].Contains("4"))
                     {
                         place4 = true;
                     }
-                    if (date.Time[timeKey].Contains("5"))
+                    if (date.Time[timeKey].Contains("5") || date.Time[timeKey2].Contains("5"))
                     {
                         place5 = true;
                     }
@@ -534,16 +712,19 @@ namespace ChatButlerProjectB
                     // check if tables available 
                     if (place1 && place2 && place3 && place4 && place5)
                     {
-                        Console.WriteLine("\nay m8, no seats left i'm afraid.\nPlease select another time: ");
+                        Console.WriteLine("\nSorry maar er zijn geen tafels beschikbaar op tid tijdstip.\nKies alstublieft een ander tijdstip: ");
                         return 3;
                     }
                 }
             }
 
             // make new date entry in json file if it doesnt exist already
-            if (!dateExist) {
+            if (!dateExist)
+            {
                 tableReservationDetails newEntry = new tableReservationDetails(datum);
                 TempJson.Add(newEntry);
+                string newEntryJson = JsonSerializer.Serialize(TempJson, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(filePath, newEntryJson);
             }
 
 
@@ -589,33 +770,49 @@ namespace ChatButlerProjectB
             return 4;
         }
 
-        public bool tableCheck(string datum, string tijdstip, string table) {
+        public bool tableCheck(string datum, string tijdstip, string table)
+        {
             var exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
             Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
             var appRoot = appPathMatcher.Match(exePath).Value;
             var filePath = appRoot + @$"\TableReservations.json";
             var readTableReservations = File.ReadAllText(filePath);
             List<tableReservationDetails> TempJson = JsonSerializer.Deserialize<List<tableReservationDetails>>(readTableReservations);
+            string timeKey = "";
 
-            string timeKey = tijdstip.Substring(0, 2);
-            string timeKey2 = "" + (Convert.ToInt32(timeKey)+1);
-            if (Convert.ToInt32(timeKey2) > 23) {
+            if (tijdstip.Substring(1, 1) == ":")
+            {
+                timeKey = "0" + tijdstip.Substring(0, 1);
+            }
+            else
+            {
+                timeKey = tijdstip.Substring(0, 2);
+            }
+
+            string timeKey2 = "" + (Convert.ToInt32(timeKey) + 1);
+            if (timeKey2.Length == 1)
+            {
+                timeKey2 = "0" + timeKey2;
+            }
+            if (Convert.ToInt32(timeKey2) > 23)
+            {
                 timeKey2 = "00";
             }
 
             bool placetaken = false;
 
-            // reservs table if its not taken already
+            // reserves table if its not taken already
             foreach (var date in TempJson)
             {
                 if (date.Date == datum)
                 {
-                    if (date.Time[timeKey].Contains(table) || Convert.ToInt32(table) > 5)
+                    if (date.Time[timeKey].Contains(table) || Convert.ToInt32(table) > 5 || date.Time[timeKey].Contains(table))
                     {
                         placetaken = true;
                     }
 
-                    else {
+                    else
+                    {
                         date.Time[timeKey] += table; date.Time[timeKey2] += table;
                         string newEntryJson = JsonSerializer.Serialize(TempJson, new JsonSerializerOptions { WriteIndented = true });
                         File.WriteAllText(filePath, newEntryJson);
@@ -623,7 +820,7 @@ namespace ChatButlerProjectB
 
                     if (placetaken)
                     {
-                        Console.WriteLine("ay m8, table taken.\nPlease select another table or time: ");
+                        Console.WriteLine("\nSorry maar er zijn geen tafels beschikbaar op tid tijdstip.\nKies alstublieft een ander tijdstip: ");
                         return false;
                     }
 
@@ -639,37 +836,6 @@ namespace ChatButlerProjectB
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonSerializer.Deserialize<Login>(readAllUser);
             return currentUser.Code;
-        }
-
-        internal class CancelReservation
-        {
-            public void DeleteReservation()
-            {
-                Console.WriteLine("Voer uw reserveringscode in:");
-                string reservationCode = Console.ReadLine();
-                //var UserCode = GetUserCode();
-                var filePath = @"..\..\..\Reservations.json";
-                var readCurrentText = File.ReadAllText(filePath);
-                var newReservation = new List<ReservationDetails>();
-                var currentReservation = JsonSerializer.Deserialize<List<ReservationDetails>>(readCurrentText);
-                foreach (var item in currentReservation)
-                {
-                    if (item.ReservationCode == reservationCode) {
-                        if ((DateTime.Parse(item.CreationDate) - DateTime.Today).TotalDays > 7) {
-                            Console.WriteLine("Reservation was placed over a week ago. no can do");
-                            newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Name, item.LastName, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan, item.Email));
-                        }
-                    }
-                    if (item.ReservationCode != reservationCode)
-                    {
-                        newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Name, item.LastName, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan,item.Email));
-                        //readCurrentText = JsonSerializer.Serialize(newReservation, new JsonSerializerOptions { WriteIndented = true });
-                        //File.WriteAllText(filePath, readCurrentText);
-                    }
-                }
-                readCurrentText = JsonSerializer.Serialize(newReservation, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(filePath, readCurrentText);
-            }
         }
 
         public static void SendEmail(string reservationcode, string usercode, string fname, string lname, string datum, string tijd, string gasten, string table, string impala, string fish, string vegan, string email)
@@ -692,6 +858,40 @@ namespace ChatButlerProjectB
                 $"De reservering kan binnen 7 dagen na ontvangst van deze mail worden geannuleerd.";
 
             smtpClient.Send("lamouette.noreply@gmail.com", email, "Registreer bevestiging", body);
+        }
+
+    }
+
+    internal class CancelReservation
+    {
+        public void DeleteReservation()
+        {
+            Console.WriteLine("Voer uw reserveringscode in:");
+            string reservationCode = Console.ReadLine();
+            //var UserCode = GetUserCode();
+            var filePath = @"..\..\..\Reservations.json";
+            var readCurrentText = File.ReadAllText(filePath);
+            var newReservation = new List<ReservationDetails>();
+            var currentReservation = JsonSerializer.Deserialize<List<ReservationDetails>>(readCurrentText);
+            foreach (var item in currentReservation)
+            {
+                if (item.ReservationCode == reservationCode)
+                {
+                    if ((DateTime.Parse(item.CreationDate) - DateTime.Today).TotalDays > 7)
+                    {
+                        Console.WriteLine("De reservatie is langer dan een week geleden geplaatst. Deze kunt u helaas niet meer annuleren");
+                        newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Name, item.LastName, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan, item.Calorieën, item.Allergieën, item.Email, item.Booking));
+                    }
+                }
+                if (item.ReservationCode != reservationCode)
+                {
+                    newReservation.Add(new ReservationDetails(item.ReservationCode, item.UserCode, item.Name, item.LastName, item.Date, item.Time, item.Guestcount, item.Impala, item.Fish, item.Vegan, item.Calorieën, item.Allergieën, item.Email, item.Booking));
+                    //readCurrentText = JsonSerializer.Serialize(newReservation, new JsonSerializerOptions { WriteIndented = true });
+                    //File.WriteAllText(filePath, readCurrentText);
+                }
+            }
+            readCurrentText = JsonSerializer.Serialize(newReservation, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, readCurrentText);
         }
 
     }

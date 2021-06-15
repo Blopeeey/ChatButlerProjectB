@@ -27,10 +27,12 @@ namespace ChatButlerProjectB
             string searchNewName = Console.ReadLine();
             if(searchNewName == "ja")
             {
+                Console.Clear();
                 MainSearch();
             }
             else
             {
+                Console.Clear();
                 Program.Main();
             }
         }
@@ -173,6 +175,7 @@ namespace ChatButlerProjectB
             string rightUser = Console.ReadLine();
             if (rightUser == "ja")
             {
+                Console.Clear();
                 Console.WriteLine("Hier is de info van uw gezochte gebruiker");
                 Console.WriteLine($"Naam: {f} {l}\n" +
                   $"Continent: {cont}\n" +
@@ -181,6 +184,7 @@ namespace ChatButlerProjectB
                   $"Trees: {trees}\n\n" +
                   $"Gegeten menu's:\n" +
                   $"");
+                MainSearch();
             }
             else
             {
