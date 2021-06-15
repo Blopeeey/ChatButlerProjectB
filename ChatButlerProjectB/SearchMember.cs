@@ -10,20 +10,25 @@ namespace ChatButlerProjectB
     {
         public void MainSearch()
         {
+            Butler Winston = new Butler();
+            Winston.Log(3, "Menu/Gebruiker zoeken");
             //Console.Clear();   
             Console.WriteLine("Voer de naam in die u zoekt of druk op enter om terug te keren naar \nhet hoofdmenu.");
             string searchedName = Console.ReadLine();
             if (!searchedName.Contains(" ") && searchedName.Length > 1)
             {
+                Winston.Log(1, $"Programma gaat op zoek naar de gebruiker '{searchedName}'");
                 //Wanneer gebruiker alleen een voornaam invult achternamen aanvullen
                 CheckFirstName(searchedName);
             }
             else if (searchedName.Contains(" "))
             {
+                Winston.Log(1, $"programma gaat op zoek naar de gebruiker '{searchedName}'");
                 //Wanneer gebruiker volledige naam invult zoek de naam
                 SearchName(searchedName);
             } else
             {
+                Winston.Log(1, "Geen gebruiker gezocht");
                 Console.Clear();
                 Program.Main();
             }
