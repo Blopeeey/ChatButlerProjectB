@@ -10,21 +10,27 @@ namespace ChatButlerProjectB
     {
         public void MainSearch()
         {
-            Console.WriteLine("Vul de naam in die u zoekt");
+            //Console.Clear();   
+            Console.WriteLine("Voer de naam in die u zoekt of druk op enter om terug te keren naar \nhet hoofdmenu.");
             string searchedName = Console.ReadLine();
-            if (!searchedName.Contains(" "))
+            if (!searchedName.Contains(" ") && searchedName.Length > 1)
             {
                 //Wanneer gebruiker alleen een voornaam invult achternamen aanvullen
                 CheckFirstName(searchedName);
             }
-            else
+            else if (searchedName.Contains(" "))
             {
                 //Wanneer gebruiker volledige naam invult zoek de naam
                 SearchName(searchedName);
+            } else
+            {
+                Console.Clear();
+                Program.Main();
             }
 
             //Laat user nog een member zoeken
-            Console.WriteLine("Wilt u nog een member zoeken?");
+            Console.Clear();
+            Console.WriteLine($"Geen gebruiker gevonden met de naam '{searchedName}', wilt u nog een member \nzoeken? Voer 'ja' in of druk op enter om terug te keren naar het hoofdmenu.");
             string searchNewName = Console.ReadLine();
             if (searchNewName == "ja")
             {
@@ -58,7 +64,8 @@ namespace ChatButlerProjectB
 
             if (count == 0)
             {
-                Console.WriteLine("Deze voornaam is niet gevonden");
+                Console.Clear();
+                Console.WriteLine($"Geen gebruiker gevonden met de naam '{name}'.");
                 MainSearch();
             }
             //Sla gevonden achternamen op
@@ -75,13 +82,14 @@ namespace ChatButlerProjectB
                 }
             }
             //Toon gevonden achternamen
-            Console.WriteLine("De gevonden achternaam bij uw voornaam zijn: ");
+            Console.Clear();
+            Console.WriteLine($"De gevonden achternaam bij de naam '{name}' zijn: ");
             for (int id = 0; id < lastNames.Length; id++)
             {
                 Console.WriteLine($"{id + 1}: {lastNames[id]}");
             }
             //Laat een achternaam kiezen
-            Console.WriteLine("Welke achternaam zoekt u?");
+            Console.WriteLine("Welke achternaam zoekt u? Kies het nummer van de achternaam of druk \nop enter om terug te keren naar het hoofdmenu.");
 
 
             //-----------------------------------------
@@ -89,6 +97,11 @@ namespace ChatButlerProjectB
             while (true)
             {
                 string chosenLastname = Console.ReadLine();
+                if (chosenLastname == "")
+                {
+                    Console.Clear();
+                    Program.Main();
+                }
                 foreach (string item in listnumbers)
                 {
                     if (chosenLastname == item)
@@ -100,15 +113,15 @@ namespace ChatButlerProjectB
                 {
                     break;
                 }
-                Console.Clear();
                 //Toon gevonden achternamen
-                Console.WriteLine("De gevonden achternaam bij uw voornaam zijn: ");
+                Console.Clear();
+                Console.WriteLine($"De gevonden achternaam bij de naam '{name}' zijn: ");
                 for (int id = 0; id < lastNames.Length; id++)
                 {
                     Console.WriteLine($"{id + 1}: {lastNames[id]}");
                 }
                 //Laat een achternaam kiezen
-                Console.WriteLine("Welke achternaam zoekt u?");
+                Console.WriteLine("Welke achternaam zoekt u? Kies het nummer van de achternaam of druk \nop enter om terug te keren naar het hoofdmenu.");
             }
             //-----------------------------------------
 
@@ -209,24 +222,52 @@ namespace ChatButlerProjectB
 
         public void GetUserInfo(string f, string l, string cont, string mail, bool saf, int trees)
         {
-            Console.WriteLine($"Bedoelt u de member {f} {l}?");
+            Console.Clear();
+            Console.WriteLine($"Bedoelt u het lid '{f} {l}'?");
+            Console.WriteLine("Voer 'ja' in om te bevestigen of voer 'nee' in om opnieuw te zoeken.\nDruk op enter om terug te keren naar het hoofdmenu.");
             string rightUser = Console.ReadLine();
             if (rightUser == "ja")
             {
                 Console.Clear();
-                Console.WriteLine("Hier is de info van uw gezochte gebruiker");
+                Console.WriteLine("De gegevens van de gezochte gebruiker:");
+                //
+                string saf101 = saf ? "Bezocht" : "Niet bezocht";
+                string newemail = "";
+                bool check = false;
+                for (int i=0; i<mail.Length; i++)
+                {
+                    if (mail[i] == '@' || check == true)
+                    {
+                        check = true;
+                        newemail += mail[i];
+                    } else
+                    {
+                        newemail += "*";
+                    }
+                }
+                //
                 Console.WriteLine($"Naam: {f} {l}\n" +
                   $"Continent: {cont}\n" +
-                  $"E-Mail: {mail}\n" +
-                  $"Safari: {saf}\n" +
-                  $"Trees: {trees}\n\n" +
+                  $"E-Mail: {newemail}\n" +
+                  $"Safari: {saf101}\n" +
+                  $"Bomen: {trees}\n\n" +
                   $"Gegeten menu's:\n" +
                   $"");
                 MainSearch();
             }
+            else if (rightUser == "nee")
+            {
+                Console.Clear();
+                MainSearch();
+            }
+            else if (rightUser == "") 
+            {
+                Console.Clear();
+                Program.Main();
+            }
             else
             {
-                MainSearch();
+                GetUserInfo(f, l, cont, mail, saf, trees);
             }
         }
 
