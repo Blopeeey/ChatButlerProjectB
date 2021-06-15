@@ -33,7 +33,7 @@ namespace ChatButlerProjectB
             if (currentUser.Code == "000000")
             {
                 toReturn_2 = "---------------------------------------------\n" +
-                   "|1: Reviews bekijken\n" +
+                   "|1: Recensie bekijken\n" +
                    "|2: Registreren\n" +
                    "|3: Inloggen\n" +
                    "|4: Andere gast opzoeken\n" +
@@ -43,8 +43,8 @@ namespace ChatButlerProjectB
             else
             {
                 toReturn_2 = "---------------------------------------------\n" +
-                       "|1: Reviews bekijken\n" +
-                       "|2: Review schrijven\n" +
+                       "|1: Recensie bekijken\n" +
+                       "|2: Recensie schrijven\n" +
                        "|3: Een reservering plaatsen\n" +
                        "|4: Een reservering verwijderen\n" +
                        "|5: Account bekijken\n" +

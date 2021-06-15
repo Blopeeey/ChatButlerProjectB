@@ -1,13 +1,13 @@
 [
   {
-    "Fname": "test",
-    "Lname": "test",
+    "Fname": "Albert",
+    "Lname": "Einstein",
     "CreditCard": "23423142314",
     "Continent": "Europa",
     "Email": "1007701@hr.nl",
     "Safari": false,
     "Trees": 0,
     "LoginCode": "1234ab",
-    "Verified": true
+    "Verified": false
   }
 ]
