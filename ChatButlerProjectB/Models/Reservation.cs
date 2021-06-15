@@ -100,7 +100,7 @@ namespace ChatButlerProjectB
             Butler winston = new Butler();
             Console.Clear();
 
-            if (GetUserCode() == null)
+            if (GetUserCode() == "000000")
             {
                 for (int i = 5; i > 0; i--)
                 {
