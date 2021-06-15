@@ -20,12 +20,14 @@ namespace ChatButlerProjectB
             //User inloggen
             if(result != "wrong")
             {
-                var filePath = @"..\..\..\loggedInUser.json";
+                var filePath = @"../../../loggedInUser.json";
                 var readCurrentText = File.ReadAllText(filePath);
                 var loginMember = new Login { Code = result };
                 readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
                 File.WriteAllText(filePath, readCurrentText);
+                Console.Clear();
                 Console.WriteLine(" ----------------\n |U bent ingelogd|\n ----------------");
+
                 Program.Main();
             }
             else
@@ -38,7 +40,7 @@ namespace ChatButlerProjectB
         public static string CheckCode(string code)
         {
             //Haal huidige user gegevens op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             //Check of code overeenkomt met een bestaande code
@@ -54,19 +56,20 @@ namespace ChatButlerProjectB
 
         public void LogUserOut()
         {
-            var filePath = @"..\..\..\loggedInUser.json";
+            var filePath = @"../../../loggedInUser.json";
             var readCurrentText = File.ReadAllText(filePath);
             var loginMember = new Login { Code = "000000" };
             readCurrentText = JsonConvert.SerializeObject(loginMember, Formatting.Indented);
             File.WriteAllText(filePath, readCurrentText);
             Console.WriteLine("U bent uitgelogd");
+            Console.Clear();
             Program.Main();
         }
 
         public void CheckIfLoggedIn()
         {
             //Haal huidige user op
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
             if(currentUser.Code != "000000")

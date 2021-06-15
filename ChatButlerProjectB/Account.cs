@@ -11,11 +11,11 @@ namespace ChatButlerProjectB
         {
             CheckIfLoggedIn();
             Console.WriteLine(ShowInfo());
-            bool menus = AskForTask("Wilt u uw gekozen menu's bekijken?");
+            bool menus = AskForTask("Wilt u uw gekozen menu's bekijken? (ja/nee)");
             if (menus)
             {
                 Console.WriteLine(ShowChosenMenus());
-                bool backToMain = AskForTask("Wilt u terug naar het hoofd menu?");
+                bool backToMain = AskForTask("Wilt u terug naar het hoofd menu? (ja/nee)");
                 if (backToMain)
                 {
                     Program.Main();
@@ -33,15 +33,19 @@ namespace ChatButlerProjectB
 
         public static void CheckIfLoggedIn()
         {
-            var getPath = @"..\..\..\loggedInUser.json";
+            Butler winston = new Butler();
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
-            if(currentUser.Code == "000000")
+            if (currentUser.Code == "000000")
             {
-                Console.WriteLine("U bent niet ingelogd. Wilt u een account maken?");
+                Console.Clear();
+                Console.WriteLine("U bent niet ingelogd. Wilt u een account maken? (ja/nee)");
+                winston.Log(1, "U bent niet ingelogd. Wilt u een account maken?");
                 string accountMaken = Console.ReadLine();
-                if(accountMaken == "ja")
+                winston.Log(2, accountMaken);
+                if (accountMaken == "ja")
                 {
                     Register newReg = new Register();
                     newReg.MainReg();
@@ -55,12 +59,13 @@ namespace ChatButlerProjectB
 
         public static string ShowInfo()
         {
+            Butler winston = new Butler();
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             //Haal huidige user op
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
@@ -80,14 +85,18 @@ namespace ChatButlerProjectB
                             $"Trees to compensate: {item.Trees}";
                 }
             }
+            winston.Log(2, info);
             return info;
         }
 
         public static bool AskForTask(string text)
         {
+            Butler winston = new Butler();
             Console.WriteLine("\n" + text);
+            winston.Log(1, "\n" + text);
             var keus = Console.ReadLine();
-            if(keus == "ja")
+            winston.Log(2, keus);
+            if (keus == "ja")
             {
                 return true;
             }
@@ -118,13 +127,13 @@ namespace ChatButlerProjectB
                 else
                 {
                     return med;
-                }  
+                }
             }
             else
             {
-                if(x > 5)
+                if (x > 5)
                 {
-                    if(x > 10)
+                    if (x > 10)
                     {
                         return high;
                     }
@@ -143,11 +152,11 @@ namespace ChatButlerProjectB
         public static bool GetSafari()
         {
             //Haal alle users op
-            var getMemberPath = @"..\..\..\members.json";
+            var getMemberPath = @"../../../members.json";
             var readAllUsers = File.ReadAllText(getMemberPath);
             var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
             //Haal huidige user op
-            var getPath = @"..\..\..\loggedInUser.json";
+            var getPath = @"../../../loggedInUser.json";
             var readAllUser = File.ReadAllText(getPath);
             var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
 
@@ -156,7 +165,7 @@ namespace ChatButlerProjectB
             {
                 if (currentUser.Code == item.LoginCode)
                 {
-                    if(item.Safari == true)
+                    if (item.Safari == true)
                     {
                         info = true;
                     }
@@ -167,12 +176,80 @@ namespace ChatButlerProjectB
 
         public static int GetExspensiveMenus()
         {
-            return 6;
+            var getMenuPath = @"../../../Reservations.json";
+            var readAllMenus = File.ReadAllText(getMenuPath);
+            var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
+            int impala = 0;
+            foreach (var item in currentMenus)
+            {
+                if (item.UserCode == GetUserCode())
+                {
+                    impala += Int32.Parse(item.Impala);
+                }
+            }
+            return impala; 
+        }
+
+        public static string GetUserCode()
+        {
+            var getPath = @"../../../loggedInUser.json";
+            var readAllUser = File.ReadAllText(getPath);
+            var currentUser = JsonConvert.DeserializeObject<Login>(readAllUser);
+            return currentUser.Code;
         }
 
         public static string ShowChosenMenus()
         {
-            return "Geen menus gegeten";
+            var getMenuPath = @"../../../Reservations.json";
+            var readAllMenus = File.ReadAllText(getMenuPath);
+            var currentMenus = JsonConvert.DeserializeObject<List<ReservationDetails>>(readAllMenus);
+            int impala = 0;
+            int fish = 0;
+            int vegan = 0;
+            //Haal gekozen menu naam op
+            foreach (var item in currentMenus)
+            {
+                if (item.UserCode == GetUserCode())
+                {
+                    impala += Int32.Parse(item.Impala);
+                    fish += Int32.Parse(item.Fish);
+                    vegan += Int32.Parse(item.Vegan);
+                }
+            }
+            return $"Impala: {impala}\n" +
+                   $"Fish: {fish}\n" +
+                   $"Vegan: {vegan}";
+        }
+
+        public void RemoveAccount()
+        {
+            string code = GetUserCode();
+            Login log = new Login();
+            var getMemberPath = @"../../../members.json";
+            var readAllUsers = File.ReadAllText(getMemberPath);
+            var newUser = new List<MemberDetails>();
+            var currentUsers = JsonConvert.DeserializeObject<List<MemberDetails>>(readAllUsers);
+
+            foreach(var item in currentUsers)
+            {
+                if (item.LoginCode != code)
+                {
+                    newUser.Add(new MemberDetails()
+                    {
+                        Fname = item.Fname,
+                        Lname = item.Lname,
+                        CreditCard = item.CreditCard,
+                        Continent = item.Continent,
+                        Email = item.Email,
+                        Safari = item.Safari,
+                        Trees = 0,
+                        LoginCode = item.LoginCode
+                    });
+                }
+            }
+            readAllUsers = JsonConvert.SerializeObject(newUser, Formatting.Indented);
+            File.WriteAllText(getMemberPath, readAllUsers);
+            log.LogUserOut();
         }
     }
 }
