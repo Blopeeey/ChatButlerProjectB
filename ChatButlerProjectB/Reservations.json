@@ -1,36 +1,12 @@
 [
   {
-    "Name": "m",
-    "LastName": "a",
-    "Date": "10/10/2020",
-    "Time": "12:15",
-    "Guestcount": "1",
-    "Impala": "1",
-    "Fish": "1",
-    "Vegan": "1",
-    "Email": "ab@ab.nl",
-    "ReservationCode": "878688",
-    "UserCode": null,
-    "Calorie\u00EBn": "",
-    "Allergie\u00EBn": "",
-    "Booking": "n",
-    "CreationDate": "00:00"
-  },
-  {
-    "Name": "m",
-    "LastName": "a",
-    "Date": "11/10/2020",
+    "UserCode": "1234ab",
+    "Date": "12/12/1922",
     "Time": "12:00",
-    "Guestcount": "1",
+    "Guestcount": "3",
     "Impala": "1",
-    "Fish": "1",
-    "Vegan": "1",
-    "Email": "ab@ab.nl",
-    "ReservationCode": "011701",
-    "UserCode": null,
-    "Calorie\u00EBn": "",
-    "Allergie\u00EBn": "",
-    "Booking": "n",
-    "CreationDate": "00:00"
+    "Fish": "2",
+    "Vegan": "0",
+    "ReservationCode": "620176"
   }
 ]

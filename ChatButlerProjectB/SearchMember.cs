@@ -49,18 +49,23 @@ namespace ChatButlerProjectB
             int count = 0;
             foreach(var item in currentUsers)
             {
-                if(item.Fname == name)
+                if(item.Fname == name && item.Verified == true)
                 {
                     count++;
                 }
             }
 
+            if(count == 0)
+            {
+                Console.WriteLine("Deze voornaam is niet gevonden");
+                MainSearch();
+            }
             //Sla gevonden achternamen op
             string[] lastNames = new string[count];
             int i = 0;
             foreach (var item in currentUsers)
             {
-                if (item.Fname == name)
+                if (item.Fname == name && item.Verified == true)
                 {
                     lastNames[i] = item.Lname;
                     i++;
@@ -103,7 +108,7 @@ namespace ChatButlerProjectB
             foreach (var user in currentUsers)
             {
                 totalcount++;
-                if (vnaam == user.Fname)
+                if (vnaam == user.Fname && user.Verified == true)
                 {
                     if (anaam == user.Lname)
                     {
@@ -161,7 +166,7 @@ namespace ChatButlerProjectB
 
             foreach(var user in currentUsers)
             {
-                if(user.Fname == s)
+                if(user.Fname == s && user.Verified == true)
                 {
                     return true;
                 }
